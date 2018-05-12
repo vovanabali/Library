@@ -1,0 +1,34 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <div class="card overview">
+      <div class="ui-g">
+        <div class="ui-g-6 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="float-rack-input" type="text" size="30" style="width: 100%;" [(ngModel)]="bookInStorage.rack" required minlength="1" pInputText>
+            <label for="float-rack-input">Стелаж (номер)</label>
+          </span>
+        </div>
+        <div class="ui-g-6 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="float-row-input" type="text" size="30" style="width: 100%;" [(ngModel)]="bookInStorage.rowNumber" required minlength="1" pInputText>
+            <label for="float-row-input">Полка (номер)</label>
+          </span>
+        </div>
+        <div class="ui-g-6 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="float-inventory-input" type="text" size="30" style="width: 100%;" [(ngModel)]="bookInStorage.inventoryNumber" required minlength="1" pInputText>
+            <label for="float-inventory-input">Инвентарный номер</label>
+          </span>
+        </div>
+        <div class="ui-g-6 ui-sm-12">
+          <p-dropdown [options]="books" [(ngModel)]="bookInStorage.book" optionLabel="name" filter="true" [style]="{'width': '100%'}" placeholder="Книга"></p-dropdown>
+        </div>
+        <div class="ui-g-12">
+          <button pButton type="button" id="addButton" label="Добавить" class="teal-btn main-button" (click)="addBook()"></button>
+          <button pButton type="button" id="saveButton" label="Сохранить изменения"  class="teal-btn main-button" (click)="updateBook()"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-growl [(value)]="msgs"></p-growl>

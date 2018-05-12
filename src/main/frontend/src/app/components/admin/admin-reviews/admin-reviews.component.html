@@ -1,0 +1,65 @@
+<div class="ui-g">
+  <div class="card overview">
+    <div class="ui-g-12">
+      <p-toolbar>
+        <div class="ui-toolbar-group-left">
+<!--          <button pButton type="button" label="Добавить" icon="ui-icon-plus" class="green-btn"
+                  [routerLink]="['../addGenre']"></button>
+          <i class="material-icons" style="vertical-align:middle">dehaze</i>-->
+        </div>
+
+        <div class="ui-toolbar-group-right">
+          <button pButton type="button" label="Распечатать" icon="ui-icon-print" class="pink-btn"></button>
+        </div>
+      </p-toolbar>
+    </div>
+    <div class="ui-g-12">
+      <p-table [columns]="cols" [value]="reviews" selectionMode="single" dataKey="id" [(selection)]="selectReview"
+               [totalRecords]="totalRecords"
+               [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="both" [lazy]="true"
+               (onLazyLoad)="lazyLoad($event)" [loading]="loading">
+        <ng-template pTemplate="caption">
+          Жанры
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th style="width: 12em;">
+              Действия с записью
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns" [ngSwitch]="col.field">
+              <div *ngSwitchCase="'persona'">
+                {{rowData[col.field].login}}
+              </div>
+              <div *ngSwitchCase="'book'">
+                {{rowData[col.field].name}}
+              </div>
+              <div *ngSwitchCase="'reviews'">
+                {{rowData[col.field]}}
+              </div>
+              <div *ngSwitchCase="'rating'" style="text-align: center;">
+                <p-rating [(ngModel)]="rowData[col.field]" [readonly]="true" [cancel]="false"></p-rating>
+              </div>
+            </td>
+            <td style="text-align: center; width: 7em;">
+<!--              <button pButton type="button" id="editBookBtn" icon="ui-icon-edit" class="teal-btn"
+                      (click)="editEntry(rowData['id'])"></button>-->
+              <button pButton type="button" id="deleteBookBtn" icon="ui-icon-delete" class="red-btn"
+                      (click)="delete(rowData['id'])"></button>
+              <button pButton type="button" icon="ui-icon-print" class="pink-btn"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+<p-confirmDialog></p-confirmDialog>
+<p-growl [value]="msgs"></p-growl>

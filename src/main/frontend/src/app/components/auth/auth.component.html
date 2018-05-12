@@ -1,0 +1,13 @@
+<div class="conteiner">
+  <div class="sing-up-panel">
+  <span class="ui-float-label">
+    <input id="float-input" type="text" size="30" pInputText [(ngModel)]="user.login"/>
+    <label for="float-input">Логин</label>
+</span>
+    <span class="ui-float-label">
+        <input type="password" size="30" [feedback]="false" pPassword [(ngModel)]="user.password"/>
+    <label for="float-input">Пароль</label>
+</span>
+    <button pButton type="button" (click)="login()" label="Войти" class="ui-button-secondary"></button>
+  </div>
+</div>

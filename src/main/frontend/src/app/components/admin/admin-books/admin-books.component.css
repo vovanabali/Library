@@ -1,0 +1,8 @@
+.serch {
+  width: 100%;
+  color: white;
+}
+
+.serch:focus {
+  border-bottom-color: #1ab394;
+}

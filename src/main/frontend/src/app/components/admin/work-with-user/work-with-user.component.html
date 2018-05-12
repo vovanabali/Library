@@ -1,0 +1,49 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <div class="card overview">
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12">
+          <span class="ui-float-label">
+            <input id="float-login" type="text" size="30" style="width: 100%;" [(ngModel)]="user.login" required
+                   minlength="1" pInputText>
+            <label for="float-login">Логин</label>
+          </span>
+        </div>
+
+        <div class="ui-g-4 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="float-surname" type="text" size="30" style="width: 100%;" [(ngModel)]="user.surname" required
+                   minlength="1" pInputText>
+            <label for="float-surname">Фимилия</label>
+          </span>
+        </div>
+        <div class="ui-g-4 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="float-name" type="text" size="30" style="width: 100%;" [(ngModel)]="user.name" required
+                   minlength="1" pInputText>
+            <label for="float-name">Имя</label>
+          </span>
+        </div>
+        <div class="ui-g-4 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="float-patronymic" type="text" size="30" style="width: 100%;" [(ngModel)]="user.patronymic" required
+                   minlength="1" pInputText>
+            <label for="float-patronymic">Отчество</label>
+          </span>
+        </div>
+
+        <div class="ui-g-12">
+          <p-calendar id="returnTimeID" [showIcon]="true" placeholder="Дата рождения" [(ngModel)]="user.birthday" dateFormat="dd.mm.yy"></p-calendar>
+        </div>
+
+        <div class="ui-g-12">
+          <button pButton type="button" id="addButton" label="Добавить" class="teal-btn main-button"
+                  (click)="add()"></button>
+          <button pButton type="button" id="saveButton" label="Сохранить изменения" class="teal-btn main-button"
+                  (click)="update()"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-growl [(value)]="msgs"></p-growl>

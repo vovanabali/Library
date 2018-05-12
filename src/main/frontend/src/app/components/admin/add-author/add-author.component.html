@@ -1,0 +1,40 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <div class="card overview">
+      <div class="ui-g">
+        <div class="ui-g-4 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="surname-input" type="text" size="30" style="width: 100%;" [(ngModel)]="author.surname" required minlength="1" pInputText>
+            <label for="surname-input">Фамилия</label>
+          </span>
+        </div>
+        <div class="ui-g-4 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="name-input" type="text" size="30" style="width: 100%;" [(ngModel)]="author.name" required minlength="1" pInputText>
+            <label for="name-input">Имя</label>
+          </span>
+        </div>
+        <div class="ui-g-4 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="patr-input" type="text" size="30" style="width: 100%;" [(ngModel)]="author.patronymic" required minlength="1" pInputText>
+            <label for="patr-input">Отчество</label>
+          </span>
+        </div>
+        <div class="ui-g-8 ui-sm-12">
+          <p-dropdown [options]="countryes" optionLabel="name" [(ngModel)]="author.country" filter="true" [style]="{'width': '100%'}" placeholder="Страна рождения"></p-dropdown>
+        </div>
+        <div class="ui-g-4 ui-sm-12">
+          <p-calendar id="showIcon" [showIcon]="true" placeholder="Дата рождения" [(ngModel)]="author.birthday" dateFormat="dd.mm.yy"></p-calendar>
+        </div>
+        <div class="ui-g-12">
+          <p-editor [style]="{'height':'320px'}" [(ngModel)]="author.description"></p-editor>
+        </div>
+        <div class="ui-g-12">
+          <button pButton type="button" id="addButton" label="Добавить" class="teal-btn main-button" (click)="addAuthor()"></button>
+          <button pButton type="button" id="saveButton" label="Сохранить изменения"  class="teal-btn main-button" (click)="updateAuthor()"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-growl [(value)]="msgs"></p-growl>
