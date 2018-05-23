@@ -19,9 +19,14 @@
                [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="both" [lazy]="true"
                (onLazyLoad)="loadBooksLazy($event)" [loading]="loading" #dt>
         <ng-template pTemplate="caption">
-          <div class="ui-inputgroup">
-            <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
-            <input type="text" [ngModel]="name" pInputText placeholder="Поиск по названию книги" class="serch" (input)="table.filterGlobal($event.target.value, 'contains')">
+          <div class="ui-g">
+            <div class="ui-g-11">
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
+                <input type="text" [ngModel]="name" pInputText placeholder="Поиск по названию книги" class="serch" (input)="table.filterGlobal($event.target.value, 'contains')">
+              </div>
+            </div>
+            <div class="ui-g-1"><button pButton type="button" icon="ui-icon-import-export" class="pink-btn" (click)="table.exportCSV()" style="float: right;"></button></div>
           </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>

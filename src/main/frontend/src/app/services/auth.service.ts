@@ -25,6 +25,10 @@ export class AuthService {
     return this.http.get<Persona>('http://localhost:8080/currentUser');
   }
 
+  regUser(user: Persona): Observable<boolean> {
+    return this.http.post<boolean>('http://localhost:8080/registration', user);
+  }
+
   authUser(user: Persona) {
     this.http.post<boolean>(this.authUserURL, user, {
       observe: 'response', headers: {

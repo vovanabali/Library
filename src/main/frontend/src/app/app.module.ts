@@ -112,6 +112,7 @@ import { UserBookComponent } from './components/user/user-book/user-book.compone
 import { AddToStorageComponent } from './components/admin/add-to-storage/add-to-storage.component';
 import { UsersComponent } from './components/admin/users/users.component';
 import { WorkWithUserComponent } from './components/admin/work-with-user/work-with-user.component';
+import { RegistrationComponent } from './components/registration/registration.component';
 
 @NgModule({
   imports: [
@@ -215,6 +216,7 @@ import { WorkWithUserComponent } from './components/admin/work-with-user/work-wi
     AddToStorageComponent,
     UsersComponent,
     WorkWithUserComponent,
+    RegistrationComponent,
   ],
   providers: [
     AuthorService,

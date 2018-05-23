@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.nonNull;
+
 @Service
 @Slf4j
 public class PersonaServiceImpl implements PersonaService {
@@ -116,7 +118,13 @@ public class PersonaServiceImpl implements PersonaService {
     public Persona addPersona(Persona persona) {
         try {
             if (personaRepository.existsByLogin(persona.getLogin())) return null;
-            else return personaRepository.save(persona);
+            else {
+                Role role = new Role();
+                role.setId(2);
+                if (!nonNull(persona.getRole()))
+                    persona.setRole(role);
+                return personaRepository.save(persona);
+            }
         } catch (Exception ex) {
             log.error("Failed to adding persona", ex.fillInStackTrace());
             return null;

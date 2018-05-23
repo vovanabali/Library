@@ -17,7 +17,9 @@ export class StorageComponent implements OnInit {
   loading: boolean;
   totalRecords: number;
 
-  constructor(private bookInStockService: BookInStockService, private router: Router, private confirmationService: ConfirmationService) {
+  constructor(private bookInStockService: BookInStockService,
+              private router: Router,
+              private confirmationService: ConfirmationService) {
   }
 
   ngOnInit() {

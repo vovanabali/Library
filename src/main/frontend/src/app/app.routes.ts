@@ -19,6 +19,7 @@ import {UserBookComponent} from './components/user/user-book/user-book.component
 import {AddToStorageComponent} from './components/admin/add-to-storage/add-to-storage.component';
 import {UsersComponent} from './components/admin/users/users.component';
 import {WorkWithUserComponent} from './components/admin/work-with-user/work-with-user.component';
+import {RegistrationComponent} from "./components/registration/registration.component";
 
 export const routes: Routes = [
   {path: '', component: UserBooksComponent},
@@ -53,6 +54,7 @@ export const routes: Routes = [
   },
   {path: 'books', component: UserBooksComponent},
   {path: 'book/:id', component: UserBookComponent},
+  {path: 'registration', component: RegistrationComponent},
   {path: 'sing-in', component: AuthComponent, pathMatch: 'full'},
   {path: 'sing-out', component: AuthComponent, pathMatch: 'full'}
 ];

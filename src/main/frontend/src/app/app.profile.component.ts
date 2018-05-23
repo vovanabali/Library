@@ -12,7 +12,6 @@ import {Persona} from "./domains/persona";
                 <!--<i class="material-icons">keyboard_arrow_down</i>-->
             </a>
         </div>
-
         <!--<ul class="ultima-menu profile-menu" [@menu]="active ? 'visible' : 'hidden'">
             <li role="menuitem">
                 <a href="#" class="ripplelink" [attr.tabindex]="!active ? '-1' : null">
@@ -59,7 +58,11 @@ export class AppInlineProfileComponent {
 
     constructor(public app: AppComponent) {
       const user: Persona = JSON.parse(localStorage.getItem("currentUser"));
-      this.userFIO = user.surname + ' ' + user.name + ' ' + user.patronymic;
+      if (user) {
+        this.userFIO = user.surname + ' ' + user.name + ' ' + user.patronymic;
+      } else {
+        this.userFIO = '';
+      }
     }
 
     onClick(event) {

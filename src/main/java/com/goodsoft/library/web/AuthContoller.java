@@ -9,11 +9,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Map;
+
+import static java.util.Objects.nonNull;
 
 @RestController
 @CrossOrigin
@@ -31,6 +35,16 @@ public class AuthContoller {
     public void getPersona(@RequestBody Persona user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         personaService.addPersona(user);
+    }
+
+    @PostMapping(value = "/registration", produces = "application/json")
+    public boolean regUser(@RequestBody @Valid Persona user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return false;
+        } else {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            return nonNull(personaService.addPersona(user));
+        }
     }
 
     @GetMapping("/currentUser")
