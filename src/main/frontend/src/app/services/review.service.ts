@@ -5,7 +5,7 @@ import {ReviewsOfTheBook} from "../domains/reviews-of-the-book";
 
 @Injectable()
 export class ReviewService {
-  private uri = 'http://localhost:8080/admin/json/';
+  private uri = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) {
   }
@@ -29,12 +29,53 @@ export class ReviewService {
       params: {
         page: start.toString(),
         size: rows.toString(),
-        sort: sortBy + ',' + orderBy
+        sort: sortBy + ',' + orderBy,
+      }
+    });
+  }
+
+  sliceByBook(start: number, rows: number, sortField: string, sortOrder: number, bookId): Observable<ReviewsOfTheBook[]> {
+    let orderBy = 'asc';
+    if (sortOrder === 1) {
+      orderBy = 'ASC';
+    } else {
+      orderBy = 'DESC';
+    }
+    let sortBy = sortField;
+    if (sortField === undefined) {
+      sortBy = '';
+    }
+    return this.http.get<ReviewsOfTheBook[]>(this.uri + 'reviewsSliceByBookId', {
+      params: {
+        page: start.toString(),
+        size: rows.toString(),
+        sort: sortBy + ',' + orderBy,
+        bookId: bookId
+      }
+    });
+  }
+
+  totalreviewsByBook(bookId: number): Observable<number> {
+    return this.http.get<number>(this.uri + "bookReviewsCount", {
+      params: {
+        id: bookId.toString()
+      }
+    });
+  }
+
+  bookRaiting(bookId: number): Observable<number> {
+    return this.http.get<number>(this.uri + "bookRaiting", {
+      params: {
+        id: bookId.toString()
       }
     });
   }
 
   deleteReviewById(id: number): Observable<boolean> {
     return this.http.get<boolean>(this.uri + 'deleteReview');
+  }
+
+  addReview(review: ReviewsOfTheBook): Observable<boolean> {
+    return this.http.post<boolean>(this.uri + "addReview", review);
   }
 }

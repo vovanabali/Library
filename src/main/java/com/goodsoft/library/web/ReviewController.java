@@ -1,6 +1,5 @@
-package com.goodsoft.library.web.admin;
+package com.goodsoft.library.web;
 
-import com.goodsoft.library.dao.ReviewsOfTheBookRepository;
 import com.goodsoft.library.domain.ReviewsOfTheBook;
 import com.goodsoft.library.service.ReviewsOfTheBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +10,12 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/admin/json")
-public class ReviewAdminController {
+@RequestMapping
+public class ReviewController {
     private final ReviewsOfTheBookService reviewsOfTheBookService;
 
     @Autowired
-    public ReviewAdminController(ReviewsOfTheBookService reviewsOfTheBookService) {
+    public ReviewController(ReviewsOfTheBookService reviewsOfTheBookService) {
         this.reviewsOfTheBookService = reviewsOfTheBookService;
     }
 
@@ -25,14 +24,14 @@ public class ReviewAdminController {
         return  reviewsOfTheBookService.all();
     }
 
-    @PostMapping("addReview")
-    public boolean addReview(@RequestBody ReviewsOfTheBook reviewsOfTheBook) {
-        return reviewsOfTheBookService.save(reviewsOfTheBook) != null;
-    }
-
     @GetMapping("reviewsSlice")
     public List<ReviewsOfTheBook> sliceReviews(Pageable pageable) {
         return this.reviewsOfTheBookService.slice(pageable);
+    }
+
+    @PostMapping("addReview")
+    public boolean addReview(@RequestBody ReviewsOfTheBook reviewsOfTheBook) {
+        return reviewsOfTheBookService.save(reviewsOfTheBook) != null;
     }
 
     @GetMapping("reviewsSliceByBookId")

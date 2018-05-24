@@ -120,7 +120,7 @@ public class PersonaServiceImpl implements PersonaService {
             if (personaRepository.existsByLogin(persona.getLogin())) return null;
             else {
                 Role role = new Role();
-                role.setId(2);
+                role.setId(1);
                 if (!nonNull(persona.getRole()))
                     persona.setRole(role);
                 return personaRepository.save(persona);

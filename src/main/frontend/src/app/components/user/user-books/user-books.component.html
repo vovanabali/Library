@@ -1,5 +1,5 @@
 <div class="ui-g">
-  <div class="card overview">
+  <div class="card overview ui-g-12">
     <div class="ui-g-12">
       <p-dataGrid [value]="books" [paginator]="true" [rows]="20" [totalRecords]="totalRecords" [lazy]="true"
                   (onLazyLoad)="loadBooksLazy($event)">

@@ -20,6 +20,7 @@ import {AddToStorageComponent} from './components/admin/add-to-storage/add-to-st
 import {UsersComponent} from './components/admin/users/users.component';
 import {WorkWithUserComponent} from './components/admin/work-with-user/work-with-user.component';
 import {RegistrationComponent} from "./components/registration/registration.component";
+import {WorkWithCountryComponent} from "./components/admin/work-with-country/work-with-country.component";
 
 export const routes: Routes = [
   {path: '', component: UserBooksComponent},
@@ -50,6 +51,8 @@ export const routes: Routes = [
       {path: 'addToStorage', component: AddToStorageComponent},
       {path: 'updateBookInStorage', component: AddToStorageComponent},
       {path: 'addUser', component: WorkWithUserComponent},
+      {path: 'editCountry', component: WorkWithCountryComponent},
+      {path: 'addCountry', component: WorkWithCountryComponent}
     ]
   },
   {path: 'books', component: UserBooksComponent},

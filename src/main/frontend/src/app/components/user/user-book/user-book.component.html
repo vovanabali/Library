@@ -4,22 +4,73 @@
       <div class="ui-g">
         <div class="ui-g-12">
           <div class="ui-g-4 ui-lg-2 ui-sm-12">
-           <div class="img-panel">
-             <img src="assets/layout/images/deffBookImg.png" width="100%" alt="">
-           </div>
+            <div class="img-panel">
+              <img src="assets/layout/images/deffBookImg.png" width="100%" alt="">
+            </div>
+            <div class="ui-g-12">
+              <button pButton type="button" label="Зарезервировать" style="width: 100%;" [disabled]="true"></button>
+            </div>
           </div>
           <div class="ui-g-8 ui-lg-10 ui-sm-12">
-            <h1>Love and Ruin</h1>
-            <h4>by <a href="#">Paula McLain</a></h4>
-            <p-rating [(ngModel)]="val" [cancel]="false"></p-rating>
-            <p>The bestselling author of The Paris Wife returns to the subject of Ernest Hemingway in a novel about his passionate, stormy marriage to Martha Gellhorn—a fiercely independent, ambitious young woman who would become one of the greatest war correspondents of the twentieth century
-              In 1937, twenty-eight-year-old Martha travels alone to Madrid to report on the atrocities of the Spanish Civil War and becomes drawn to the stories of ordinary people caught in devastating conflict. She also finds herself unexpectedly—and uncontrollably—falling in love with Hemingway, a man already on his way to becoming a legend. In the shadow of the impending Second World War, and set against the tumultuous backdrops of Madrid, Finland, China, Key West, and especially Cuba, where Martha and Ernest make their home, their relationship and professional careers ignite. But when Ernest publishes the biggest literary success of his career, For Whom the Bell Tolls, they are no longer equals, and Martha must make a choice: surrender to the confining demands of being a famous man's wife or risk losing Ernest by forging a path as her own woman and writer. It is a dilemma that will force her to break his heart, and her own</p>
+            <h1>{{ book.name }}</h1>
+            <h4>автор <a href="#">{{ book.author.surname }}</a></h4>
+            <p-rating [(ngModel)]="raiting" [cancel]="false"></p-rating>
+            <div [innerHtml]="book.description"></div>
           </div>
         </div>
         <div class="ui-g-12">
-
+          <div class="card-w-title">
+            <h4>Оставить комментарий</h4>
+            <div class="ui-g-12">
+              Ваша оценка
+              <p-rating [(ngModel)]="review.rating" [cancel]="false"></p-rating>
+              <p-editor [(ngModel)]="review.reviews" [style]="{'height':'320px'}"></p-editor>
+              <button pButton type="button" class="teal-btn" (click)="addReview()" label="Отправить"
+                      style="float: right; margin-top: 1em;"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-w-title">
+      <div class="ui-g">
+        <h3>Коментарии</h3>
+        <div class="ui-g-12">
+          <p-dataList [value]="reviews"
+                      [paginator]="true"
+                      [rows]="5"
+                      [totalRecords]="totalRewiews"
+                      [lazy]="true"
+                      (onLazyLoad)="lazyLoad($event)"
+                      styleClass="clear-border light-footer-paginator ">
+            <ng-template let-comment pTemplate="item">
+              <div class="ui-g ui-fluid car-item comment-block">
+                <div class="ui-g-12 ui-md-2" style="text-align:center">
+                  <div class="ui-g-12">
+                    <img src="assets/layout/images/avatar.png">
+                  </div>
+                  <div class="ui-g-12">Name: {{comment.persona.name}}</div>
+                  <div *ngIf="comment.rating !== 0">
+                    <div class="ui-g-12">Raiting:
+                      <p-rating [(ngModel)]="comment.rating" [readonly]="true" [cancel]="false"></p-rating>
+                    </div>
+                  </div>
+                </div>
+                <div class="ui-g-12 ui-md-9 car-details">
+                  <div class="ui-g">
+                    <div class="ui-g-12">Comment:</div>
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-12">
+                      <div [innerHtml]="comment.reviews"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </p-dataList>
         </div>
       </div>
     </div>
   </div>
 </div>
+<p-growl [value]="msgs"></p-growl>

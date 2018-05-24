@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -21,6 +20,29 @@ public class ReviewsOfTheBookServiceImpl implements ReviewsOfTheBookService {
     @Autowired
     public ReviewsOfTheBookServiceImpl(ReviewsOfTheBookRepository reviewsOfTheBookRepository) {
         this.reviewsOfTheBookRepository = reviewsOfTheBookRepository;
+    }
+
+    @Override
+    public List<ReviewsOfTheBook> findeAllByBookId(long bookId) {
+        try {
+            return reviewsOfTheBookRepository.findAllByBookId(bookId);
+        } catch (Exception ex) {
+            log.error("Failed to load all reviews by book id", ex);
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public long getAvgReiting(long bookId) {
+        try {
+            List<ReviewsOfTheBook> reviews = reviewsOfTheBookRepository.findAllByBookId(bookId);
+            if (reviews.size() != 0)
+                return reviews.stream().filter(reviewsOfTheBook -> reviewsOfTheBook.getRating() != 0).mapToInt(ReviewsOfTheBook::getRating).sum() / reviews.size();
+            else return 0;
+        } catch (Exception ex) {
+            log.error("Failed to load all reviews", ex);
+            return 0;
+        }
     }
 
     @Override
@@ -49,7 +71,17 @@ public class ReviewsOfTheBookServiceImpl implements ReviewsOfTheBookService {
             return reviewsOfTheBookRepository.findAllByBook(book);
         } catch (Exception ex) {
             log.error("Failed to load all reviews by book", ex);
-            return  new ArrayList<>();
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public long getCountByBookId(long id) {
+        try {
+            return reviewsOfTheBookRepository.countByBookId(id);
+        } catch (Exception ex) {
+            log.error("Failed to load count review book by book id", ex);
+            return 0;
         }
     }
 
@@ -98,6 +130,16 @@ public class ReviewsOfTheBookServiceImpl implements ReviewsOfTheBookService {
             reviewsOfTheBookRepository.deleteById(id);
         } catch (Exception ex) {
             log.error("Failed to delete review by id", ex);
+        }
+    }
+
+    @Override
+    public List<ReviewsOfTheBook> slice(Pageable pageable, long bookId) {
+        try {
+            return reviewsOfTheBookRepository.findAllByBookId(pageable, bookId);
+        } catch (Exception ex) {
+            log.error("Failed load slice from ReviewsOfTheBook by book id", ex.fillInStackTrace());
+            return new ArrayList<>();
         }
     }
 

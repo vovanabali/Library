@@ -24,10 +24,6 @@ export class AppMenuComponent implements OnInit {
     {
       label: 'Настройки', icon: 'settings',
       routerLink: ['admin/settings'],
-    },
-    {
-      label: 'Войти', icon: 'get_app',
-      routerLink: ['sing-in'],
     }
   ];
   private adminMenu = [
@@ -81,6 +77,13 @@ export class AppMenuComponent implements OnInit {
     if (currentUser.role.name === 'admin') {
       this.app.changeToStaticMenu();
       this.model = this.adminMenu;
+    } else {
+      if (!currentUser.role.name) {
+        this.model.push({label: 'Зарегистрироваться', icon: 'contacts',routerLink: ['registration']});
+        this.model.push({label: 'Войти', icon: 'get_app',routerLink: ['sing-in']});
+      } else {
+        this.model.push({label: 'Выйти', icon: 'get_app', command: () => this.logOut()});
+      }
     }
   }
 

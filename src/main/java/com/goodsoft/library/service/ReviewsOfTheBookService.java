@@ -10,7 +10,13 @@ import java.util.List;
 public interface ReviewsOfTheBookService {
     List<ReviewsOfTheBook> all();
 
+    long getAvgReiting(long bookId);
+
+    List<ReviewsOfTheBook> findeAllByBookId(long bookId);
+
     List<ReviewsOfTheBook> slice(Pageable pageable);
+
+    List<ReviewsOfTheBook> slice(Pageable pageable, long bookId);
 
     List<ReviewsOfTheBook> allByPerson(Persona persona);
 
@@ -25,4 +31,6 @@ public interface ReviewsOfTheBookService {
     void delete(ReviewsOfTheBook reviewsOfTheBook);
 
     void deleteById(long id);
+
+    long getCountByBookId(long id);
 }

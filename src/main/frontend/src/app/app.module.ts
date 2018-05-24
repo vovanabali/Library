@@ -113,6 +113,7 @@ import { AddToStorageComponent } from './components/admin/add-to-storage/add-to-
 import { UsersComponent } from './components/admin/users/users.component';
 import { WorkWithUserComponent } from './components/admin/work-with-user/work-with-user.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { WorkWithCountryComponent } from './components/admin/work-with-country/work-with-country.component';
 
 @NgModule({
   imports: [
@@ -217,6 +218,7 @@ import { RegistrationComponent } from './components/registration/registration.co
     UsersComponent,
     WorkWithUserComponent,
     RegistrationComponent,
+    WorkWithCountryComponent,
   ],
   providers: [
     AuthorService,

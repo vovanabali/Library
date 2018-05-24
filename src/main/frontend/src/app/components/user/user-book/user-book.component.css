@@ -1,3 +1,8 @@
 .img-panel {
   max-width: 17em;
 }
+
+.comment-block {
+  margin: 1em;
+  box-shadow: 0 0 4px black;
+}

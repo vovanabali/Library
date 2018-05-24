@@ -1,0 +1,58 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <div class="card overview card-w-title">
+      <h1>Регистрация</h1>
+      <div class="ui-g">
+        <div class="ui-g-6 ui-md-9 ui-sm-12" style="margin: 0 auto;">
+          <div class="ui-g-12">
+          <span class="ui-float-label">
+            <input id="login-input" type="text" size="30" style="width: 100%;" [(ngModel)]="persona.login" required
+                   minlength="1" pInputText>
+            <label for="login-input">Логин</label>
+          </span>
+          </div>
+          <div class="ui-g-6 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="password-input" type="text" size="30" style="width: 100%;" [(ngModel)]="persona.password"
+                   required minlength="1" pInputText>
+            <label for="password-input">Пароль</label>
+          </span>
+          </div>
+          <div class="ui-g-6 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="password-compl-input" type="text" size="30" style="width: 100%;" [(ngModel)]="persona.password"
+                   required minlength="1" pInputText>
+            <label for="password-compl-input">Подтверждение пароля</label>
+          </span>
+          </div>
+          <div class="ui-g-4 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="surname-input" type="text" size="30" style="width: 100%;" [(ngModel)]="persona.surname" required
+                   minlength="1" pInputText>
+            <label for="surname-input">Фамилия</label>
+          </span>
+          </div>
+          <div class="ui-g-4 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="name-input" type="text" size="30" style="width: 100%;" [(ngModel)]="persona.name" required
+                   minlength="1" pInputText>
+            <label for="name-input">Имя</label>
+          </span>
+          </div>
+          <div class="ui-g-4 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="patronymic-input" type="text" size="30" style="width: 100%;" [(ngModel)]="persona.patronymic"
+                   required minlength="1" pInputText>
+            <label for="patronymic-input">Фамилия</label>
+          </span>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <button pButton type="button" id="regButton" label="Зарегистрироваться" class="teal-btn main-button" (click)="registration()" style="float: right;"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-growl [(value)]="msgs"></p-growl>
+
