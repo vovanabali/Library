@@ -43,11 +43,11 @@ export class PersonaService {
   }
 
   addPersona(persona: Persona): Observable<boolean> {
-    return this.http.post<boolean>(this.uri + 'addPersona', Persona);
+    return this.http.post<boolean>(this.uri + 'addPersona', persona);
   }
 
   updatePersona(persona: Persona): Observable<boolean> {
-    return this.http.post<boolean>(this.uri + 'updatePersona', Persona);
+    return this.http.post<boolean>(this.uri + 'updatePersona', persona);
   }
 
   deletePersonaById(id: number): Observable<boolean> {

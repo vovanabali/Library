@@ -114,6 +114,8 @@ import { UsersComponent } from './components/admin/users/users.component';
 import { WorkWithUserComponent } from './components/admin/work-with-user/work-with-user.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { WorkWithCountryComponent } from './components/admin/work-with-country/work-with-country.component';
+import { UserAuthorComponent } from './components/user/user-author/user-author.component';
+import {RoleService} from "./services/role.service";
 
 @NgModule({
   imports: [
@@ -219,12 +221,14 @@ import { WorkWithCountryComponent } from './components/admin/work-with-country/w
     WorkWithUserComponent,
     RegistrationComponent,
     WorkWithCountryComponent,
+    UserAuthorComponent,
   ],
   providers: [
     AuthorService,
     AuthService,
     BookService,
     GenreService,
+    RoleService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     ConfirmationService,
     BookInStockService,

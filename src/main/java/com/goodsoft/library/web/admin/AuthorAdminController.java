@@ -31,11 +31,6 @@ public class AuthorAdminController {
         return this.authorService.slice(pageable);
     }
 
-    @GetMapping("author")
-    private Author getAuthorById(@RequestParam long id) {
-        return this.authorService.getAuthorById(id);
-    }
-
     @PostMapping("addAuthor")
     private boolean addAuthor(@RequestBody @Valid Author author, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

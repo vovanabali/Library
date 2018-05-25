@@ -21,6 +21,7 @@ import {UsersComponent} from './components/admin/users/users.component';
 import {WorkWithUserComponent} from './components/admin/work-with-user/work-with-user.component';
 import {RegistrationComponent} from "./components/registration/registration.component";
 import {WorkWithCountryComponent} from "./components/admin/work-with-country/work-with-country.component";
+import {UserAuthorComponent} from "./components/user/user-author/user-author.component";
 
 export const routes: Routes = [
   {path: '', component: UserBooksComponent},
@@ -57,6 +58,7 @@ export const routes: Routes = [
   },
   {path: 'books', component: UserBooksComponent},
   {path: 'book/:id', component: UserBookComponent},
+  {path: 'author/:id', component: UserAuthorComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'sing-in', component: AuthComponent, pathMatch: 'full'},
   {path: 'sing-out', component: AuthComponent, pathMatch: 'full'}

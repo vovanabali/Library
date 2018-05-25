@@ -62,7 +62,9 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
     constructor(public renderer: Renderer, public zone: NgZone) {}
 
     ngOnInit() {
-        this.zone.runOutsideAngular(() => {this.bindRipple(); });
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.zone.runOutsideAngular(() => {this.bindRipple(); });
+        currentUser ? this.changeToStaticMenu() : this.changeToHorizontalMenu();
     }
 
     bindRipple() {

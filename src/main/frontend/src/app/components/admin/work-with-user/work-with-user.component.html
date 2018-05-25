@@ -31,11 +31,19 @@
             <label for="float-patronymic">Отчество</label>
           </span>
         </div>
-
+        <div class="ui-g-4 ui-sm-12">
+          <span class="ui-float-label">
+            <input id="password-patronymic" type="password" size="30" style="width: 100%;" [(ngModel)]="user.password" required
+                   minlength="1" pPassword>
+            <label for="float-patronymic">Пароль</label>
+          </span>
+        </div>
         <div class="ui-g-12">
           <p-calendar id="returnTimeID" [showIcon]="true" placeholder="Дата рождения" [(ngModel)]="user.birthday" dateFormat="dd.mm.yy"></p-calendar>
         </div>
-
+        <div class="ui-g-12">
+          <p-selectButton [options]="roles" optionLabel="name" [(ngModel)]="user.role"></p-selectButton>
+        </div>
         <div class="ui-g-12">
           <button pButton type="button" id="addButton" label="Добавить" class="teal-btn main-button"
                   (click)="add()"></button>

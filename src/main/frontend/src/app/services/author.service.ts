@@ -1,19 +1,18 @@
 import {Injectable} from '@angular/core';
 import {Author} from '../domains/author';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {Book} from "../domains/book";
 
 @Injectable()
 export class AuthorService {
 
-  private uri = 'http://localhost:8080/admin/json/';
+  private uri = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) {
   }
 
   getAuthors(): Observable<Author[]> {
-    return this.http.get<Author[]>(this.uri + 'authors');
+    return this.http.get<Author[]>(this.uri + 'admin/json/authors');
   }
 
   slice(start: number, rows: number, sortField: string, sortOrder: number): Observable<Author[]> {
@@ -27,7 +26,7 @@ export class AuthorService {
     if (sortField === undefined) {
       sortBy = '';
     }
-    return this.http.get<Author[]>(this.uri + 'authorsSlice', {
+    return this.http.get<Author[]>(this.uri + 'admin/json/authorsSlice', {
       params: {
         page: start.toString(),
         size: rows.toString(),
@@ -41,14 +40,14 @@ export class AuthorService {
   }
 
   addAuthor(author: Author): Observable<boolean> {
-    return this.http.post<boolean>(this.uri + 'addAuthor', author);
+    return this.http.post<boolean>(this.uri + 'admin/json/addAuthor', author);
   }
 
   updateAuthor(author: Author): Observable<boolean> {
-    return this.http.post<boolean>(this.uri + 'updateAuthor', author);
+    return this.http.post<boolean>(this.uri + 'admin/json/updateAuthor', author);
   }
 
   deleteAuthorById(id: number): Observable<boolean> {
-    return this.http.get<boolean>(this.uri + 'deleteAuthorById', {params: {id: id.toString()}});
+    return this.http.get<boolean>(this.uri + 'admin/json/deleteAuthorById', {params: {id: id.toString()}});
   }
 }

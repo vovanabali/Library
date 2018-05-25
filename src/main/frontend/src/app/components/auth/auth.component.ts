@@ -30,14 +30,7 @@ export class AuthComponent implements OnInit {
       this.authService.getCurrentUser().subscribe(
         (currentUser) => {
           localStorage.setItem('currentUser', JSON.stringify(currentUser));
-          if (currentUser.role.name === 'admin') {
-            this.app.changeToStaticMenu();
-          }
-          if (currentUser.role.name === 'user') {
-            this.app.changeToHorizontalMenu();
-          }
-          location.href = '/admin';
-/*          const res = this.router.navigate(['admin']);*/
+          window.location.href = '';
         }
       );
     });

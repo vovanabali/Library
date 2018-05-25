@@ -13,55 +13,56 @@ import {routes} from "./app.routes";
   `
 })
 export class AppMenuComponent implements OnInit {
-  private userMenu = [
+  private mainMenu = [
     {
       label: 'Книги',
       icon: 'book',
       items: [
         {label: 'Книги', icon: 'storage', routerLink: ['books']}
       ]
-    },
-    {
-      label: 'Настройки', icon: 'settings',
-      routerLink: ['admin/settings'],
     }
   ];
-  private adminMenu = [
-    {
-      label: 'Книги',
-      icon: 'book',
-      items: [
-        {label: 'Книги', icon: 'storage', routerLink: ['admin', 'books']},
-        {label: 'Склад', icon: 'storage', routerLink: ['admin', 'storage']},
-        {label: 'Выданные', icon: 'playlist_add', routerLink: ['admin', 'issuedBooks']},
-        {label: 'Авторы', icon: 'assignment_ind', routerLink: ['admin', 'authors']},
-        {label: 'Жанры', icon: 'polymer', routerLink: ['admin', 'genres']},
-        {label: 'Отзывы', icon: 'insert_comment', routerLink: ['admin', 'reviews']},
-      ]
-    },
-    {
-      label: 'Пользыватели', icon: 'people',
-      items: [
-        {label: 'Все пользыватели', icon: 'people', routerLink: ['admin', 'users']},
-        {label: 'Черный список', icon: 'view_list', routerLink: ['admin', 'blackList']},
-      ]
-    },
-    {
-      label: 'Разное', icon: 'all_inclusive',
-      items: [
-        {label: 'Тип выдачи книги', icon: 'merge_type', routerLink: ['admin', 'typeOfIssued']},
-        {label: 'Страны', icon: 'cloud', routerLink: ['admin', 'countries']}
-      ]
-    },
-    {
-      label: 'Настройки', icon: 'settings',
-      routerLink: ['admin/settings'],
-    },
-    {
-      label: 'Выйти', icon: 'get_app',
-      command: () => this.logOut()
-    }
-  ];
+
+  private adminMenuItem = {
+    label: 'Администрирование',
+    icon: 'face',
+    items: [
+      {
+        label: 'Книги',
+        icon: 'book',
+        items: [
+          {label: 'Книги', icon: 'storage', routerLink: ['admin', 'books']},
+          {label: 'Склад', icon: 'storage', routerLink: ['admin', 'storage']},
+          {label: 'Выданные', icon: 'playlist_add', routerLink: ['admin', 'issuedBooks']},
+          {label: 'Авторы', icon: 'assignment_ind', routerLink: ['admin', 'authors']},
+          {label: 'Жанры', icon: 'polymer', routerLink: ['admin', 'genres']},
+          {label: 'Отзывы', icon: 'insert_comment', routerLink: ['admin', 'reviews']},
+        ]
+      },
+      {
+        label: 'Пользыватели', icon: 'people',
+        items: [
+          {label: 'Все пользыватели', icon: 'people', routerLink: ['admin', 'users']},
+          {label: 'Черный список', icon: 'view_list', routerLink: ['admin', 'blackList']},
+        ]
+      },
+      {
+        label: 'Разное', icon: 'all_inclusive',
+        items: [
+          {label: 'Тип выдачи книги', icon: 'merge_type', routerLink: ['admin', 'typeOfIssued']},
+          {label: 'Страны', icon: 'cloud', routerLink: ['admin', 'countries']}
+        ]
+      }
+    ]
+  };
+
+  private librarianMenuItem = {
+    label: 'Библиотекарь',
+    icon: 'book',
+    items: [
+      {label: 'Книги', icon: 'storage', routerLink: ['books']}
+    ]
+  };
 
   @Input() reset: boolean;
 
@@ -72,25 +73,25 @@ export class AppMenuComponent implements OnInit {
 
   ngOnInit() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.model = this.userMenu;
-    this.app.changeToHorizontalMenu();
-    if (currentUser.role.name === 'admin') {
-      this.app.changeToStaticMenu();
-      this.model = this.adminMenu;
+    let menu: any[] = this.mainMenu;
+    if (currentUser) {
+
+      menu.push(this.adminMenuItem);
+      menu.push({
+        label: 'Настройки', icon: 'settings',
+        routerLink: ['admin/settings'],
+      });
+      menu.push({label: 'Выйти', icon: 'get_app', command: () => this.logOut()});
     } else {
-      if (!currentUser.role.name) {
-        this.model.push({label: 'Зарегистрироваться', icon: 'contacts',routerLink: ['registration']});
-        this.model.push({label: 'Войти', icon: 'get_app',routerLink: ['sing-in']});
-      } else {
-        this.model.push({label: 'Выйти', icon: 'get_app', command: () => this.logOut()});
-      }
+      menu.push({label: 'Зарегистрироваться', icon: 'contacts', routerLink: ['registration']});
+      menu.push({label: 'Войти', icon: 'get_app', routerLink: ['sing-in']});
     }
+    this.model = menu;
   }
 
   logOut(): void {
     localStorage.clear();
     location.href = '/books';
-    this.app.changeToHorizontalMenu();
   }
 }
 

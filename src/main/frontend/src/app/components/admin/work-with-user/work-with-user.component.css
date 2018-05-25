@@ -2,4 +2,9 @@
   margin-bottom: 10px;
   float: right;
   display: none;
+  max-width: 15em;
+}
+
+.ui-float-label {
+  margin-bottom: 1em;
 }

@@ -13,7 +13,7 @@ export class AdminGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     const currentUser = JSON.parse(localStorage.getItem('currentUser')) as Persona;
-    if (currentUser != null) {
+    if (currentUser) {
       return currentUser.role.name === 'admin';
     } else {
       const result = confirm('Доступ заблокирован!\nХотите войти?');

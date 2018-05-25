@@ -13,7 +13,11 @@
           </div>
           <div class="ui-g-8 ui-lg-10 ui-sm-12">
             <h1>{{ book.name }}</h1>
-            <h4>автор <a href="#">{{ book.author.surname }}</a></h4>
+            <h4>
+              автор <a [routerLink]="['/author/' + book.author.id]">
+              {{ book.author.surname }}
+            </a>
+            </h4>
             <p-rating [(ngModel)]="raiting" [cancel]="false"></p-rating>
             <div [innerHtml]="book.description"></div>
           </div>
