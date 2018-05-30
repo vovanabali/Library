@@ -22,6 +22,11 @@ import {WorkWithUserComponent} from './components/admin/work-with-user/work-with
 import {RegistrationComponent} from "./components/registration/registration.component";
 import {WorkWithCountryComponent} from "./components/admin/work-with-country/work-with-country.component";
 import {UserAuthorComponent} from "./components/user/user-author/user-author.component";
+import {LibrarianGuard} from "./guards/librarian.guard";
+import {LibrarianMainComponent} from "./components/librarian/librarian-main/librarian-main.component";
+import {LibrarianBooksComponent} from "./components/librarian/librarian-books/librarian-books.component";
+import {LibrarianUsersComponent} from "./components/librarian/librarian-users/librarian-users.component";
+import {LibrarianBlackListComponent} from "./components/librarian/librarian-black-list/librarian-black-list.component";
 
 export const routes: Routes = [
   {path: '', component: UserBooksComponent},
@@ -52,8 +57,17 @@ export const routes: Routes = [
       {path: 'addToStorage', component: AddToStorageComponent},
       {path: 'updateBookInStorage', component: AddToStorageComponent},
       {path: 'addUser', component: WorkWithUserComponent},
+      {path: 'editUser', component: WorkWithUserComponent},
       {path: 'editCountry', component: WorkWithCountryComponent},
       {path: 'addCountry', component: WorkWithCountryComponent}
+    ]
+  },
+  {
+    path: 'librarian', canActivate: [LibrarianGuard], component: LibrarianMainComponent, children: [
+      {path: '', component: LibrarianBooksComponent},
+      {path: 'books', component: LibrarianBooksComponent},
+      {path: 'users', component: LibrarianUsersComponent},
+      {path: 'blackList', component: LibrarianBlackListComponent},
     ]
   },
   {path: 'books', component: UserBooksComponent},

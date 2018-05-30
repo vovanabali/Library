@@ -58,9 +58,12 @@ export class AppMenuComponent implements OnInit {
 
   private librarianMenuItem = {
     label: 'Библиотекарь',
-    icon: 'book',
+    icon: 'account_balance',
+    routerLink: ['librarian'],
     items: [
-      {label: 'Книги', icon: 'storage', routerLink: ['books']}
+      {label: 'Книги', icon: 'bookmark_border', routerLink: ['librarian','books']},
+      {label: 'Пользыватели', icon: 'people_outline', routerLink: ['librarian','users']},
+      {label: 'Черный список', icon: 'featured_play_list', routerLink: ['librarian','blackList']}
     ]
   };
 
@@ -75,12 +78,15 @@ export class AppMenuComponent implements OnInit {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let menu: any[] = this.mainMenu;
     if (currentUser) {
-
-      menu.push(this.adminMenuItem);
-      menu.push({
-        label: 'Настройки', icon: 'settings',
-        routerLink: ['admin/settings'],
-      });
+      if (currentUser.role.name === 'admin') {
+        menu.push(this.adminMenuItem);
+        menu.push({
+          label: 'Настройки', icon: 'settings',
+          routerLink: ['admin/settings'],
+        });
+      } else {
+        menu.push(this.librarianMenuItem);
+      }
       menu.push({label: 'Выйти', icon: 'get_app', command: () => this.logOut()});
     } else {
       menu.push({label: 'Зарегистрироваться', icon: 'contacts', routerLink: ['registration']});

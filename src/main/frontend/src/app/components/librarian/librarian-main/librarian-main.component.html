@@ -1,0 +1,21 @@
+<div class="card overview">
+  <div class="ui-g">
+    <div class="ui-g-12 steps">
+      <div [ngClass]="isActive(1)" (click)="goToStep(1)">
+        <span class="ui-steps-number">1</span>
+        <span class="ui-steps-title">Книга</span>
+      </div>
+      <div [ngClass]="isActive(2)" (click)="goToStep(2)">
+        <span class="ui-steps-number">2</span>
+        <span class="ui-steps-title">Пользыватель</span>
+      </div>
+      <div [ngClass]="isActive(3)" (click)="goToStep(3)">
+        <span class="ui-steps-number">3</span>
+        <span class="ui-steps-title">Подтверждение выдачи</span>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <router-outlet (activate)="updateRouter()"></router-outlet>
+    </div>
+  </div>
+</div>

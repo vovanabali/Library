@@ -39,7 +39,7 @@ export class PersonaService {
   }
 
   getPersonaById(id: number): Observable<Persona> {
-    return this.http.get<Persona>(this.uri + 'Persona', {params: {id: id.toString()}});
+    return this.http.get<Persona>(this.uri + 'persona', {params: {id: id.toString()}});
   }
 
   addPersona(persona: Persona): Observable<boolean> {

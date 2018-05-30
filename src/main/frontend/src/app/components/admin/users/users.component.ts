@@ -34,7 +34,6 @@ export class UsersComponent implements OnInit {
       {field: 'surname', header: 'Фамилия'},
       {field: 'name', header: 'Имя'},
       {field: 'patronymic', header: 'Отчество'},
-      {field: 'birhday', header: 'Дата рождения'},
       {field: 'role', header: 'Роль'},
     ];
   }
@@ -50,7 +49,7 @@ export class UsersComponent implements OnInit {
 
   editEntry(id: number): void {
     if (id != null) {
-      const isNavigate = this.router.navigate(['admin/editIssuedBook'], {queryParams: {'id': id}});
+      const isNavigate = this.router.navigate(['admin/editUser'], {queryParams: {'id': id}});
       if (!isNavigate) {
         this.msgs = [{severity: 'error', summary: 'Провал', detail: 'Не открыть запись на редактирование!'}];
       }

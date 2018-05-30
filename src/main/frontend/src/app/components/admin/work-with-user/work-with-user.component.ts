@@ -29,10 +29,9 @@ export class WorkWithUserComponent implements OnInit {
       const genreId = param['id'];
       this.roleService.getAllRoles().subscribe((roles: Role[]) => {
         this.roles = roles;
-        console.log(this.roles);
       });
       if (this.activeRoute.snapshot.routeConfig.path === 'editUser') {
-        if (genreId == null) {
+        if (!genreId) {
           this.router.navigate(['admin', 'addUser']);
         } else {
           this.personaService.getPersonaById(genreId).subscribe(persona => {

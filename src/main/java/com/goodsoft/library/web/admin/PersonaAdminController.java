@@ -2,6 +2,7 @@ package com.goodsoft.library.web.admin;
 
 import com.goodsoft.library.domain.Persona;
 import com.goodsoft.library.service.PersonaService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
@@ -13,13 +14,9 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/admin/json")
+@RequiredArgsConstructor
 public class PersonaAdminController {
     private final PersonaService personaService;
-
-    @Autowired
-    public PersonaAdminController(PersonaService personaService) {
-        this.personaService = personaService;
-    }
 
     @GetMapping("personas")
     private List<Persona> persons() {

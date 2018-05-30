@@ -116,6 +116,11 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { WorkWithCountryComponent } from './components/admin/work-with-country/work-with-country.component';
 import { UserAuthorComponent } from './components/user/user-author/user-author.component';
 import {RoleService} from "./services/role.service";
+import { LibrarianMainComponent } from './components/librarian/librarian-main/librarian-main.component';
+import { LibrarianBooksComponent } from './components/librarian/librarian-books/librarian-books.component';
+import { LibrarianUsersComponent } from './components/librarian/librarian-users/librarian-users.component';
+import { LibrarianBlackListComponent } from './components/librarian/librarian-black-list/librarian-black-list.component';
+import {LibrarianGuard} from "./guards/librarian.guard";
 
 @NgModule({
   imports: [
@@ -222,6 +227,10 @@ import {RoleService} from "./services/role.service";
     RegistrationComponent,
     WorkWithCountryComponent,
     UserAuthorComponent,
+    LibrarianMainComponent,
+    LibrarianBooksComponent,
+    LibrarianUsersComponent,
+    LibrarianBlackListComponent,
   ],
   providers: [
     AuthorService,
@@ -238,6 +247,7 @@ import {RoleService} from "./services/role.service";
     PersonaService,
     TypeOfIssuedService,
     AdminGuard,
+    LibrarianGuard
   ],
   bootstrap: [AppComponent]
 })
