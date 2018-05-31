@@ -1,3 +1,83 @@
-<p>
-  librarian-books works!
-</p>
+<p-table #table
+         [columns]="cols"
+         [value]="books"
+         selectionMode="multiple"
+         dataKey="id"
+         [(selection)]="extradition.books"
+         [totalRecords]="totalRecords"
+         [paginator]="true"
+         [rows]="10"
+         [responsive]="true"
+         paginatorPosition="both"
+         [lazy]="true"
+         (onLazyLoad)="loadBooksLazy($event)"
+         [loading]="loading" #dt>
+  <ng-template pTemplate="caption">
+    <div class="ui-g">
+      <div class="ui-g-11">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
+          <input type="text" [ngModel]="name" pInputText placeholder="Поиск по названию книги" style="width: 100%;" (input)="table.filterGlobal($event.target.value, 'contains')">
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 3.5em"></th>
+      <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+        {{col.header}}
+        <p-sortIcon [field]="col.field"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <td>
+        <a href="#" [pRowToggler]="rowData">
+          <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+        </a>
+      </td>
+      <td *ngFor="let col of columns">
+        <ng-container *ngIf="col.field == 'author'">
+          {{rowData[col.field].surname}} {{rowData[col.field].name}} {{rowData[col.field].patronymic}}
+        </ng-container>
+        <ng-container *ngIf="col.field == 'genre'">
+          {{rowData[col.field].name}}
+        </ng-container>
+        <ng-container *ngIf="col.field != 'author' && col.field != 'genre';">
+          {{rowData[col.field]}}
+        </ng-container>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-rowData let-columns="cols">
+    <tr>
+      <td [attr.colspan]="cols.length + 1">
+        <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+          <div class="ui-g-12 ui-md-3" style="text-align:center">
+            <img width="100%" [attr.alt]="rowData.brand" src="assets/layout/images/deffBookImg.png">
+          </div>
+          <div class="ui-g-12 ui-md-9">
+            <div class="ui-g">
+              <div class="ui-g-12">
+                <b>Название:</b> {{rowData.name}}
+              </div>
+              <div class="ui-g-12">
+                <b>Жанр:</b> {{rowData.genre.name}}
+              </div>
+              <div class="ui-g-12">
+                <b>Автор:</b> {{rowData.author.FIO}}
+              </div>
+              <div class="ui-g-12">
+                <b>Краткое описание:</b> <div [innerHtml]="rowData.description"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-confirmDialog></p-confirmDialog>
+<p-growl [value]="msgs"></p-growl>

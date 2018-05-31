@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Book} from '../../../domains/book';
 import {BookService} from '../../../services/book.service';
 import {Router} from '@angular/router';
 import {ConfirmationService, LazyLoadEvent, Message} from 'primeng/api';
-import {DataTable} from "primeng/primeng";
+import {Extradition} from "../../../domains/extradition";
 
 @Component({
   selector: 'app-admin-books',
@@ -11,7 +11,7 @@ import {DataTable} from "primeng/primeng";
   styleUrls: ['./admin-books.component.css'],
   providers: [ConfirmationService]
 })
-export class AdminBooksComponent implements OnInit {
+export class AdminBooksComponent implements OnInit, OnDestroy{
   selectBook = new Book();
   books: Book[];
   cols: any[];
@@ -19,11 +19,13 @@ export class AdminBooksComponent implements OnInit {
   loading: boolean;
   totalRecords: number;
   name = '';
+  extradition = new Extradition();
 
   constructor(private bookService: BookService, private router: Router, private confirmationService: ConfirmationService) {
   }
 
   ngOnInit() {
+    this.extradition = JSON.parse(localStorage.getItem('extradition'));
     this.cols = [
       {field: 'name', header: 'Название'},
       {field: 'author', header: 'Автор'},
@@ -79,5 +81,4 @@ export class AdminBooksComponent implements OnInit {
       this.loading = false;
     });
   }
-
 }

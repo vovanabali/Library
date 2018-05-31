@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import {Router} from "@angular/router";
+import {Extradition} from "../../../domains/extradition";
 
 @Component({
   selector: 'app-librarian-main',
@@ -41,6 +42,7 @@ export class LibrarianMainComponent implements OnInit {
         }
       }
     ];
+    localStorage.setItem('extradition', JSON.stringify(new Extradition()));
   }
 
   isActive(number: number): string {
@@ -57,7 +59,7 @@ export class LibrarianMainComponent implements OnInit {
         this.router.navigate(['librarian', 'users']);
         break;
       case 3:
-        this.router.navigate(['librarian', 'blackList']);
+        this.router.navigate(['librarian', 'issue']);
         break;
     }
   }
@@ -71,7 +73,7 @@ export class LibrarianMainComponent implements OnInit {
       case 'users':
         this.activeIndex = 2;
         break;
-      case 'blackList':
+      case 'issue':
         this.activeIndex = 3;
         break;
       default:

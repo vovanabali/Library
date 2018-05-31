@@ -1,3 +1,72 @@
-<p>
-  librarian-users works!
-</p>
+<p-table #authorsTable [columns]="cols" [value]="users" selectionMode="single" dataKey="id" [(selection)]="extradition.user"
+         [totalRecords]="totalRecords"
+         [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="both" [lazy]="true"
+         (onLazyLoad)="lazyLoad($event)" [loading]="loading">
+  <ng-template pTemplate="caption">
+    Пользыватели
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th style="width: 3.5em"></th>
+      <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+        {{col.header}}
+        <p-sortIcon [field]="col.field"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <td>
+        <a href="#" [pRowToggler]="rowData">
+          <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+        </a>
+      </td>
+      <td *ngFor="let col of columns" [ngSwitch]="col.field">
+        <div *ngSwitchCase="'login'">
+          {{rowData[col.field]}}
+        </div>
+        <div *ngSwitchCase="'surname'">
+          {{rowData[col.field]}}
+        </div>
+        <div *ngSwitchCase="'name'">
+          {{rowData[col.field]}}
+        </div>
+        <div *ngSwitchCase="'patronymic'">
+          {{rowData[col.field]}}
+        </div>
+        <div *ngSwitchCase="'role'">
+          {{rowData[col.field].name}}
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-rowData let-columns="cols">
+    <tr>
+      <td [attr.colspan]="cols.length + 1">
+        <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+          <div class="ui-g-12 ui-md-3" style="text-align:center">
+            <img width="100" [attr.alt]="rowData.brand" src="assets/layout/images/avatar.png">
+          </div>
+          <div class="ui-g-12 ui-md-9">
+            <div class="ui-g">
+              <div class="ui-g-12">
+                <b>Логин:</b> {{rowData.login}}
+              </div>
+              <div class="ui-g-12">
+                <b>Фамилия:</b> {{rowData.surname}}
+              </div>
+              <div class="ui-g-12">
+                <b>Имя:</b> {{rowData.name}}
+              </div>
+              <div class="ui-g-12">
+                <b>Отчество:</b> {{rowData.patronymic}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-confirmDialog></p-confirmDialog>
+<p-growl [value]="msgs"></p-growl>

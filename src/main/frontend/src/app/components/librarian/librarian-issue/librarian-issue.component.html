@@ -1,0 +1,22 @@
+<p-carousel headerText="Книги к выдаче" [value]="extradition.books">
+  <ng-template let-book pTemplate="item">
+    <div class="ui-grid ui-grid-responsive">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-6" style="text-align: center;"><img src="assets/layout/images/deffBookImg.png" width="100"></div>
+        <div class="ui-grid-col-6">
+          <div class="ui-grid-row">
+            <div class="ui-g-12">Название: {{book.name}}</div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-g-12">Жанр: {{book.genre.name}}</div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-g-12">Автор: {{book.author.name}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-carousel>
+
+<p-growl [value]="msgs"></p-growl>

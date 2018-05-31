@@ -78,26 +78,12 @@ export class AppMenuComponent implements OnInit {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let menu: any[] = this.mainMenu;
     if (currentUser) {
-      if (currentUser.role.name === 'admin') {
-        menu.push(this.adminMenuItem);
-        menu.push({
-          label: 'Настройки', icon: 'settings',
-          routerLink: ['admin/settings'],
-        });
-      } else {
-        menu.push(this.librarianMenuItem);
-      }
-      menu.push({label: 'Выйти', icon: 'get_app', command: () => this.logOut()});
+      currentUser.role.name === 'admin' ? menu.push(this.adminMenuItem) : menu.push(this.librarianMenuItem);
     } else {
       menu.push({label: 'Зарегистрироваться', icon: 'contacts', routerLink: ['registration']});
       menu.push({label: 'Войти', icon: 'get_app', routerLink: ['sing-in']});
     }
     this.model = menu;
-  }
-
-  logOut(): void {
-    localStorage.clear();
-    location.href = '/books';
   }
 }
 

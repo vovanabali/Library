@@ -27,6 +27,7 @@ import {LibrarianMainComponent} from "./components/librarian/librarian-main/libr
 import {LibrarianBooksComponent} from "./components/librarian/librarian-books/librarian-books.component";
 import {LibrarianUsersComponent} from "./components/librarian/librarian-users/librarian-users.component";
 import {LibrarianBlackListComponent} from "./components/librarian/librarian-black-list/librarian-black-list.component";
+import {LibrarianIssueComponent} from "./components/librarian/librarian-issue/librarian-issue.component";
 
 export const routes: Routes = [
   {path: '', component: UserBooksComponent},
@@ -68,6 +69,7 @@ export const routes: Routes = [
       {path: 'books', component: LibrarianBooksComponent},
       {path: 'users', component: LibrarianUsersComponent},
       {path: 'blackList', component: LibrarianBlackListComponent},
+      {path: 'issue', component: LibrarianIssueComponent},
     ]
   },
   {path: 'books', component: UserBooksComponent},
