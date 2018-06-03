@@ -3,6 +3,7 @@ package com.goodsoft.library.service;
 import com.goodsoft.library.domain.BookInStock;
 import com.goodsoft.library.domain.IssuedBooks;
 import com.goodsoft.library.domain.TypeOfIssue;
+import com.goodsoft.library.dto.ExtraditionDTO;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -27,4 +28,6 @@ public interface IssuedBooksService {
     List<IssuedBooks> slice(Pageable pageable);
 
     long getCount();
+
+    List<BookInStock> issuedBooks(ExtraditionDTO extradition) throws Exception;
 }

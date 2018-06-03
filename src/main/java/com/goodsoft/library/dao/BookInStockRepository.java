@@ -20,5 +20,7 @@ public interface BookInStockRepository extends PagingAndSortingRepository<BookIn
 
     List<BookInStock> findAllByBook(Book book);
 
+    BookInStock findFirstByBook(Book book);
+
     BookInStock findById(long id);
 }

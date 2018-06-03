@@ -10,7 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -107,6 +109,20 @@ public class BookInStockServiceImpl implements BookInStockService {
             bookInStockRepository.deleteById(id);
         } catch (Exception ex) {
             log.error("Failed to save book in stock", ex.fillInStackTrace());
+        }
+    }
+
+    @Override
+    public List<BookInStock> getAllBooks(List<Book> books) throws Exception {
+        try {
+            List<BookInStock> bookInStocks = new ArrayList<>();
+            books.forEach(book -> {
+                Optional.ofNullable(bookInStockRepository.findFirstByBook(book)).ifPresent(bookInStocks::add);
+            } );
+            return bookInStocks;
+        } catch (Exception ex) {
+            log.error("Failed to load books in stock by books", ex.fillInStackTrace());
+            throw new Exception("Failed to load books in stock by books");
         }
     }
 }

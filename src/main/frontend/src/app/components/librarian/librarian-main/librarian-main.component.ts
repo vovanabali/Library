@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import {Router} from "@angular/router";
 import {Extradition} from "../../../domains/extradition";
+import {TypeOfIssue} from "../../../domains/type-of-issue";
+import {Persona} from "../../../domains/persona";
 
 @Component({
   selector: 'app-librarian-main',
@@ -42,7 +44,11 @@ export class LibrarianMainComponent implements OnInit {
         }
       }
     ];
-    localStorage.setItem('extradition', JSON.stringify(new Extradition()));
+    let extradition: Extradition = new Extradition();
+    extradition.books = [];
+    extradition.typeOfIssue = new TypeOfIssue();
+    extradition.user = new Persona();
+    localStorage.setItem('extradition', JSON.stringify(extradition));
   }
 
   isActive(number: number): string {

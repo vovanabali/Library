@@ -122,6 +122,7 @@ import { LibrarianUsersComponent } from './components/librarian/librarian-users/
 import { LibrarianBlackListComponent } from './components/librarian/librarian-black-list/librarian-black-list.component';
 import {LibrarianGuard} from "./guards/librarian.guard";
 import { LibrarianIssueComponent } from './components/librarian/librarian-issue/librarian-issue.component';
+import {IssueService} from "./services/issue.service";
 
 @NgModule({
   imports: [
@@ -249,7 +250,8 @@ import { LibrarianIssueComponent } from './components/librarian/librarian-issue/
     PersonaService,
     TypeOfIssuedService,
     AdminGuard,
-    LibrarianGuard
+    LibrarianGuard,
+    IssueService
   ],
   bootstrap: [AppComponent]
 })

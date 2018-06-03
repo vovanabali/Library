@@ -15,6 +15,8 @@ public interface BookInStockService {
 
     List<BookInStock> allByBook(Book book);
 
+    List<BookInStock> getAllBooks(List<Book> books) throws Exception;
+
     List<BookInStock> slice(Pageable pageable);
 
     BookInStock getById(long id);

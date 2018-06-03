@@ -3,6 +3,7 @@ package com.goodsoft.library.web.admin;
 import com.goodsoft.library.domain.TypeOfIssue;
 import com.goodsoft.library.domain.TypeOfIssue;
 import com.goodsoft.library.service.TypeOfIssueService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
@@ -14,27 +15,13 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/admin/json")
+@RequiredArgsConstructor
 public class TypeOffIssuedAdminController {
     private final TypeOfIssueService ofIssueService;
-
-    @Autowired
-    public TypeOffIssuedAdminController(TypeOfIssueService ofIssueService) {
-        this.ofIssueService = ofIssueService;
-    }
-
-    @GetMapping("typeOfIssues")
-    private List<TypeOfIssue> persons() {
-        return ofIssueService.all();
-    }
 
     @GetMapping("typeOfIssueSlice")
     private List<TypeOfIssue> persons(Pageable pageable) {
         return ofIssueService.slice(pageable);
-    }
-
-    @GetMapping("typeOfIssue")
-    private TypeOfIssue getTypeOfIssueById(long id) {
-        return ofIssueService.getById(id);
     }
 
     @PostMapping("addTypeOfIssue")

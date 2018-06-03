@@ -11,7 +11,7 @@ import {Extradition} from "../../../domains/extradition";
   styleUrls: ['./admin-books.component.css'],
   providers: [ConfirmationService]
 })
-export class AdminBooksComponent implements OnInit, OnDestroy{
+export class AdminBooksComponent implements OnInit {
   selectBook = new Book();
   books: Book[];
   cols: any[];

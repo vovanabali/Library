@@ -1,9 +1,12 @@
 package com.goodsoft.library.service;
 
+import com.goodsoft.library.dao.BookInStockRepository;
 import com.goodsoft.library.dao.IssuedBooksRepository;
 import com.goodsoft.library.domain.BookInStock;
 import com.goodsoft.library.domain.IssuedBooks;
 import com.goodsoft.library.domain.TypeOfIssue;
+import com.goodsoft.library.dto.ExtraditionDTO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -14,13 +17,10 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class IssuedBooksServiceImpl implements IssuedBooksService {
     private final IssuedBooksRepository issuedBooksRepository;
-
-    @Autowired
-    public IssuedBooksServiceImpl(IssuedBooksRepository issuedBooksRepository) {
-        this.issuedBooksRepository = issuedBooksRepository;
-    }
+    private final BookInStockRepository bookInStockRepository;
 
     @Override
     public List<IssuedBooks> all() {
@@ -120,6 +120,17 @@ public class IssuedBooksServiceImpl implements IssuedBooksService {
         } catch (Exception ex) {
             log.error("Failed to get count issued books", ex.fillInStackTrace());
             return 0;
+        }
+    }
+
+    @Override
+    public List<BookInStock> issuedBooks(ExtraditionDTO extradition) throws Exception {
+        try {
+            List<BookInStock> bookInStocks = new ArrayList<>();
+            extradition.getBooks().forEach((book -> bookInStocks.add(bookInStockRepository.findFirstByBook(book))));
+            return null;
+        } catch (Exception ex) {
+            throw new Exception("failed to issued books");
         }
     }
 }
