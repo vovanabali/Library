@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,11 +128,29 @@ public class IssuedBooksServiceImpl implements IssuedBooksService {
     }
 
     @Override
-    public List<BookInStock> issuedBooks(ExtraditionDTO extradition) throws Exception {
+    public List<BookInStock> issuedBooks(final ExtraditionDTO extradition) throws Exception {
         try {
             List<BookInStock> bookInStocks = new ArrayList<>();
-            extradition.getBooks().forEach((book -> bookInStocks.add(bookInStockRepository.findFirstByBook(book))));
-            return null;
+            extradition.getBooks().forEach(
+                    (book ->
+                            bookInStocks.add(
+                                    bookInStockRepository
+                                            .findAllByBook(book)
+                                            .stream()
+                                            .filter(bookInStock ->
+                                                    !issuedBooksRepository.existsByBookInStock(bookInStock)
+                                            )
+                                            .findFirst()
+                                            .get())));
+            bookInStocks.forEach(bookInStock -> {
+                IssuedBooks issuedBooks = new IssuedBooks();
+                issuedBooks.setBookInStock(bookInStock);
+                issuedBooks.setPersona(extradition.getUser());
+                issuedBooks.setTimeOfIssue(Date.valueOf(LocalDate.now()));
+                issuedBooks.setTypeOfIssue(extradition.getTypeOfIssue());
+                issuedBooksRepository.save(issuedBooks);
+            });
+            return bookInStocks;
         } catch (Exception ex) {
             throw new Exception("failed to issued books");
         }

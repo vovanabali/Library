@@ -1,28 +1,34 @@
 package com.goodsoft.library.service;
 
 import com.goodsoft.library.dao.BookInStockRepository;
+import com.goodsoft.library.dao.IssuedBooksRepository;
 import com.goodsoft.library.domain.Author;
 import com.goodsoft.library.domain.Book;
 import com.goodsoft.library.domain.BookInStock;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.isNull;
+import static java.util.stream.Collectors.toList;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class BookInStockServiceImpl implements BookInStockService {
     private final BookInStockRepository bookInStockRepository;
-
-    @Autowired
-    public BookInStockServiceImpl(BookInStockRepository bookInStockRepository) {
-        this.bookInStockRepository = bookInStockRepository;
-    }
+    private final IssuedBooksRepository issuedBooksRepository;
 
     @Override
     public List<BookInStock> all() {
@@ -116,13 +122,27 @@ public class BookInStockServiceImpl implements BookInStockService {
     public List<BookInStock> getAllBooks(List<Book> books) throws Exception {
         try {
             List<BookInStock> bookInStocks = new ArrayList<>();
-            books.forEach(book -> {
-                Optional.ofNullable(bookInStockRepository.findFirstByBook(book)).ifPresent(bookInStocks::add);
-            } );
+            books.forEach(book -> Optional.ofNullable(bookInStockRepository.findFirstByBook(book)).ifPresent(bookInStocks::add));
             return bookInStocks;
         } catch (Exception ex) {
             log.error("Failed to load books in stock by books", ex.fillInStackTrace());
             throw new Exception("Failed to load books in stock by books");
         }
+    }
+
+    @Override
+    public List<Book> getAvailabelBooks(Pageable pageable, final String name) {
+        return bookInStockRepository.findAll(pageable).getContent()
+                .stream()
+                .filter(bookInStock -> !issuedBooksRepository.existsByBookInStock(bookInStock))
+                .map(BookInStock::getBook)
+                .filter(book ->
+                        book.getName().toUpperCase().contains(Optional.ofNullable(name.toUpperCase()).orElse(""))
+                ).distinct().collect(toList());
+    }
+
+    @Override
+    public Long getAvailabelCount(String serch) {
+        return  bookInStockRepository.findAll().stream().map(BookInStock::getBook).filter(book -> book.getName().contains(Optional.ofNullable(serch.toUpperCase()).orElse(""))).distinct().count();
     }
 }

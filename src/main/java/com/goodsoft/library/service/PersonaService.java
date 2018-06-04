@@ -30,4 +30,8 @@ public interface PersonaService {
     boolean deleteById(long id);
 
     Persona getPersonaByLoginAndPassword(String login, String password);
+
+    List<Persona> getNotBanedUsers();
+
+    List<Persona> getNotBanedUsersSlice(Pageable pageable);
 }

@@ -5,6 +5,7 @@ import {Book} from "../../../domains/book";
 import {Router} from "@angular/router";
 import {BookService} from "../../../services/book.service";
 import {Extradition} from "../../../domains/extradition";
+import {BookInStockService} from "../../../services/book-in-stock.service";
 
 @Component({
   selector: 'app-librarian-books',
@@ -24,6 +25,7 @@ export class LibrarianBooksComponent implements OnInit, OnDestroy  {
 
   constructor(private bookService: BookService,
               private router: Router,
+              private bookInStockService: BookInStockService,
               private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
@@ -40,8 +42,8 @@ export class LibrarianBooksComponent implements OnInit, OnDestroy  {
 
   loadBooksLazy(event: LazyLoadEvent) {
     this.loading = true;
-    this.bookService.getCountByName( event.globalFilter).subscribe((count) => this.totalRecords = count);
-    this.bookService.slice(event.first / event.rows, event.rows, event.sortField, event.sortOrder, event.globalFilter).subscribe(books => {
+    this.bookInStockService.getAvailabelCount(event.globalFilter).subscribe((count) => this.totalRecords = count);
+    this.bookInStockService.getAvailabelBooks(event.first / event.rows, event.rows, event.sortField, event.sortOrder, event.globalFilter).subscribe(books => {
       this.books = books;
       this.loading = false;
     });

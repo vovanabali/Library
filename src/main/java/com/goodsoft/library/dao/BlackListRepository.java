@@ -10,4 +10,6 @@ public interface BlackListRepository extends PagingAndSortingRepository<BlackLis
     BlackList findByPersona(Persona persona);
 
     void deleteByPersona(Persona persona);
+
+    boolean existsByPersona(Persona persona);
 }

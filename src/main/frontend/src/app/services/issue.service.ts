@@ -12,7 +12,7 @@ export class IssueService {
   constructor(private http: HttpClient) {
   }
 
-  checkBooks(extraition: Extradition): Observable<BookInStock[]> {
-    return this.http.post<BookInStock[]>(this.uri + 'checkIssuedBooks', extraition);
+  issue(extraition: Extradition): Observable<BookInStock[]> {
+    return this.http.post<BookInStock[]>(this.uri + 'issue', extraition);
   }
 }

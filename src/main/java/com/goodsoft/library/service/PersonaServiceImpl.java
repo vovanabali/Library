@@ -1,8 +1,10 @@
 package com.goodsoft.library.service;
 
+import com.goodsoft.library.dao.BlackListRepository;
 import com.goodsoft.library.dao.PersonaRepository;
 import com.goodsoft.library.domain.Persona;
 import com.goodsoft.library.domain.Role;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -10,19 +12,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class PersonaServiceImpl implements PersonaService {
 
     private final PersonaRepository personaRepository;
 
-    @Autowired
-    public PersonaServiceImpl(PersonaRepository personaRepository) {
-        this.personaRepository = personaRepository;
-    }
+    private final BlackListRepository blackListRepository;
 
     @Override
     public List<Persona> all() {
@@ -148,6 +149,27 @@ public class PersonaServiceImpl implements PersonaService {
         } catch (Exception ex) {
             log.error("Failed to load users count", ex.fillInStackTrace());
             return 0;
+        }
+    }
+
+    @Override
+    public List<Persona> getNotBanedUsers() {
+        try {
+            List<Persona> personas = (List<Persona>) personaRepository.findAll();
+            return personas.stream().filter(persona -> !blackListRepository.existsByPersona(persona)).collect(Collectors.toList());
+        } catch (Exception ex) {
+            log.error("Failed to load all persons", ex);
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<Persona> getNotBanedUsersSlice(Pageable pageable) {
+        try {
+            return personaRepository.findAll(pageable).getContent().stream().filter(persona -> !blackListRepository.existsByPersona(persona)).collect(Collectors.toList());
+        } catch (Exception ex) {
+            log.error("Failed to load all persons", ex);
+            return new ArrayList<>();
         }
     }
 }

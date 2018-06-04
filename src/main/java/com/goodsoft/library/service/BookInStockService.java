@@ -28,4 +28,8 @@ public interface BookInStockService {
     void delete(BookInStock bookInStock);
 
     void deleteById(long id);
+
+    List<Book> getAvailabelBooks(Pageable pageable, String serch);
+
+    Long getAvailabelCount(String name);
 }

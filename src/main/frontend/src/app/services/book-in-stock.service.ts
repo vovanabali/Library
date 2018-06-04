@@ -55,4 +55,34 @@ export class BookInStockService {
       }
     });
   }
+
+  getAvailabelBooks(start: number, rows: number, sortField: string, sortOrder: number, filterName: string): Observable<Book[]> {
+    let orderBy = 'asc';
+    if (sortOrder === 1) {
+      orderBy = 'ASC';
+    } else {
+      orderBy = 'DESC';
+    }
+    let sortBy = sortField;
+    if (sortField === undefined) {
+      sortBy = '';
+    }
+    if (filterName === null) {
+      filterName = '';
+    }
+
+    return this.http.get<Book[]>("http://localhost:8080/librarian/json/available_books_in_stock", {
+      params: {
+        page: start.toString(),
+        size: rows.toString(),
+        sort: sortBy + ',' + orderBy,
+        name: filterName
+      }
+    });
+  }
+
+
+  getAvailabelCount(serch: string) : Observable<number> {
+    return this.http.get<number>('http://localhost:8080/librarian/json/available_books_in_stock_count', {params: {name: serch}});
+  }
 }

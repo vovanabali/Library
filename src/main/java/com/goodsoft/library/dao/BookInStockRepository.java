@@ -16,6 +16,8 @@ public interface BookInStockRepository extends PagingAndSortingRepository<BookIn
 
     Page<BookInStock> findAll(Pageable pageable);
 
+    List<BookInStock> findAll();
+
     BookInStock findByInventoryNumber(String inventoryNumber);
 
     List<BookInStock> findAllByBook(Book book);

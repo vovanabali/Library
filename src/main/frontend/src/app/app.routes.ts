@@ -26,8 +26,8 @@ import {LibrarianGuard} from "./guards/librarian.guard";
 import {LibrarianMainComponent} from "./components/librarian/librarian-main/librarian-main.component";
 import {LibrarianBooksComponent} from "./components/librarian/librarian-books/librarian-books.component";
 import {LibrarianUsersComponent} from "./components/librarian/librarian-users/librarian-users.component";
-import {LibrarianBlackListComponent} from "./components/librarian/librarian-black-list/librarian-black-list.component";
 import {LibrarianIssueComponent} from "./components/librarian/librarian-issue/librarian-issue.component";
+import {BlackListComponent} from "./components/black-list/black-list.component";
 
 export const routes: Routes = [
   {path: '', component: UserBooksComponent},
@@ -40,7 +40,7 @@ export const routes: Routes = [
       {path: 'authors', component: AuthorsComponent},
       {path: 'genres', component: AdminGanresComponent},
       {path: 'reviews', component: AdminReviewsComponent},
-      {path: 'blackList', component: AdminBooksComponent},
+      {path: 'blackList', component: BlackListComponent},
       {path: 'countries', component: CountryAdminComponent},
       {path: 'other', component: AdminBooksComponent},
       {path: 'settings', component: AdminBooksComponent},
@@ -68,8 +68,8 @@ export const routes: Routes = [
       {path: '', component: LibrarianBooksComponent},
       {path: 'books', component: LibrarianBooksComponent},
       {path: 'users', component: LibrarianUsersComponent},
-      {path: 'blackList', component: LibrarianBlackListComponent},
       {path: 'issue', component: LibrarianIssueComponent},
+      {path: 'blackList', component: BlackListComponent},
     ]
   },
   {path: 'books', component: UserBooksComponent},

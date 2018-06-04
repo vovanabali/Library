@@ -73,6 +73,7 @@ import {ToolbarModule} from 'primeng/primeng';
 import {TooltipModule} from 'primeng/primeng';
 import {TreeModule} from 'primeng/primeng';
 import {TreeTableModule} from 'primeng/primeng';
+import {SidebarModule} from 'primeng/sidebar';
 
 import {AppComponent} from './app.component';
 import {AppMenuComponent, AppSubMenuComponent} from './app.menu.component';
@@ -119,10 +120,11 @@ import {RoleService} from "./services/role.service";
 import { LibrarianMainComponent } from './components/librarian/librarian-main/librarian-main.component';
 import { LibrarianBooksComponent } from './components/librarian/librarian-books/librarian-books.component';
 import { LibrarianUsersComponent } from './components/librarian/librarian-users/librarian-users.component';
-import { LibrarianBlackListComponent } from './components/librarian/librarian-black-list/librarian-black-list.component';
 import {LibrarianGuard} from "./guards/librarian.guard";
 import { LibrarianIssueComponent } from './components/librarian/librarian-issue/librarian-issue.component';
 import {IssueService} from "./services/issue.service";
+import { BlackListComponent } from './components/black-list/black-list.component';
+import {BlackListService} from "./services/blackList.service";
 
 @NgModule({
   imports: [
@@ -198,7 +200,8 @@ import {IssueService} from "./services/issue.service";
     ToolbarModule,
     TooltipModule,
     TreeModule,
-    TreeTableModule
+    TreeTableModule,
+    SidebarModule
   ],
   declarations: [
     AppComponent,
@@ -232,8 +235,8 @@ import {IssueService} from "./services/issue.service";
     LibrarianMainComponent,
     LibrarianBooksComponent,
     LibrarianUsersComponent,
-    LibrarianBlackListComponent,
     LibrarianIssueComponent,
+    BlackListComponent,
   ],
   providers: [
     AuthorService,
@@ -251,7 +254,8 @@ import {IssueService} from "./services/issue.service";
     TypeOfIssuedService,
     AdminGuard,
     LibrarianGuard,
-    IssueService
+    IssueService,
+    BlackListService,
   ],
   bootstrap: [AppComponent]
 })

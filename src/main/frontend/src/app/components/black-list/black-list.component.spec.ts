@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LibrarianBlackListComponent } from './librarian-black-list.component';
+import { BlackListComponent } from './black-list.component';
 
-describe('LibrarianBlackListComponent', () => {
-  let component: LibrarianBlackListComponent;
-  let fixture: ComponentFixture<LibrarianBlackListComponent>;
+describe('BlackListComponent', () => {
+  let component: BlackListComponent;
+  let fixture: ComponentFixture<BlackListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LibrarianBlackListComponent ]
+      declarations: [ BlackListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LibrarianBlackListComponent);
+    fixture = TestBed.createComponent(BlackListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

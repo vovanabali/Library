@@ -7,6 +7,7 @@ import {TypeOfIssuedService} from "../../../services/type-of-issued.service";
 import {IssueService} from "../../../services/issue.service";
 import {BookInStock} from "../../../domains/book-in-stock";
 import {DialogModule} from 'primeng/dialog';
+import {Persona} from "../../../domains/persona";
 
 @Component({
   selector: 'app-librarian-issue',
@@ -19,8 +20,8 @@ export class LibrarianIssueComponent implements OnInit {
   extradition = new Extradition();
   typesOfIssues: TypeOfIssue[] = [];
   inStock: BookInStock[] = [];
-  showDialog: boolean = false;
   cols: any[];
+  display: boolean = false;
 
   constructor(private router: Router,
               private confirmationService: ConfirmationService,
@@ -43,15 +44,20 @@ export class LibrarianIssueComponent implements OnInit {
 
   }
 
-  check(): void {
-    this.issuesSrevice.checkBooks(this.extradition).subscribe((value) => {
+  issue(): void {
+    this.issuesSrevice.issue(this.extradition).subscribe(value => {
       this.inStock = value;
+      this.display = true;
     });
   }
 
-  issue(): void {
-    console.log(this.extradition);
-    this.showDialog = true;
-    this.check();
+  confirmIssues(): void {
+    this.extradition = new Extradition();
+    this.display = false;
+    let extradition: Extradition = new Extradition();
+    extradition.books = [];
+    extradition.typeOfIssue = new TypeOfIssue();
+    extradition.user = new Persona();
+    localStorage.setItem('extradition', JSON.stringify(extradition));
   }
 }

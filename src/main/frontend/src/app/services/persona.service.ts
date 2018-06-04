@@ -38,6 +38,26 @@ export class PersonaService {
     });
   }
 
+  getSliceAppruved(start: number, rows: number, sortField: string, sortOrder: number): Observable<Persona[]> {
+    let orderBy = 'asc';
+    if (sortOrder === 1) {
+      orderBy = 'ASC';
+    } else {
+      orderBy = 'DESC';
+    }
+    let sortBy = sortField;
+    if (sortField === undefined) {
+      sortBy = '';
+    }
+    return this.http.get<Persona[]>(this.uri + 'current_personas_slice', {
+      params: {
+        page: start.toString(),
+        size: rows.toString(),
+        sort: sortBy + ',' + orderBy
+      }
+    });
+  }
+
   getPersonaById(id: number): Observable<Persona> {
     return this.http.get<Persona>(this.uri + 'persona', {params: {id: id.toString()}});
   }

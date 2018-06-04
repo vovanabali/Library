@@ -11,6 +11,8 @@ public interface BlackListService {
 
     BlackList getBlackListByUser(Persona persona);
 
+    BlackList getBlackListById(long id);
+
     void deleteByUser(Persona persona);
 
     void deleteById(long id);

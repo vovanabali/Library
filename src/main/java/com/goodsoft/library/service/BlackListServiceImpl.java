@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,11 @@ public class BlackListServiceImpl implements BlackListService {
             log.error("Failed load all black list", ex.fillInStackTrace());
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public BlackList getBlackListById(long id) {
+        return blackListRepository.findById(id).get();
     }
 
     @Override
@@ -61,6 +68,7 @@ public class BlackListServiceImpl implements BlackListService {
     @Override
     public void saveBlackList(BlackList blackList) {
         try {
+            blackList.setDateOfEntry(Date.valueOf(LocalDate.now()));
             blackListRepository.save(blackList);
         } catch (Exception ex) {
             log.error("Failed save to black list", ex.fillInStackTrace());

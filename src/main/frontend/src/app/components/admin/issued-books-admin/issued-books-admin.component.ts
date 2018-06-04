@@ -73,4 +73,8 @@ export class IssuedBooksAdminComponent implements OnInit {
       }
     });
   }
+
+  getDate(timestemp: number) {
+    return new Date(timestemp).toLocaleDateString("ru-RU");
+  }
 }

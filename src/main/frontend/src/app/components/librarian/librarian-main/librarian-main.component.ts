@@ -83,7 +83,7 @@ export class LibrarianMainComponent implements OnInit {
         this.activeIndex = 3;
         break;
       default:
-        this.activeIndex = 1;
+        this.activeIndex = 0;
         break;
     }
   }

@@ -23,6 +23,15 @@ public class PersonaAdminController {
         return personaService.all();
     }
 
+    @GetMapping("current_personas")
+    private List<Persona> currentPersons() {
+        return personaService.getNotBanedUsers();
+    }
+    @GetMapping("current_personas_slice")
+    private List<Persona> currentPersonsSlice(Pageable pageable) {
+        return personaService.getNotBanedUsersSlice(pageable);
+    }
+
     @GetMapping("personas_count")
     private long getCountUsers() {
         return personaService.getCount();
