@@ -37,8 +37,11 @@
         </div>-->
   </div>
 </div>
-<div class="ui-g-12">
+<div class="ui-g-12 ui-md-4">
   <p-selectButton [options]="typesOfIssues" [(ngModel)]="extradition.typeOfIssue" optionLabel="name"></p-selectButton>
+</div>
+<div class="ui-g-12 ui-md-4">
+  <p-calendar [(ngModel)]="extradition.issueUpTo" dateFormat="dd.mm.yy" [minDate]="calendar.minDate" [maxDate]="calendar.maxDate" [defaultDate]="calendar.minDate" [locale]="ru"></p-calendar>
 </div>
 <div class="ui-g-12">
   <button pButton type="button" label="Выдать" class="issues" (click)="issue()"></button>

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Persona} from '../domains/persona';
+import {PersonaDTO} from "../domains/personaDTO";
 
 @Injectable()
 export class PersonaService {
@@ -72,5 +73,9 @@ export class PersonaService {
 
   deletePersonaById(id: number): Observable<boolean> {
     return this.http.get<boolean>(this.uri + 'deletePersona', {params: {id: id.toString()}});
+  }
+
+  getProfile(): Observable<PersonaDTO> {
+    return this.http.get<PersonaDTO>('http://localhost:8080/profile');
   }
 }

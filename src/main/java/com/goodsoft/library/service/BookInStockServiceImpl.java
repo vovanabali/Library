@@ -134,7 +134,7 @@ public class BookInStockServiceImpl implements BookInStockService {
     public List<Book> getAvailabelBooks(Pageable pageable, final String name) {
         return bookInStockRepository.findAll(pageable).getContent()
                 .stream()
-                .filter(bookInStock -> !issuedBooksRepository.existsByBookInStock(bookInStock))
+                .filter(bookInStock -> !issuedBooksRepository.existsByBookInStockAndReturnTimeIsNull(bookInStock))
                 .map(BookInStock::getBook)
                 .filter(book ->
                         book.getName().toUpperCase().contains(Optional.ofNullable(name.toUpperCase()).orElse(""))

@@ -64,4 +64,9 @@ public class IssuedBookAdminController {
     private long countIssuedBooks() {
         return this.issuedBooksService.getCount();
     }
+
+    @GetMapping("return_book")
+    private boolean returnBook(@RequestParam("id") Long id) {
+        return issuedBooksService.returnBook(id);
+    }
 }

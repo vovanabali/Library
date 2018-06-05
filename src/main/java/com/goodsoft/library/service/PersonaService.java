@@ -2,6 +2,7 @@ package com.goodsoft.library.service;
 
 import com.goodsoft.library.domain.Persona;
 import com.goodsoft.library.domain.Role;
+import com.goodsoft.library.dto.UserProfileDTO;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -34,4 +35,6 @@ public interface PersonaService {
     List<Persona> getNotBanedUsers();
 
     List<Persona> getNotBanedUsersSlice(Pageable pageable);
+
+    UserProfileDTO getUserProfile(final String login);
 }

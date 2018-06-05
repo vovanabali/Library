@@ -2,8 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {MenuItem} from 'primeng/primeng';
 import {AppComponent} from './app.component';
-import {Persona} from "./domains/persona";
-import {routes} from "./app.routes";
 
 @Component({
   selector: 'app-menu',
@@ -61,9 +59,8 @@ export class AppMenuComponent implements OnInit {
     icon: 'account_balance',
     routerLink: ['librarian'],
     items: [
-      {label: 'Книги', icon: 'bookmark_border', routerLink: ['librarian','books']},
-      {label: 'Пользыватели', icon: 'people_outline', routerLink: ['librarian','users']},
-      {label: 'Черный список', icon: 'featured_play_list', routerLink: ['librarian','blackList']}
+      {label: 'Черный список', icon: 'featured_play_list', routerLink: ['librarian', 'blackList']},
+      {label: 'Учёт выданых книг', icon: 'featured_play_list', routerLink: ['librarian', 'issuesBooks']}
     ]
   };
 
@@ -78,7 +75,9 @@ export class AppMenuComponent implements OnInit {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let menu: any[] = this.mainMenu;
     if (currentUser) {
-      currentUser.role.name === 'admin' ? menu.push(this.adminMenuItem) : menu.push(this.librarianMenuItem);
+      if (currentUser.role.name !== 'user') {
+        menu.push(currentUser.role.name === 'admin' ? this.adminMenuItem : this.librarianMenuItem);
+      }
     } else {
       menu.push({label: 'Зарегистрироваться', icon: 'contacts', routerLink: ['registration']});
       menu.push({label: 'Войти', icon: 'get_app', routerLink: ['sing-in']});

@@ -9,12 +9,12 @@ import {Persona} from "./domains/persona";
       <a href="#" (click)="onClick($event)">
         <img class="profile-image" src="assets/layout/images/avatar.png"/>
         <span class="profile-name">{{userFIO}}</span>
-        <!--<i class="material-icons">keyboard_arrow_down</i>-->
+        <i class="material-icons">keyboard_arrow_down</i>
       </a>
     </div>
     <ul class="ultima-menu profile-menu" [@menu]="active ? 'visible' : 'hidden'">
       <li role="menuitem">
-        <a href="#" class="ripplelink" [attr.tabindex]="!active ? '-1' : null">
+        <a href="#" routerLink="profile" class="ripplelink" [attr.tabindex]="!active ? '-1' : null">
           <i class="material-icons">person</i>
           <span>Profile</span>
         </a>

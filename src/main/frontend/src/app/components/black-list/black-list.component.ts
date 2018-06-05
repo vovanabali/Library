@@ -48,6 +48,7 @@ export class BlackListComponent implements OnInit {
           if (result) {
             this.selectBlackList = new BlackList();
             this.msgs = [{severity: 'success', summary: 'Успех', detail: 'Запись была успешно удалена!'}];
+            this.ngOnInit();
           } else {
             this.msgs = [{severity: 'error', summary: 'Провал', detail: 'Не удалось удалить запись!'}];
           }

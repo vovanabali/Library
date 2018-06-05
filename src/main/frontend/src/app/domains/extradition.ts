@@ -6,4 +6,5 @@ export class Extradition {
   user: Persona;
   books: Book[];
   typeOfIssue: TypeOfIssue;
+  issueUpTo: Date;
 }

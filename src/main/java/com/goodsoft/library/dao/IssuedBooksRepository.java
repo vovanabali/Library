@@ -3,6 +3,8 @@ package com.goodsoft.library.dao;
 import com.goodsoft.library.domain.BookInStock;
 import com.goodsoft.library.domain.IssuedBooks;
 import com.goodsoft.library.domain.TypeOfIssue;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +21,6 @@ public interface IssuedBooksRepository extends PagingAndSortingRepository<Issued
     IssuedBooks findById(long id);
 
     boolean existsByBookInStock(BookInStock bookInStock);
+
+    boolean existsByBookInStockAndReturnTimeIsNull(BookInStock bookInStock);
 }

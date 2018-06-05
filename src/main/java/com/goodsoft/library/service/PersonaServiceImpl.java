@@ -1,9 +1,11 @@
 package com.goodsoft.library.service;
 
 import com.goodsoft.library.dao.BlackListRepository;
+import com.goodsoft.library.dao.IssuedBooksRepository;
 import com.goodsoft.library.dao.PersonaRepository;
 import com.goodsoft.library.domain.Persona;
 import com.goodsoft.library.domain.Role;
+import com.goodsoft.library.dto.UserProfileDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class PersonaServiceImpl implements PersonaService {
     private final PersonaRepository personaRepository;
 
     private final BlackListRepository blackListRepository;
+
+    private final IssuedBooksRepository issuedBooksRepository;
 
     @Override
     public List<Persona> all() {
@@ -171,5 +175,13 @@ public class PersonaServiceImpl implements PersonaService {
             log.error("Failed to load all persons", ex);
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public UserProfileDTO getUserProfile(final String login) {
+        UserProfileDTO userProfileDTO = new UserProfileDTO();
+        userProfileDTO.setPersona(personaRepository.findByLogin(login));
+        userProfileDTO.setIssuedBooks(issuedBooksRepository.findAllByPersonaId(userProfileDTO.getPersona().getId()));
+        return userProfileDTO;
     }
 }

@@ -55,4 +55,11 @@ export class IssuedBookService {
     return this.http.get<boolean>(this.uri + 'deleteIssuedBook', {params: {id: id.toString()}});
   }
 
+  returnBook(id: number): Observable<boolean> {
+    return this.http.get<boolean>(this.uri + 'return_book', {
+      params: {
+        id: id.toString()
+      }
+    });
+  }
 }

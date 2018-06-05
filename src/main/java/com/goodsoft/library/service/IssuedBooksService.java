@@ -30,4 +30,6 @@ public interface IssuedBooksService {
     long getCount();
 
     List<BookInStock> issuedBooks(ExtraditionDTO extradition) throws Exception;
+
+    boolean returnBook(Long id);
 }

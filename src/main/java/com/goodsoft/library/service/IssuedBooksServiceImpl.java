@@ -18,6 +18,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Objects.isNull;
 
 @Service
 @Slf4j
@@ -110,7 +113,7 @@ public class IssuedBooksServiceImpl implements IssuedBooksService {
     @Override
     public List<IssuedBooks> slice(Pageable pageable) {
         try {
-            return issuedBooksRepository.findAll(pageable).getContent();
+            return issuedBooksRepository.findAll(pageable).getContent().stream().filter(issuedBooks -> isNull(issuedBooks.getReturnTime())).collect(Collectors.toList());
         } catch (Exception ex) {
             log.error("failed to load slice from issued books", ex.fillInStackTrace());
             return new ArrayList<>();
@@ -138,7 +141,7 @@ public class IssuedBooksServiceImpl implements IssuedBooksService {
                                             .findAllByBook(book)
                                             .stream()
                                             .filter(bookInStock ->
-                                                    !issuedBooksRepository.existsByBookInStock(bookInStock)
+                                                    !issuedBooksRepository.existsByBookInStockAndReturnTimeIsNull(bookInStock)
                                             )
                                             .findFirst()
                                             .get())));
@@ -148,11 +151,25 @@ public class IssuedBooksServiceImpl implements IssuedBooksService {
                 issuedBooks.setPersona(extradition.getUser());
                 issuedBooks.setTimeOfIssue(Date.valueOf(LocalDate.now()));
                 issuedBooks.setTypeOfIssue(extradition.getTypeOfIssue());
+                issuedBooks.setIssueUpTo(extradition.getIssueUpTo());
                 issuedBooksRepository.save(issuedBooks);
             });
             return bookInStocks;
         } catch (Exception ex) {
             throw new Exception("failed to issued books");
+        }
+    }
+
+    @Override
+    public boolean returnBook(Long id) {
+        try {
+            issuedBooksRepository.findById(id).ifPresent(issuedBooks -> {
+                issuedBooks.setReturnTime(Date.valueOf(LocalDate.now()));
+                issuedBooksRepository.save(issuedBooks);
+            });
+            return true;
+        } catch (final Exception ex) {
+            return false;
         }
     }
 }

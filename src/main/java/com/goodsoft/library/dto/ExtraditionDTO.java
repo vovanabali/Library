@@ -5,6 +5,7 @@ import com.goodsoft.library.domain.Persona;
 import com.goodsoft.library.domain.TypeOfIssue;
 import lombok.Data;
 
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -12,4 +13,5 @@ public class ExtraditionDTO {
     private Persona user;
     private List<Book> books;
     private TypeOfIssue typeOfIssue;
+    private Date issueUpTo;
 }
