@@ -1,5 +1,54 @@
-<p>
-  profile works!
-  <p-fileUpload mode="basic" name="demo" url="http://localhost:8080/server_resources/load" accept="image/*" maxFileSize="1000000"></p-fileUpload>
-</p>
+<div class="ui-g">
+  <div class="ui-g-12">
+    <div class="card card-w-title">
+      <h1>Информация о профиле</h1>
+      <div class="ui-g">
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-4">
+            <div class="img-panel">
+              <img src="../../../../assets/layout/images/user-bg.png" width="100%" alt="">
+            </div>
+          </div>
+          <div class="ui-g-12 ui-md-8">
+            <h1>Фамилия: {{personaDTO.persona.surname}}</h1>
+            <h1>Имя: {{personaDTO.persona.name}}</h1>
+            <h1>Отчество: {{personaDTO.persona.patronymic}}</h1>
+            <h1>Дата рождения: {{getDate(personaDTO.persona.birthday)}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui-g-12 card card-w-title">
+      <h4>График учета книжной активности</h4>
+      <p-chart type="line" [data]="data"></p-chart>
+    </div>
+    <div class="ui-g-12 card card-w-title">
+      <h4>Книги на руках</h4>
+      <div class="ui-g-12" *ngIf="issuedBooks.length != 0">
+        <p-dataGrid [value]="issuedBooks"
+                    [paginator]="true"
+                    [rows]="3"
+                    [totalRecords]="issuedBooks.length">
+          <ng-template let-issuedBook pTemplate="item">
+            <div style="padding: 1em;" class="ui-g-12 ui-md-3 ui-xl-2" (click)="bookInfo(book.id)">
+              <p-panel [header]="issuedBook.bookInStock.book.name"
+                       class="book-panel" [style]="{'height': '100%'}">
+                <img src="assets/layout/images/deffBookImg.png" style="width: 100%; max-width: 17em;">
+                <hr class="ui-widget-content">
+                <div class="car-detail">{{issuedBook.bookInStock.book.author.name}} {{issuedBook.bookInStock.book.author.surname}}</div>
+                <div class="car-detail">
+                  Дата возврата: {{ getDate(issuedBook.issueUpTo) }}
+                </div>
+                <div class="car-detail">Осталось: ({{ getLeftDateys(issuedBook.issueUpTo) }}) дней</div>
+              </p-panel>
+            </div>
+          </ng-template>
+        </p-dataGrid>
+      </div>
+      <div class="ui-g-12" *ngIf="issuedBooks.length == 0">
+        На данный момент у вас нет книг на руках
+      </div>
+    </div>
+  </div>
+</div>
 <p-growl [value]="msgs"></p-growl>

@@ -19,18 +19,18 @@ import {Persona} from "./domains/persona";
           <span>Profile</span>
         </a>
       </li>
-      <li role="menuitem">
+     <!-- <li role="menuitem">
         <a href="#" class="ripplelink" [attr.tabindex]="!active ? '-1' : null">
           <i class="material-icons">security</i>
           <span>Privacy</span>
         </a>
-      </li>
-      <li role="menuitem">
+      </li>-->
+<!--      <li role="menuitem">
         <a href="#" class="ripplelink" [attr.tabindex]="!active ? '-1' : null">
           <i class="material-icons">settings_application</i>
           <span>Settings</span>
         </a>
-      </li>
+      </li>-->
       <li role="menuitem">
         <a href="#" (click)="logOut()" class="ripplelink" [attr.tabindex]="!active ? '-1' : null">
           <i class="material-icons">power_settings_new</i>

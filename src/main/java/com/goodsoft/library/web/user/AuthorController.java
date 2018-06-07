@@ -5,6 +5,8 @@ import com.goodsoft.library.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping
@@ -16,5 +18,10 @@ public class AuthorController {
     @GetMapping("author")
     private Author getAuthorById(@RequestParam long id) {
         return authorService.getAuthorById(id);
+    }
+
+    @GetMapping("authors")
+    private List<Author> getAuthors() {
+        return authorService.getAllAuthors();
     }
 }

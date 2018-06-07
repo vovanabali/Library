@@ -172,4 +172,9 @@ public class IssuedBooksServiceImpl implements IssuedBooksService {
             return false;
         }
     }
+
+    @Override
+    public void save(IssuedBooks issuedBooks) {
+        issuedBooksRepository.save(issuedBooks);
+    }
 }

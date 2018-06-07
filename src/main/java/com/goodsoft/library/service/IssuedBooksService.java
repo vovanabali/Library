@@ -32,4 +32,6 @@ public interface IssuedBooksService {
     List<BookInStock> issuedBooks(ExtraditionDTO extradition) throws Exception;
 
     boolean returnBook(Long id);
+
+    void save(final IssuedBooks issuedBooks);
 }

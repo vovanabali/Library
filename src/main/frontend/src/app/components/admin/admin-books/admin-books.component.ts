@@ -81,4 +81,8 @@ export class AdminBooksComponent implements OnInit {
       this.loading = false;
     });
   }
+
+  getDate(timestamp) {
+    return timestamp ? new Date(timestamp).toLocaleDateString("ru-RU") : 'Дата не была указанна';
+  }
 }

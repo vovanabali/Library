@@ -18,6 +18,8 @@ export class AddBookComponent implements OnInit {
   genres: Genre[];
   authors: Author[];
   msgs: Message[] = [];
+  url: string = 'http://localhost:8080/server_resources/loadBookPicture?bookId=';
+  isEdit: boolean = false;
 
   constructor(private authorService: AuthorService,
               private genreService: GenreService,
@@ -33,6 +35,7 @@ export class AddBookComponent implements OnInit {
         if (bookId == null) {
           this.router.navigate(['admin', 'addBook']);
         } else {
+          this.isEdit = true;
           this.bookService.getBookById(bookId).subscribe(book => {
             this.book = book;
             this.book.author.FIO = book.author.surname + ' ' + book.author.name + ' ' + book.author.patronymic;
@@ -71,5 +74,16 @@ export class AddBookComponent implements OnInit {
         this.msgs.push({severity: 'error', summary: 'Ошибка', detail: 'Не удалось обновить данные о книге!'});
       }
     });
+  }
+
+  uploadImmageToBook(event) {
+  }
+
+  onSelect(event) {
+    this.url = this.url + this.book.id;
+  }
+
+  getBookSrc(bookPictureId): string {
+    return bookPictureId ?  'http://localhost:8080/server_resources/image/' + bookPictureId : 'assets/layout/images/deffBookImg.png';
   }
 }

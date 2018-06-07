@@ -9,4 +9,5 @@ export class IssuedBooks {
   timeOfIssue: Date;
   typeOfIssue: TypeOfIssue;
   returnTime: Date;
+  issueUpTo: Date;
 }

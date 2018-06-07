@@ -18,6 +18,8 @@ public interface BookInStockRepository extends PagingAndSortingRepository<BookIn
 
     List<BookInStock> findAll();
 
+    List<BookInStock> findAllByBookId(final Long id);
+
     BookInStock findByInventoryNumber(String inventoryNumber);
 
     List<BookInStock> findAllByBook(Book book);

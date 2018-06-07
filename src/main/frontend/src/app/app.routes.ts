@@ -30,6 +30,7 @@ import {LibrarianIssueComponent} from "./components/librarian/librarian-issue/li
 import {BlackListComponent} from "./components/black-list/black-list.component";
 import {LibrarianIssuesBooksComponent} from "./components/librarian/librarian-issues-books/librarian-issues-books.component";
 import {ProfileComponent} from "./components/profile/profile.component";
+import {RezervationBooksComponent} from "./components/librarian/rezervation-books/rezervation-books.component";
 
 export const routes: Routes = [
   {path: '', component: UserBooksComponent},
@@ -73,6 +74,7 @@ export const routes: Routes = [
       {path: 'issue', component: LibrarianIssueComponent},
       {path: 'blackList', component: BlackListComponent},
       {path: 'issuesBooks', component: LibrarianIssuesBooksComponent},
+      {path: 'rezerv_books', component: RezervationBooksComponent},
     ]
   },
   {path: 'books', component: UserBooksComponent},

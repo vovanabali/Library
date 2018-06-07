@@ -36,7 +36,7 @@ public class ReviewController {
 
     @GetMapping("reviewsSliceByBookId")
     public List<ReviewsOfTheBook> sliceReviewsByBookId(Pageable pageable,@RequestParam("bookId") long id) {
-        return this.reviewsOfTheBookService.slice(pageable);
+        return this.reviewsOfTheBookService.slice(pageable, id);
     }
 
     @GetMapping("bookRaiting")

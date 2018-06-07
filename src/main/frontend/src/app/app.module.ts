@@ -128,6 +128,8 @@ import {BlackListService} from "./services/blackList.service";
 import { LibrarianDebtorsComponent } from './components/librarian/librarian-debtors/librarian-debtors.component';
 import { LibrarianIssuesBooksComponent } from './components/librarian/librarian-issues-books/librarian-issues-books.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { RezervationBooksComponent } from './components/librarian/rezervation-books/rezervation-books.component';
+import {RezervationService} from "./services/rezervation.service";
 
 @NgModule({
   imports: [
@@ -243,6 +245,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     LibrarianDebtorsComponent,
     LibrarianIssuesBooksComponent,
     ProfileComponent,
+    RezervationBooksComponent,
   ],
   providers: [
     AuthorService,
@@ -262,6 +265,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     LibrarianGuard,
     IssueService,
     BlackListService,
+    RezervationService,
   ],
   bootstrap: [AppComponent]
 })

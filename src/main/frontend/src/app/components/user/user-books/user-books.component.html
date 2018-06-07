@@ -1,14 +1,24 @@
 <div class="ui-g">
   <div class="ui-g-12">
+    <div class="ui-g-12">
+      <div style="float: right">
+        <input id="disabled-input" type="text" size="30" pInputText [(ngModel)]="searchBook" label="Поиск"/>
+        <button type="button" (click)="search()" icon="ui-icon-search" pButton></button>
+        <button type="button" (click)="display = true" icon="ui-icon-more-vert" pButton></button>
+      </div>
+    </div>
+
     <div class="ui-g card overview">
       <div class="ui-g-12">
-        <p-dataGrid [value]="books" [paginator]="true" [rows]="20" [totalRecords]="totalRecords" [lazy]="true"
-                    (onLazyLoad)="loadBooksLazy($event)">
+        <p-dataGrid #table [value]="showBooks"
+                    [paginator]="true"
+                    [rows]="20"
+                    [totalRecords]="totalRecords">
           <ng-template let-book pTemplate="item">
             <div style="padding: 1em;" class="ui-g-12 ui-md-3 ui-xl-2" (click)="bookInfo(book.id)">
               <p-panel [header]="book.name"
                        class="book-panel" [style]="{'height': '100%'}">
-                <img src="assets/layout/images/deffBookImg.png" style="width: 100%; max-width: 17em;">
+                <img src={{getBookSrc(book.pictureId)}} style="width: 100%; max-width: 17em;">
                 <hr class="ui-widget-content">
                 <div class="car-detail">{{book.author.name}} {{book.author.surname}}</div>
               </p-panel>
@@ -19,5 +29,42 @@
     </div>
   </div>
 </div>
+<p-sidebar [(visible)]="display" position="right">
+  <div class="ui-g form-group">
+    <div class="ui-g-12">
+      <label for="author">Поиск</label>
+    </div>
+    <div class="ui-g-12">
+      <input type="text" size="30" pInputText [(ngModel)]="searchBook" placeholder="Поиск"/>
+    </div>
+    <div class="ui-g-12">
+      <label for="author">Авторы</label>
+    </div>
+    <div class="ui-g-12">
+      <p-multiSelect id="author" [options]="authors" [(ngModel)]="serchDTO.authors" optionLabel="FIO" defaultLabel="Выберите авторов"></p-multiSelect>
+    </div>
+    <div class="ui-g-12">
+      <label for="ganres">Жанры</label>
+    </div>
+    <div class="ui-g-12">
+      <p-multiSelect id="ganres" [options]="ganres" [(ngModel)]="serchDTO.ganres" optionLabel="name" defaultLabel="Выберите жары"></p-multiSelect>
+    </div>
+    <div class="ui-g-12">
+      <label>Год</label>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-12">
+        <p-calendar [(ngModel)]="serchDTO.dateStart" [showIcon]="true" dateFormat="dd.mm.yy" placeholder="Мин. день"></p-calendar>
+      </div>
+      -
+      <div class="ui-g-12">
+        <p-calendar [(ngModel)]="serchDTO.dateEnd" [showIcon]="true" dateFormat="dd.mm.yy" placeholder="Макс. день">></p-calendar>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <button type="button" (click)="display = false" icon="ui-icon-search" pButton label="Поиск" style="width: 100%;"></button>
+    </div>
+  </div>
+</p-sidebar>
 <p-confirmDialog></p-confirmDialog>
 <p-growl [value]="msgs"></p-growl>

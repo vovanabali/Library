@@ -8,9 +8,9 @@
           <i class="material-icons" style="vertical-align:middle">dehaze</i>
         </div>
 
-        <div class="ui-toolbar-group-right">
+        <!--<div class="ui-toolbar-group-right">
           <button pButton type="button" label="Распечатать" icon="ui-icon-print" class="pink-btn"></button>
-        </div>
+        </div>-->
       </p-toolbar>
     </div>
     <div class="ui-g-12">
@@ -49,8 +49,11 @@
               <ng-container *ngIf="col.field == 'genre'">
                 {{rowData[col.field].name}}
               </ng-container>
-              <ng-container *ngIf="col.field != 'author' && col.field != 'genre';">
+              <ng-container *ngIf="col.field != 'author' && col.field != 'genre' && col.field != 'releaseDate'">
                 {{rowData[col.field]}}
+              </ng-container>
+              <ng-container *ngIf="col.field != 'author' && col.field != 'genre' && col.field == 'releaseDate' ">
+                {{getDate(rowData[col.field])}}
               </ng-container>
             </td>
             <td style="text-align: center;">
@@ -58,7 +61,7 @@
                       (click)="editEntry(rowData['id'])"></button>
               <button pButton type="button" id="deleteBookBtn" icon="ui-icon-delete" class="red-btn"
                       (click)="deleteBook(rowData['id'])"></button>
-              <button pButton type="button" icon="ui-icon-print" class="pink-btn"></button>
+              <!--<button pButton type="button" icon="ui-icon-print" class="pink-btn"></button>-->
             </td>
           </tr>
         </ng-template>

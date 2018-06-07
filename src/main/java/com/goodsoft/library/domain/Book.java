@@ -27,4 +27,6 @@ public class Book {
     private Genre genre;
     @NotNull
     private Date releaseDate;
+
+    private Long pictureId;
 }

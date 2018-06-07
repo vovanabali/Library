@@ -21,11 +21,6 @@ public class AuthorAdminController {
         this.authorService = authorService;
     }
 
-    @GetMapping("authors")
-    private List<Author> getAuthors() {
-        return authorService.getAllAuthors();
-    }
-
     @GetMapping("authorsSlice")
     private List<Author> getSliceAuthors(Pageable pageable) {
         return this.authorService.slice(pageable);

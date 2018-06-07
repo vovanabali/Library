@@ -21,19 +21,9 @@ public class GenreAdminController {
         this.genreService = genreService;
     }
 
-    @GetMapping("genres")
-    private List<Genre> getGenres() {
-        return genreService.all();
-    }
-
     @GetMapping("ganresSlice")
     private List<Genre> getSliceGenres(Pageable pageable) {
         return genreService.slice(pageable);
-    }
-
-    @GetMapping("genre")
-    private Genre getGenreById(@RequestParam long id) {
-        return this.genreService.getById(id);
     }
 
     @PostMapping("addGenre")

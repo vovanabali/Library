@@ -69,4 +69,20 @@ export class BookService {
     }
     return this.http.get<number>(this.uri + 'bookCountByName', {params: {name: name}});
   }
+
+  rezelvBook(bookId: number): Observable<boolean> {
+    return this.http.get<boolean>(this.uri + 'rezelv_book', {
+      params: {
+        book_id: bookId.toString()
+      }
+    })
+  }
+
+  getAvailabelCount(bookId: number): Observable<number> {
+    return this.http.get<number>(this.uri + 'availabel_book_count_by_id', {
+      params: {
+        book_id: bookId.toString()
+      }
+    })
+  }
 }

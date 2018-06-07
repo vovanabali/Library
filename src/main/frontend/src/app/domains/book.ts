@@ -8,4 +8,5 @@ export class Book {
   description: string;
   genre: Genre;
   releaseDate: Date;
+  pictureId: number;
 }

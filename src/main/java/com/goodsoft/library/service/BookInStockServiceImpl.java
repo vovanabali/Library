@@ -1,7 +1,9 @@
 package com.goodsoft.library.service;
 
 import com.goodsoft.library.dao.BookInStockRepository;
+import com.goodsoft.library.dao.BookRepository;
 import com.goodsoft.library.dao.IssuedBooksRepository;
+import com.goodsoft.library.dao.RezervationRepository;
 import com.goodsoft.library.domain.Author;
 import com.goodsoft.library.domain.Book;
 import com.goodsoft.library.domain.BookInStock;
@@ -29,7 +31,8 @@ import static java.util.stream.Collectors.toList;
 public class BookInStockServiceImpl implements BookInStockService {
     private final BookInStockRepository bookInStockRepository;
     private final IssuedBooksRepository issuedBooksRepository;
-
+    private final RezervationRepository rezervationRepository;
+    private final BookRepository bookRepository;
     @Override
     public List<BookInStock> all() {
         try {
@@ -134,7 +137,7 @@ public class BookInStockServiceImpl implements BookInStockService {
     public List<Book> getAvailabelBooks(Pageable pageable, final String name) {
         return bookInStockRepository.findAll(pageable).getContent()
                 .stream()
-                .filter(bookInStock -> !issuedBooksRepository.existsByBookInStockAndReturnTimeIsNull(bookInStock))
+                .filter(bookInStock -> !issuedBooksRepository.existsByBookInStockAndReturnTimeIsNull(bookInStock) && !rezervationRepository.existsByBookInStockId(bookInStock.getId()))
                 .map(BookInStock::getBook)
                 .filter(book ->
                         book.getName().toUpperCase().contains(Optional.ofNullable(name.toUpperCase()).orElse(""))
@@ -144,5 +147,22 @@ public class BookInStockServiceImpl implements BookInStockService {
     @Override
     public Long getAvailabelCount(String serch) {
         return  bookInStockRepository.findAll().stream().map(BookInStock::getBook).filter(book -> book.getName().contains(Optional.ofNullable(serch.toUpperCase()).orElse(""))).distinct().count();
+    }
+
+    @Override
+    public Long getAvailabelCountByBookId(Long id) {
+        return  bookInStockRepository.findAllByBook(bookRepository.findById(id).get())
+                .stream()
+                .filter(bookInStock -> !issuedBooksRepository.existsByBookInStockAndReturnTimeIsNull(bookInStock) && !rezervationRepository.existsByBookInStockId(bookInStock.getId()))
+                .count();
+
+    }
+
+    @Override
+    public BookInStock getAvailabelBookIsStockByBook(Book book) {
+        return bookInStockRepository.findAllByBook(book)
+                .stream()
+                .filter(bookInStock -> !issuedBooksRepository.existsByBookInStockAndReturnTimeIsNull(bookInStock) && !rezervationRepository.existsByBookInStockId(bookInStock.getId()))
+                .findFirst().get();
     }
 }

@@ -2,6 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {MenuItem} from 'primeng/primeng';
 import {AppComponent} from './app.component';
+import {GenreService} from "./services/genre.service";
+import {Router} from "@angular/router";
+import {validate} from "codelyzer/walkerFactory/walkerFn";
 
 @Component({
   selector: 'app-menu',
@@ -13,11 +16,14 @@ import {AppComponent} from './app.component';
 export class AppMenuComponent implements OnInit {
   private mainMenu = [
     {
-      label: 'Книги',
+      label: 'Все книги',
       icon: 'book',
-      items: [
-        {label: 'Книги', icon: 'storage', routerLink: ['books']}
-      ]
+      routerLink: ['books']
+    },
+    {
+      label: 'Жанры',
+      icon: 'theaters',
+      items: []
     }
   ];
 
@@ -60,7 +66,8 @@ export class AppMenuComponent implements OnInit {
     routerLink: ['librarian'],
     items: [
       {label: 'Черный список', icon: 'featured_play_list', routerLink: ['librarian', 'blackList']},
-      {label: 'Учёт выданых книг', icon: 'featured_play_list', routerLink: ['librarian', 'issuesBooks']}
+      {label: 'Учёт выданых книг', icon: 'featured_play_list', routerLink: ['librarian', 'issuesBooks']},
+      {label: 'Учет зарез. книг', icon: 'featured_play_list', routerLink: ['librarian', 'rezerv_books']}
     ]
   };
 
@@ -68,21 +75,36 @@ export class AppMenuComponent implements OnInit {
 
   model: any[];
 
-  constructor(public app: AppComponent) {
+  constructor(public app: AppComponent,
+              private genreService: GenreService,
+              private router: Router) {
   }
 
   ngOnInit() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let menu: any[] = this.mainMenu;
-    if (currentUser) {
-      if (currentUser.role.name !== 'user') {
-        menu.push(currentUser.role.name === 'admin' ? this.adminMenuItem : this.librarianMenuItem);
+    this.genreService.getGenres().subscribe(value => {
+      value.forEach(value1 =>
+        menu[1].items.push(
+          {
+            label: value1.name,
+            routerLink: ['books'],
+            queryParams: '12312',
+            command: () => {
+              this.router.navigate(['/books'], { queryParams: { page: value1.name} })
+            }
+          })
+      );
+      if (currentUser) {
+        if (currentUser.role.name !== 'user') {
+          menu.push(currentUser.role.name === 'admin' ? this.adminMenuItem : this.librarianMenuItem);
+        }
+      } else {
+        menu.push({label: 'Зарегистрироваться', icon: 'contacts', routerLink: ['registration']});
+        menu.push({label: 'Войти', icon: 'get_app', routerLink: ['sing-in']});
       }
-    } else {
-      menu.push({label: 'Зарегистрироваться', icon: 'contacts', routerLink: ['registration']});
-      menu.push({label: 'Войти', icon: 'get_app', routerLink: ['sing-in']});
-    }
-    this.model = menu;
+      this.model = menu;
+    });
   }
 }
 

@@ -12,7 +12,7 @@ export class AuthorService {
   }
 
   getAuthors(): Observable<Author[]> {
-    return this.http.get<Author[]>(this.uri + 'admin/json/authors');
+    return this.http.get<Author[]>(this.uri + 'authors');
   }
 
   slice(start: number, rows: number, sortField: string, sortOrder: number): Observable<Author[]> {

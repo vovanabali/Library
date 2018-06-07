@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class GenreService {
-  private uri = 'http://localhost:8080/admin/json/';
+  private uri = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) {
   }
@@ -25,7 +25,7 @@ export class GenreService {
     if (sortField === undefined) {
       sortBy = '';
     }
-    return this.http.get<Genre[]>(this.uri + 'ganresSlice', {
+    return this.http.get<Genre[]>(this.uri + 'admin/json/ganresSlice', {
       params: {
         page: start.toString(),
         size: rows.toString(),
@@ -39,14 +39,14 @@ export class GenreService {
   }
 
   addGenre(genre: Genre): Observable<boolean> {
-    return this.http.post<boolean>(this.uri + 'addGenre', genre);
+    return this.http.post<boolean>(this.uri + 'admin/json/addGenre', genre);
   }
 
   updateGenre(genre: Genre): Observable<boolean> {
-    return this.http.post<boolean>(this.uri + 'updateGenre', genre);
+    return this.http.post<boolean>(this.uri + 'admin/json/updateGenre', genre);
   }
 
   deleteGenreById(id: number): Observable<boolean> {
-    return this.http.get<boolean>(this.uri + 'deleteGenre', {params: {id: id.toString()}});
+    return this.http.get<boolean>(this.uri + 'admin/json/deleteGenre', {params: {id: id.toString()}});
   }
 }
