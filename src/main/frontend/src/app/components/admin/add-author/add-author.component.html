@@ -24,7 +24,7 @@
           <p-dropdown [options]="countryes" optionLabel="name" [(ngModel)]="author.country" filter="true" [style]="{'width': '100%'}" placeholder="Страна рождения"></p-dropdown>
         </div>
         <div class="ui-g-4 ui-sm-12">
-          <p-calendar id="showIcon" [showIcon]="true" placeholder="Дата рождения" [(ngModel)]="author.birthday" dateFormat="dd.mm.yy"></p-calendar>
+          <p-calendar id="showIcon" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1800:2018" placeholder="Дата рождения" [(ngModel)]="author.birthday" dateFormat="dd.mm.yy"></p-calendar>
         </div>
         <div class="ui-g-12">
           <p-editor [style]="{'height':'320px'}" [(ngModel)]="author.description"></p-editor>

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Book} from '../../../domains/book';
 import {BookService} from '../../../services/book.service';
 import {Router} from '@angular/router';
@@ -83,6 +83,6 @@ export class AdminBooksComponent implements OnInit {
   }
 
   getDate(timestamp) {
-    return timestamp ? new Date(timestamp).toLocaleDateString("ru-RU") : 'Дата не была указанна';
+    return timestamp ? new Date(timestamp).toLocaleDateString("ru-RU").substring(3,new Date(timestamp).toLocaleDateString("ru-RU").length ) : 'Дата не была указанна';
   }
 }

@@ -1,4 +1,4 @@
-import {Component, trigger, state, transition, style, animate} from '@angular/core';
+import {animate, Component, state, style, transition, trigger} from '@angular/core';
 import {AppComponent} from './app.component';
 import {Persona} from "./domains/persona";
 
@@ -16,7 +16,7 @@ import {Persona} from "./domains/persona";
       <li role="menuitem">
         <a href="#" routerLink="profile" class="ripplelink" [attr.tabindex]="!active ? '-1' : null">
           <i class="material-icons">person</i>
-          <span>Profile</span>
+          <span>Личный кабинет</span>
         </a>
       </li>
      <!-- <li role="menuitem">
@@ -34,7 +34,7 @@ import {Persona} from "./domains/persona";
       <li role="menuitem">
         <a href="#" (click)="logOut()" class="ripplelink" [attr.tabindex]="!active ? '-1' : null">
           <i class="material-icons">power_settings_new</i>
-          <span>Logout</span>
+          <span>Выйти</span>
         </a>
       </li>
     </ul>

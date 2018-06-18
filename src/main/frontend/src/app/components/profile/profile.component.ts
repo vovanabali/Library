@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
             borderColor: '#565656'
           }
         ],
-        scales : { yAxes: [{ ticks: { min: 0, stepValue : 10, max : 100, } }] }
+        scales: {yAxes: [{ticks: {beginAtZero: true, min: 0, stepValue: 10, max: 100,}}]}
       }
     });
   }
@@ -90,6 +90,10 @@ export class ProfileComponent implements OnInit {
       });
     }
     return bookCount;
+  }
+
+  getBookSrc(bookPictureId): string {
+    return bookPictureId ?  'http://localhost:8080/server_resources/image/' + bookPictureId : 'assets/layout/images/deffBookImg.png';
   }
 }
 

@@ -1,5 +1,7 @@
-import {Component, AfterViewInit, ElementRef, Renderer, ViewChild, OnDestroy, OnInit, NgZone} from '@angular/core';
-import { ScrollPanel} from 'primeng/primeng';
+import {AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, Renderer, ViewChild} from '@angular/core';
+import {ScrollPanel} from 'primeng/primeng';
+import {PersonaService} from "./services/persona.service";
+import {Message} from "primeng/api";
 
 enum MenuOrientation {
     STATIC,
@@ -59,12 +61,28 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
 
     rippleMouseDownListener: any;
 
-    constructor(public renderer: Renderer, public zone: NgZone) {}
+    countOfIssues: number = 0;
+
+    msgs: Message[] = [];
+
+    constructor(public renderer: Renderer, public zone: NgZone, private persoaService: PersonaService) {}
 
     ngOnInit() {
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this.zone.runOutsideAngular(() => {this.bindRipple(); });
         currentUser ? this.changeToStaticMenu() : this.changeToHorizontalMenu();
+      this.persoaService.getProfile().subscribe(value => {
+        if (value) {
+          this.countOfIssues = value.issuedBooks.filter(value1 => {
+            const first: any = new Date();
+            const second: any = new Date(value1.issueUpTo);
+            return Math.round((second - first) / (1000 * 60 * 60 * 24)) < 0;
+          }).length;
+          if (this.countOfIssues > 0) {
+            this.msgs.push({severity:'warn', summary:'Предупреждение', detail:'У вас имеються долги по книгам, пройдите в личный кабинет для уточнения'});
+          }
+        }
+      });
     }
 
     bindRipple() {

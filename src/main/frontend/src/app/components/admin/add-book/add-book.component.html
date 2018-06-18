@@ -28,7 +28,7 @@
             <p-dropdown [options]="genres" optionLabel="name" [(ngModel)]="book.genre" filter="true" [style]="{'width': '100%'}" placeholder="Жанр"></p-dropdown>
           </div>
           <div class="ui-g-12" style="margin-bottom: 1em">
-            <p-calendar id="showIcon" [showIcon]="true" placeholder="Дата релиза" [(ngModel)]="book.releaseDate" dateFormat="dd.mm.yy"></p-calendar>
+            <p-calendar id="showIcon" [showIcon]="true" placeholder="Дата релиза" [yearNavigator]="true" yearRange="2000:2018" [(ngModel)]="book.releaseDate" dateFormat="mm.yy"></p-calendar>
           </div>
         </div>
         <div class="ui-g-12">

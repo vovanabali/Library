@@ -73,5 +73,7 @@ export class AuthorsComponent implements OnInit {
     });
   }
 
-
+  getDate(timestemp: number) {
+    return new Date(timestemp).toLocaleDateString("ru-RU");
+  }
 }

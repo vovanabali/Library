@@ -35,11 +35,14 @@
         <ng-template pTemplate="body" let-rowData let-columns="columns">
           <tr [pSelectableRow]="rowData">
             <td *ngFor="let col of columns">
-              <ng-container *ngIf="col.field == 'country'">
+              <ng-container *ngIf="col.field == 'country' && col.field != 'birthday'">
                 {{rowData[col.field].name}}
               </ng-container>
-              <ng-container *ngIf="col.field != 'country'">
+              <ng-container *ngIf="col.field != 'country' && col.field != 'birthday'">
                 {{rowData[col.field]}}
+              </ng-container>
+              <ng-container *ngIf="col.field == 'birthday'">
+                {{getDate(rowData[col.field])}}
               </ng-container>
             </td>
             <td style="text-align: center;">

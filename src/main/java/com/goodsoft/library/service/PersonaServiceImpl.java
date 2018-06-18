@@ -8,8 +8,8 @@ import com.goodsoft.library.domain.Role;
 import com.goodsoft.library.dto.UserProfileDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,6 +28,8 @@ public class PersonaServiceImpl implements PersonaService {
     private final BlackListRepository blackListRepository;
 
     private final IssuedBooksRepository issuedBooksRepository;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public List<Persona> all() {
@@ -124,6 +126,7 @@ public class PersonaServiceImpl implements PersonaService {
         try {
             if (personaRepository.existsByLogin(persona.getLogin())) return null;
             else {
+                persona.setPassword(bCryptPasswordEncoder.encode(persona.getPassword()));
                 Role role = new Role();
                 role.setId(1);
                 if (!nonNull(persona.getRole()))
@@ -139,6 +142,9 @@ public class PersonaServiceImpl implements PersonaService {
     @Override
     public Persona updatePersona(Persona persona) {
         try {
+            if (!personaRepository.findByLogin(persona.getLogin()).getPassword().equals(bCryptPasswordEncoder.encode(persona.getPassword()))) {
+                persona.setPassword(bCryptPasswordEncoder.encode(persona.getPassword()));
+            }
             return personaRepository.save(persona);
         } catch (Exception ex) {
             log.error("Failed to adding persona", ex.fillInStackTrace());

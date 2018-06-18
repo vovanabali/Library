@@ -13,6 +13,7 @@ export class RegistrationComponent implements OnInit {
 
   persona = new Persona();
   msgs: Message[] = [];
+  password: string = '';
 
   constructor(private authService: AuthService,
               private router: Router,) {
@@ -22,13 +23,17 @@ export class RegistrationComponent implements OnInit {
   }
 
   registration(): void {
-    this.authService.regUser(this.persona).subscribe((response: boolean) => {
-      if (response) {
-        this.msgs.push({severity: 'success', summary: 'Успех', detail: 'Вы успешно зарегистрировались'});
-        this.router.navigate(['sing-in']);
-      } else {
-        this.msgs.push({severity: 'error', summary: 'Ошибка', detail: 'Ошибка регистрации'});
-      }
-    });
+    if (this.password === this.persona.password) {
+      this.authService.regUser(this.persona).subscribe((response: boolean) => {
+        if (response) {
+          this.msgs.push({severity: 'success', summary: 'Успех', detail: 'Вы успешно зарегистрировались'});
+          this.router.navigate(['sing-in']);
+        } else {
+          this.msgs.push({severity: 'error', summary: 'Ошибка', detail: 'Ошибка регистрации'});
+        }
+      });
+    } else {
+      this.msgs.push({severity: 'error', summary: 'Ошибка', detail: 'Ошибка подтвердения пароля'});
+    }
   }
 }

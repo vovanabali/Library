@@ -1,5 +1,5 @@
 <div class="layout-wrapper" [ngClass]="{'layout-compact':layoutCompact}" (click)="onLayoutClick()">
-
+  <p-messages [(value)]="msgs" [style]="{'position': 'fixed', 'z-index': '999', 'width': '100%'}"></p-messages>
     <div #layoutContainer class="layout-container"
             [ngClass]="{'menu-layout-static': !isOverlay(),
             'menu-layout-overlay': isOverlay(),
@@ -10,7 +10,6 @@
             'layout-menu-static-active': staticMenuMobileActive}">
 
         <app-topbar></app-topbar>
-
         <div class="layout-menu" [ngClass]="{'layout-menu-dark':darkMenu}" (click)="onMenuClick($event)">
             <p-scrollPanel #scrollPanel [style]="{height: '100%'}">
                 <app-inline-profile *ngIf="profileMode=='inline'&&!isHorizontal()"></app-inline-profile>
