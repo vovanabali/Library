@@ -15,15 +15,20 @@ export class ProfileComponent implements OnInit {
   msgs: Message[];
   issuedBooks: IssuedBooks[] = [];
   uploadedFiles: any[] = [];
-
+  barOptions: any = {};
   personaDTO: PersonaDTO = new PersonaDTO();
+  rezervations: any = [];
 
   constructor(private persoaService: PersonaService) {
+    this.barOptions = {
+      scales: {yAxes: [{ticks: {stepSize: 1, beginAtZero: true, min: 0, max: 7}}]}
+    }
   }
 
   ngOnInit() {
     this.persoaService.getProfile().subscribe(value => {
       this.personaDTO = value;
+      this.rezervations = value.rezervationBooks;
       this.issuedBooks = value.issuedBooks.filter(value1 => !value1.returnTime);
       this.data = {
         labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
@@ -40,8 +45,7 @@ export class ProfileComponent implements OnInit {
             fill: false,
             borderColor: '#565656'
           }
-        ],
-        scales: {yAxes: [{ticks: {beginAtZero: true, min: 0, stepValue: 10, max: 100,}}]}
+        ]
       }
     });
   }
@@ -93,7 +97,15 @@ export class ProfileComponent implements OnInit {
   }
 
   getBookSrc(bookPictureId): string {
-    return bookPictureId ?  'http://localhost:8080/server_resources/image/' + bookPictureId : 'assets/layout/images/deffBookImg.png';
+    return bookPictureId ? 'http://localhost:8080/server_resources/image/' + bookPictureId : 'assets/layout/images/deffBookImg.png';
+  }
+
+  getHours(timestamp) {
+    const first: any = new Date();
+    const second: any = new Date(timestamp);
+    second.setTime(second.getTime() + (24*60*60*1000));
+    console.log(second);
+    return timestamp ?  24 - first.getHours() /*Math.round(first / second / (1000 * 60 * 60))*/ : '-';
   }
 }
 

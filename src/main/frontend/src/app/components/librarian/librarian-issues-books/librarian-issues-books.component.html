@@ -8,16 +8,24 @@
       </p-toolbar>
     </div>
     <div class="ui-g-12">
-      <p-table [columns]="cols" [value]="issuedBooks" selectionMode="single" dataKey="id" [(selection)]="selectIssuedBook"
+      <p-table #dt [columns]="cols" [value]="issuedBooks" selectionMode="single" dataKey="id" [(selection)]="selectIssuedBook"
                [totalRecords]="totalRecords"
                [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="both" [lazy]="true"
                (onLazyLoad)="lazyLoad($event)" [loading]="loading">
         <ng-template pTemplate="caption">
+          <div class="ui-g">
+            <div class="ui-g-11">
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
+                <input type="text" [ngModel]="name" pInputText placeholder="Поиск по названию книги" style="width: 100%;" (input)="dt.filterGlobal($event.target.value, 'contains')">
+              </div>
+            </div>
+          </div>
           Выданные книги
         </ng-template>
         <ng-template pTemplate="header" let-columns>
           <tr>
-            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+            <th *ngFor="let col of columns" [ngSwitch]="col.field">
               {{col.header}}
               <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>

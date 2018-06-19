@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ConfirmationService, LazyLoadEvent, Message} from "primeng/api";
 import {IssuedBooks} from "../../../domains/issued-books";
 import {Router} from "@angular/router";
@@ -17,6 +17,7 @@ export class LibrarianIssuesBooksComponent implements OnInit {
   msgs: Message[] = [];
   loading: boolean;
   totalRecords: number;
+  name = '';
 
   constructor(private issuedBookService: IssuedBookService,
               private router: Router,
@@ -36,7 +37,8 @@ export class LibrarianIssuesBooksComponent implements OnInit {
 
   lazyLoad(event: LazyLoadEvent): void {
     this.loading = true;
-    this.issuedBookService.getSlice(event.first / event.rows, event.rows, event.sortField, event.sortOrder).subscribe((issuedBooks) => {
+    console.log(event.globalFilter);
+    this.issuedBookService.getSlice(event.first / event.rows, event.rows, event.sortField, event.sortOrder, event.globalFilter).subscribe((issuedBooks) => {
       this.issuedBooks = issuedBooks;
       this.issuedBooks.forEach((issuedBook) => {
         issuedBook.timeOfIssue = new Date(issuedBook.timeOfIssue);

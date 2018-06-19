@@ -7,7 +7,6 @@ import com.goodsoft.library.service.PersonaService;
 import com.goodsoft.library.service.RezervationService;
 import com.goodsoft.library.service.TypeOfIssueService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +46,7 @@ public class RezervationController {
     public List<IssuedBooks> issueRezervBook(Long id) {
         Rezervation rezervation = rezervationService.read(id);
         IssuedBooks issuedBooks = new IssuedBooks();
-        issuedBooks.setPersona(personaService.getByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
+        issuedBooks.setPersona(rezervation.getPersona());
         issuedBooks.setTypeOfIssue(ofIssueService.all().get(0));
         issuedBooks.setIssueUpTo(Date.valueOf(LocalDate.now().plusMonths(1)));
         issuedBooks.setTimeOfIssue(Date.valueOf(LocalDate.now()));

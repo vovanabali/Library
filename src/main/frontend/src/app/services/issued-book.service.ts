@@ -19,7 +19,7 @@ export class IssuedBookService {
     return this.http.get<number>(this.uri + 'countIssuedBooks');
   }
 
-  getSlice(start: number, rows: number, sortField: string, sortOrder: number): Observable<IssuedBooks[]> {
+  getSlice(start: number, rows: number, sortField: string, sortOrder: number, sort: string): Observable<IssuedBooks[]> {
     let orderBy = 'asc';
     if (sortOrder === 1) {
       orderBy = 'ASC';
@@ -34,7 +34,8 @@ export class IssuedBookService {
       params: {
         page: start.toString(),
         size: rows.toString(),
-        sort: sortBy + ',' + orderBy
+        sort: sortBy + ',' + orderBy,
+        sortField: sort
       }
     });
   }

@@ -27,6 +27,8 @@ public interface IssuedBooksService {
 
     List<IssuedBooks> slice(Pageable pageable);
 
+    List<IssuedBooks> slice(Pageable pageable, String serch);
+
     long getCount();
 
     List<BookInStock> issuedBooks(ExtraditionDTO extradition) throws Exception;

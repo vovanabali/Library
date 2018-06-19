@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin
@@ -27,8 +28,12 @@ public class IssuedBookAdminController {
     }
 
     @GetMapping("issuedBookSlice")
-    private List<IssuedBooks> issuedBooks(Pageable pageable) {
-        return issuedBooksService.slice(pageable);
+    private List<IssuedBooks> issuedBooks(Pageable pageable, @RequestParam("sortField") String sortFild) {
+        if (Objects.isNull(sortFild) || sortFild.equals("null")) {
+            return issuedBooksService.slice(pageable);
+        } else {
+            return issuedBooksService.slice(pageable, sortFild);
+        }
     }
 
     @GetMapping("issuedBook")

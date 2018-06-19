@@ -6,7 +6,6 @@ import {TypeOfIssue} from "../../../domains/type-of-issue";
 import {TypeOfIssuedService} from "../../../services/type-of-issued.service";
 import {IssueService} from "../../../services/issue.service";
 import {BookInStock} from "../../../domains/book-in-stock";
-import {DialogModule} from 'primeng/dialog';
 import {Persona} from "../../../domains/persona";
 
 @Component({
@@ -46,7 +45,7 @@ export class LibrarianIssueComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.calendar.minDate.setMonth(this.calendar.minDate.getMonth() + 1);
+    this.calendar.minDate.setDate(this.calendar.minDate.getDate() + 1);
     this.calendar.maxDate.setMonth(this.calendar.minDate.getMonth() + 6);
     this.extradition.issueUpTo = this.calendar.minDate;
     this.ru = {

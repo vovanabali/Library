@@ -80,6 +80,9 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
           }).length;
           if (this.countOfIssues > 0) {
             this.msgs.push({severity:'warn', summary:'Предупреждение', detail:'У вас имеються долги по книгам, пройдите в личный кабинет для уточнения'});
+            setTimeout(()=> {
+              this.msgs = [{severity:'warn', summary:'Предупреждение', detail:'У вас имеються долги по книгам, пройдите в личный кабинет для уточнения'}];
+            }, 60000);
           }
         }
       });

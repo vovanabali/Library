@@ -20,7 +20,7 @@
     </div>
     <div class="ui-g-12 card card-w-title">
       <h4>График учета книжной активности</h4>
-      <p-chart type="line" [data]="data" ></p-chart>
+      <p-chart type="line" [data]="data" [options]="barOptions"></p-chart>
     </div>
     <div class="ui-g-12 card card-w-title">
       <h4>Книги на руках</h4>
@@ -47,6 +47,30 @@
       </div>
       <div class="ui-g-12" *ngIf="issuedBooks.length == 0">
         На данный момент у вас нет книг на руках
+      </div>
+    </div>
+    <div class="ui-g-12 card card-w-title">
+      <h4>Зарезервированные книги</h4>
+      <div class="ui-g-12" *ngIf="rezervations.length != 0">
+        <p-dataGrid [value]="rezervations"
+                    [paginator]="true"
+                    [rows]="3"
+                    [totalRecords]="rezervations.length">
+          <ng-template let-rezervation pTemplate="item">
+            <div style="padding: 1em;" class="ui-g-12 ui-md-3 ui-xl-2" (click)="bookInfo(rezervation.bookInStock.book.id)">
+              <p-panel [header]="rezervation.bookInStock.book.name"
+                       class="book-panel" [style]="{'height': '100%'}" [styleClass]="my-class">
+                <img src={{getBookSrc(rezervation.bookInStock.book.pictureId)}} style="width: 100%; max-width: 17em;">
+                <hr class="ui-widget-content">
+                <div class="car-detail">{{rezervation.bookInStock.book.author.name}} {{rezervation.bookInStock.book.author.surname}}</div>
+                <div class="car-detail">Осталось: {{getHours(rezervation.dateToRezerv)}}ч.</div>
+              </p-panel>
+            </div>
+          </ng-template>
+        </p-dataGrid>
+      </div>
+      <div class="ui-g-12" *ngIf="rezervations.length === 0">
+        На данный момент у вас нет зарезервированных книг
       </div>
     </div>
   </div>

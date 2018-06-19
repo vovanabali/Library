@@ -36,7 +36,8 @@ export class IssuedBooksAdminComponent implements OnInit {
 
   lazyLoad(event: LazyLoadEvent): void {
     this.loading = true;
-    this.issuedBookService.getSlice(event.first / event.rows, event.rows, event.sortField, event.sortOrder).subscribe((issuedBooks) => {
+    console.log(event.globalFilter);
+    this.issuedBookService.getSlice(event.first / event.rows, event.rows, event.sortField, event.sortOrder, event.globalFilter).subscribe((issuedBooks) => {
       this.issuedBooks = issuedBooks;
       this.issuedBooks.forEach((issuedBook) => {
         issuedBook.timeOfIssue = new Date(issuedBook.timeOfIssue);

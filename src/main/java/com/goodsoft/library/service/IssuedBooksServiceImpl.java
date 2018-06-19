@@ -8,14 +8,11 @@ import com.goodsoft.library.domain.TypeOfIssue;
 import com.goodsoft.library.dto.ExtraditionDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -114,6 +111,19 @@ public class IssuedBooksServiceImpl implements IssuedBooksService {
     public List<IssuedBooks> slice(Pageable pageable) {
         try {
             return issuedBooksRepository.findAll(pageable).getContent().stream().filter(issuedBooks -> isNull(issuedBooks.getReturnTime())).collect(Collectors.toList());
+        } catch (Exception ex) {
+            log.error("failed to load slice from issued books", ex.fillInStackTrace());
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<IssuedBooks> slice(Pageable pageable, String serch) {
+        try {
+            return issuedBooksRepository.findAll(pageable).getContent().stream()
+                    .filter(issuedBooks -> isNull(issuedBooks.getReturnTime()))
+                    .filter(issuedBooks -> issuedBooks.getBookInStock().getBook().getName().indexOf(serch) != -1 || issuedBooks.getPersona().getLogin().indexOf(serch) != -1)
+                    .collect(Collectors.toList());
         } catch (Exception ex) {
             log.error("failed to load slice from issued books", ex.fillInStackTrace());
             return new ArrayList<>();

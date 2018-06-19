@@ -31,6 +31,8 @@ public class PersonaServiceImpl implements PersonaService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private final RezervationService rezervationService;
+
     @Override
     public List<Persona> all() {
         try {
@@ -126,7 +128,6 @@ public class PersonaServiceImpl implements PersonaService {
         try {
             if (personaRepository.existsByLogin(persona.getLogin())) return null;
             else {
-                persona.setPassword(bCryptPasswordEncoder.encode(persona.getPassword()));
                 Role role = new Role();
                 role.setId(1);
                 if (!nonNull(persona.getRole()))
@@ -188,6 +189,7 @@ public class PersonaServiceImpl implements PersonaService {
         UserProfileDTO userProfileDTO = new UserProfileDTO();
         userProfileDTO.setPersona(personaRepository.findByLogin(login));
         userProfileDTO.setIssuedBooks(issuedBooksRepository.findAllByPersonaId(userProfileDTO.getPersona().getId()));
+        userProfileDTO.setRezervationBooks(rezervationService.findAllByPersona(userProfileDTO.getPersona()));
         return userProfileDTO;
     }
 }

@@ -43,6 +43,7 @@
                       [rows]="5"
                       [totalRecords]="totalRewiews"
                       [lazy]="true"
+                      emptyMessage="Для данной книги отсутствуют комментарии"
                       (onLazyLoad)="lazyLoad($event)"
                       styleClass="clear-border light-footer-paginator ">
             <ng-template let-comment pTemplate="item">

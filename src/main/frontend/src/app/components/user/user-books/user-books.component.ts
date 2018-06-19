@@ -3,12 +3,10 @@ import {ConfirmationService, LazyLoadEvent, Message} from 'primeng/api';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BookService} from '../../../services/book.service';
 import {Book} from '../../../domains/book';
-import {routes} from "../../../app.routes";
 import {AuthorService} from "../../../services/author.service";
 import {Author} from "../../../domains/author";
 import {Genre} from "../../../domains/genre";
 import {GenreService} from "../../../services/genre.service";
-import {IssueService} from "../../../services/issue.service";
 import {IssuedBookService} from "../../../services/issued-book.service";
 import {IssuedBooks} from "../../../domains/issued-books";
 
@@ -79,6 +77,7 @@ export class UserBooksComponent implements OnInit {
   }
 
   search(): void {
+    this.display = false
     this.serchDTO.ganres = this.serchDTO.ganres ? this.serchDTO.ganres : [];
     this.showBooks = this.books.filter(book => book.name.includes(this.searchBook));
     this.showBooks = this.showBooks.filter(book => this.serchDTO.ganres.length > 0 ?
