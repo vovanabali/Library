@@ -32,6 +32,7 @@ import {LibrarianIssuesBooksComponent} from "./components/librarian/librarian-is
 import {ProfileComponent} from "./components/profile/profile.component";
 import {RezervationBooksComponent} from "./components/librarian/rezervation-books/rezervation-books.component";
 import {IssueBooksHistoryComponent} from "./components/issue-books-history/issue-books-history.component";
+import {ReadingRoomComponent} from "./components/librarian/reading-room/reading-room.component";
 
 export const routes: Routes = [
   {path: '', component: UserBooksComponent},
@@ -84,6 +85,7 @@ export const routes: Routes = [
       {path: 'addToStorage', component: AddToStorageComponent},
       {path: 'updateBookInStorage', component: AddToStorageComponent},
       {path: 'issuedBooksHistory', component: IssueBooksHistoryComponent},
+      {path: 'readingRoom', component: ReadingRoomComponent},
     ]
   },
   {path: 'books', component: UserBooksComponent},

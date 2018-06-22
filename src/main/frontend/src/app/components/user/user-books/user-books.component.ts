@@ -54,17 +54,15 @@ export class UserBooksComponent implements OnInit {
     };
     this.route.params.subscribe(res => {
       if (this.books) {
-        console.log(res.id);
-        console.log(this.ganres.find(ganre => ganre.name === res.id));
         this.serchDTO.ganres = [];
         this.serchDTO.ganres.push(this.ganres.find(ganre => ganre.name === res.id));
-        console.log(this.serchDTO);
         this.search();
       }
     });
   }
 
   ngOnInit() {
+    console.log(this.route.params['_value'].id);
     this.cols = [
       {field: 'name', header: 'Название'},
       {field: 'author', header: 'Автор'},
@@ -81,6 +79,10 @@ export class UserBooksComponent implements OnInit {
       this.showBooks = books;
       this.totalRecords = books.length;
       this.loading = false;
+      if (this.route.params['_value'].id) {
+        this.serchDTO.ganres.push(this.ganres.find(ganre => ganre.name === this.route.params['_value'].id));
+        this.search();
+      }
     });
     this.loading = true;
   }

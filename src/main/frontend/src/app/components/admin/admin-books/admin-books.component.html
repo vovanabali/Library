@@ -26,7 +26,6 @@
                 <input type="text" [ngModel]="name" pInputText placeholder="Поиск по названию книги" class="serch" (input)="table.filterGlobal($event.target.value, 'contains')">
               </div>
             </div>
-            <div class="ui-g-1"><button pButton type="button" icon="ui-icon-import-export" class="pink-btn" (click)="table.exportCSV()" style="float: right;"></button></div>
           </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>

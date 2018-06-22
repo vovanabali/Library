@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -20,7 +21,7 @@ public class IssuedBooks {
     @JoinColumn(name = "book_id_in_stock")
     @NotNull
     private BookInStock bookInStock;
-    private Date timeOfIssue;
+    private LocalDateTime timeOfIssue;
     @NotNull
     @ManyToOne
     @JoinColumn(name = "type_issue_id")

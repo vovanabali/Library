@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class RezervationController {
         issuedBooks.setPersona(rezervation.getPersona());
         issuedBooks.setTypeOfIssue(ofIssueService.all().get(0));
         issuedBooks.setIssueUpTo(Date.valueOf(LocalDate.now().plusMonths(1)));
-        issuedBooks.setTimeOfIssue(Date.valueOf(LocalDate.now()));
+        issuedBooks.setTimeOfIssue(LocalDateTime.now());
         issuedBooks.setBookInStock(rezervation.getBookInStock());
         issuedBooksService.save(issuedBooks);
         rezervationService.deleteRezervation(id);

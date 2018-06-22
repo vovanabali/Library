@@ -36,18 +36,14 @@ export class IssueBooksHistoryComponent implements OnInit {
     console.log(event.globalFilter);
     this.issuedBookService.getSliceHistory(event.first / event.rows, event.rows, event.sortField, event.sortOrder, event.globalFilter).subscribe((issuedBooks) => {
       this.issuedBooks = issuedBooks;
-      this.issuedBooks.forEach((issuedBook) => {
-        issuedBook.timeOfIssue = new Date(issuedBook.timeOfIssue);
-        issuedBook.returnTime = new Date(issuedBook.returnTime);
-        console.log(issuedBook);
-      });
       this.loading = false;
     });
   }
 
 
-  getDate(timestemp: number) {
-    return new Date(timestemp).toLocaleDateString("ru-RU");
+  getDate(timestemp) {
+    if (typeof timestemp === 'number') return new Date(timestemp).toLocaleDateString("ru-RU");
+    return new Date(timestemp[0], timestemp[1] - 1 , timestemp[2]).toLocaleDateString("ru-RU");
   }
 
 }

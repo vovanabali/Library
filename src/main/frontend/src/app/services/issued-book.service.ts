@@ -15,6 +15,10 @@ export class IssuedBookService {
     return this.http.get<IssuedBooks[]>(this.uri + 'issuedBooks');
   }
 
+  getIssuedBooksInReadingRoom(): Observable<IssuedBooks[]> {
+    return this.http.get<IssuedBooks[]>(this.uri + 'issuedBooksInReadingRoom');
+  }
+
   getCountIssuedBooks(): Observable<number> {
     return this.http.get<number>(this.uri + 'countIssuedBooks');
   }

@@ -133,6 +133,7 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {RezervationBooksComponent} from './components/librarian/rezervation-books/rezervation-books.component';
 import {RezervationService} from "./services/rezervation.service";
 import {IssueBooksHistoryComponent} from './components/issue-books-history/issue-books-history.component';
+import {ReadingRoomComponent} from './components/librarian/reading-room/reading-room.component';
 
 @NgModule({
   imports: [
@@ -250,6 +251,7 @@ import {IssueBooksHistoryComponent} from './components/issue-books-history/issue
     ProfileComponent,
     RezervationBooksComponent,
     IssueBooksHistoryComponent,
+    ReadingRoomComponent,
   ],
   providers: [
     AuthorService,

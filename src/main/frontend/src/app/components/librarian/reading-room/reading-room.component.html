@@ -1,0 +1,27 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <div *ngFor="let info of issuedBooks"
+         class="div.ui-g-12 ui-g-3 book-in-reading-room-card" (click)="selectBook(info.id)">
+      <div class="ui-g-12">
+        <img src={{getBookSrc(info.bookInStock.book.pictureId)}} alt="" width="150px">
+      </div>
+      <div class="ui-g-12">
+        Логин: {{info.persona.login}}
+      </div>
+      <div class="ui-g-12">
+        Читатель: {{info.persona.surname}} {{info.persona.name}} {{info.persona.patronymic}}
+      </div>
+      <div class="ui-g-12">
+        Выдана: {{getTime(info.timeOfIssue)}}
+      </div>
+    </div>
+  </div>
+</div>
+<p-dialog header="Подтверждение возврата" [(visible)]="display" [modal]="true" [responsive]="true" [width]="350"
+          [minWidth]="200">
+  Подтвердите возврат книги
+  <p-footer>
+    <button type="button" pButton icon="fa-check" (click)="returnBook()" label="Вернуть"></button>
+    <button type="button" pButton icon="fa-close" (click)="display=false" label="Отмена"></button>
+  </p-footer>
+</p-dialog>

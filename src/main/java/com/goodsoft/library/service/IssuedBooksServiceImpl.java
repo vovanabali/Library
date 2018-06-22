@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -160,7 +161,7 @@ public class IssuedBooksServiceImpl implements IssuedBooksService {
                 IssuedBooks issuedBooks = new IssuedBooks();
                 issuedBooks.setBookInStock(bookInStock);
                 issuedBooks.setPersona(extradition.getUser());
-                issuedBooks.setTimeOfIssue(Date.valueOf(LocalDate.now()));
+                issuedBooks.setTimeOfIssue(LocalDateTime.now());
                 issuedBooks.setTypeOfIssue(extradition.getTypeOfIssue());
                 issuedBooks.setIssueUpTo(extradition.getIssueUpTo());
                 issuedBooksRepository.save(issuedBooks);

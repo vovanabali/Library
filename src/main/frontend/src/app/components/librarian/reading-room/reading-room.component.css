@@ -1,0 +1,10 @@
+.book-in-reading-room-card {
+  text-align: center;
+  box-shadow: 0 0 6px #2f4050;
+  margin: 1.1em;
+  cursor: pointer;
+}
+
+.book-in-reading-room-card:active {
+  box-shadow: 0 0 20px #3d5287;
+}

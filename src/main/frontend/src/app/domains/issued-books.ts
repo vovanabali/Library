@@ -6,7 +6,7 @@ export class IssuedBooks {
   id: number;
   persona: Persona;
   bookInStock: BookInStock;
-  timeOfIssue: Date;
+  timeOfIssue: any;
   typeOfIssue: TypeOfIssue;
   returnTime: Date;
   issueUpTo: Date;

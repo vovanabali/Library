@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -20,5 +20,5 @@ public class Rezervation {
     @JoinColumn(name = "book_in_stock_id")
     @NotNull
     private BookInStock bookInStock;
-    private Date dateToRezerv;
+    private LocalDateTime dateToRezerv;
 }

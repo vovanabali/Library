@@ -71,6 +71,7 @@ export class AppMenuComponent implements OnInit {
       {label: 'Книги', icon: 'storage', routerLink: ['librarian', 'booksEdit']},
       {label: 'Склад', icon: 'storage', routerLink: ['librarian', 'storage']},
       {label: 'История выдачи', icon: 'history', routerLink: ['librarian', 'issuedBooksHistory']},
+      {label: 'Читальный зал', icon: 'add_alarm', routerLink: ['librarian', 'readingRoom']},
     ]
   };
 

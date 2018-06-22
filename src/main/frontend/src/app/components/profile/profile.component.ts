@@ -104,10 +104,11 @@ export class ProfileComponent implements OnInit {
 
   getHours(timestamp) {
     const first: any = new Date();
-    const second: any = new Date(timestamp);
-    second.setTime(second.getTime() + (24*60*60*1000));
+    const second: any = new Date(timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], timestamp[5], timestamp[6]);
     console.log(second);
-    return timestamp ?  24 - first.getHours() /*Math.round(first / second / (1000 * 60 * 60))*/ : '-';
+    var timeDiff = Math.abs(first.getTime() - second.getTime());
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600) / 24);
+    return timestamp ? diffDays : '-';
   }
 }
 

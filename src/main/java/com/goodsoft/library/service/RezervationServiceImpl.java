@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,7 +34,7 @@ public class RezervationServiceImpl implements RezervationService {
 
     @Override
     public void save(Rezervation rezervation) {
-        rezervation.setDateToRezerv(Date.valueOf(LocalDate.now()));
+        rezervation.setDateToRezerv(LocalDateTime.now());
         rezervationRepository.save(rezervation);
     }
 

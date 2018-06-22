@@ -36,6 +36,8 @@ public class PersonaServiceImpl implements PersonaService {
 
     private final RezervationService rezervationService;
 
+    private final RoleService roleService;
+
     @Override
     public List<Persona> all() {
         try {
@@ -191,17 +193,19 @@ public class PersonaServiceImpl implements PersonaService {
     public List<PersonaDTO> getNotBanedUsersSliceLibrary(Pageable pageable) {
         List<PersonaDTO> dtos = new ArrayList<>();
         getNotBanedUsersSlice(pageable).forEach(persona -> {
-            PersonaDTO dto = new PersonaDTO();
-            dto.setBirhday(persona.getBirhday());
-            dto.setId(persona.getId());
-            dto.setLogin(persona.getLogin());
-            dto.setName(persona.getName());
-            dto.setPatronymic(persona.getPatronymic());
-            dto.setSurname(persona.getSurname());
-            dto.setIssiedBooks(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(issuedBooks -> Objects.isNull(issuedBooks.getReturnTime())).count());
-            dto.setIndebtedness(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(books -> books.getIssueUpTo().before(new Date()) && Objects.nonNull(books.getReturnTime())).count());
-            dto.setIndebtednessNow(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(books -> books.getIssueUpTo().before(new Date()) && Objects.isNull(books.getReturnTime())).count());
-            dtos.add(dto);
+            if (persona.getRole().equals(roleService.getById(1))) {
+                PersonaDTO dto = new PersonaDTO();
+                dto.setBirhday(persona.getBirhday());
+                dto.setId(persona.getId());
+                dto.setLogin(persona.getLogin());
+                dto.setName(persona.getName());
+                dto.setPatronymic(persona.getPatronymic());
+                dto.setSurname(persona.getSurname());
+                dto.setIssiedBooks(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(issuedBooks -> Objects.isNull(issuedBooks.getReturnTime())).count());
+                dto.setIndebtedness(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(books -> books.getIssueUpTo().before(new Date()) && Objects.nonNull(books.getReturnTime())).count());
+                dto.setIndebtednessNow(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(books -> books.getIssueUpTo().before(new Date()) && Objects.isNull(books.getReturnTime())).count());
+                dtos.add(dto);
+            }
         });
         return dtos;
     }

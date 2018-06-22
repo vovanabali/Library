@@ -1,7 +1,7 @@
 <div class="ui-g">
   <div class="card overview">
     <div class="ui-g-12">
-      <p-toolbar>
+<!--      <p-toolbar>
         <div class="ui-toolbar-group-left">
           <button pButton type="button" label="Добавить" icon="ui-icon-plus" class="green-btn"
                   [routerLink]="['../addGenre']"></button>
@@ -11,7 +11,7 @@
         <div class="ui-toolbar-group-right">
           <button pButton type="button" label="Распечатать" icon="ui-icon-print" class="pink-btn"></button>
         </div>
-      </p-toolbar>
+      </p-toolbar>-->
     </div>
     <div class="ui-g-12">
       <p-table [columns]="cols" [value]="types" selectionMode="single" dataKey="id" [(selection)]="selectType"
@@ -27,9 +27,9 @@
               {{col.header}}
               <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
-            <th style="width: 12em;">
+<!--            <th style="width: 12em;">
               Действия с записью
-            </th>
+            </th>-->
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -37,13 +37,13 @@
             <td *ngFor="let col of columns">
               {{rowData[col.field]}}
             </td>
-            <td style="text-align: center;">
+<!--            <td style="text-align: center;">
               <button pButton type="button" id="editBookBtn" icon="ui-icon-edit" class="teal-btn"
                       (click)="edit(rowData['id'])"></button>
               <button pButton type="button" id="deleteBookBtn" icon="ui-icon-delete" class="red-btn"
                       (click)="delete(rowData['id'])"></button>
               <button pButton type="button" icon="ui-icon-print" class="pink-btn"></button>
-            </td>
+            </td>-->
           </tr>
         </ng-template>
       </p-table>
