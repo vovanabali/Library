@@ -21,7 +21,7 @@ export class RezervationBooksComponent implements OnInit {
 
   ngOnInit() {
     this.cols = [
-      {field: 'persona', header: 'Логин пользывателя зарезервировшего книгу'},
+      {field: 'persona', header: 'Логин пользователя зарезервировшего книгу'},
       {field: 'bookInStock', header: 'Название'}
     ];
     this.rezervationService.getAllRezervations().subscribe(value => {
@@ -35,7 +35,7 @@ export class RezervationBooksComponent implements OnInit {
       this.msgs = [{
         severity: 'success',
         summary: 'Успех',
-        detail: 'Книга выдана! её данные:\nПолка ' + value[0].bookInStock.rowNumber + ';\nCтелаж ' + value[0].bookInStock.rack + ';\nИнвентарный номер ' + value[0].bookInStock.inventoryNumber
+        detail: 'Книга выдана! её данные:\n Полка ' + value[0].bookInStock.rowNumber + ';\n Cтелаж ' + value[0].bookInStock.rack + ';\n Инвентарный номер ' + value[0].bookInStock.inventoryNumber
       }];
     });
   }

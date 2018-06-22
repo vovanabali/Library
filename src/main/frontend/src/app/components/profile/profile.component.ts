@@ -76,7 +76,8 @@ export class ProfileComponent implements OnInit {
     for (let i = 0; i < new Date().getMonth() + 1; i++) {
       bookCount[i] = 0;
       this.issuedBooks.forEach(issuedBook => {
-        if (new Date(issuedBook.timeOfIssue).getMonth() == i) {
+        console.log(i);
+        if (issuedBook.timeOfIssue[1] === i + 1) {
           bookCount[i] += 1;
         }
       });
@@ -86,6 +87,7 @@ export class ProfileComponent implements OnInit {
 
   getReturnedBooks(): number[] {
     let bookCount = [];
+    console.log(this.personaDTO);
     let issuedBoks = this.personaDTO.issuedBooks.filter(value => value.returnTime);
     for (let i = 0; i < new Date().getMonth() + 1; i++) {
       bookCount[i] = 0;
