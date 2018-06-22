@@ -31,6 +31,7 @@ export class LibrarianIssueComponent implements OnInit {
               private confirmationService: ConfirmationService,
               private typeOfIssuesSerive: TypeOfIssuedService,
               private issuesSrevice: IssueService) {
+    this.typesOfIssues = [];
     this.cols = [
       {field: 'rack', header: 'Стелаж'},
       {field: 'rowNumber', header: 'Номер полки'},
@@ -87,5 +88,9 @@ export class LibrarianIssueComponent implements OnInit {
       && this.extradition.books[0]
       && this.extradition.typeOfIssue
       && this.extradition.issueUpTo);
+  }
+
+  getBookSrc(bookPictureId): string {
+    return bookPictureId ?  'http://localhost:8080/server_resources/image/' + bookPictureId : 'assets/layout/images/deffBookImg.png';
   }
 }

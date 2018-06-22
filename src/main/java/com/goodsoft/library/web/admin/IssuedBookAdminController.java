@@ -36,6 +36,15 @@ public class IssuedBookAdminController {
         }
     }
 
+    @GetMapping("issuedBookSliceHistory")
+    private List<IssuedBooks> issuedBooksHistory(Pageable pageable, @RequestParam("sortField") String sortFild) {
+        if (Objects.isNull(sortFild) || sortFild.equals("null")) {
+            return issuedBooksService.sliceHistory(pageable);
+        } else {
+            return issuedBooksService.sliceHistory(pageable, sortFild);
+        }
+    }
+
     @GetMapping("issuedBook")
     private IssuedBooks getIssuedBookById(long id) {
         return issuedBooksService.getById(id);

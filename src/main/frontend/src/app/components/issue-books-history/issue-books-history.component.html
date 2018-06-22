@@ -1,14 +1,7 @@
 <div class="ui-g">
   <div class="card overview">
     <div class="ui-g-12">
-      <p-toolbar>
-<!--        <div class="ui-toolbar-group-right">
-          <button pButton type="button" label="Распечатать" icon="ui-icon-print" class="pink-btn"></button>
-        </div>-->
-      </p-toolbar>
-    </div>
-    <div class="ui-g-12">
-      <p-table #dt [columns]="cols" [value]="issuedBooks" selectionMode="single" dataKey="id" [(selection)]="selectIssuedBook"
+      <p-table #table [columns]="cols" [value]="issuedBooks" selectionMode="single" dataKey="id" [(selection)]="selectIssuedBook"
                [totalRecords]="totalRecords"
                [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="both" [lazy]="true"
                (onLazyLoad)="lazyLoad($event)" [loading]="loading">
@@ -17,19 +10,16 @@
             <div class="ui-g-11">
               <div class="ui-inputgroup">
                 <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
-                <input type="text" [ngModel]="name" pInputText placeholder="Поиск по названию книги" style="width: 100%;" (input)="dt.filterGlobal($event.target.value, 'contains')">
+                <input type="text" [ngModel]="name" pInputText placeholder="Поиск по названию книги" style="width: 100%;" (input)="table.filterGlobal($event.target.value, 'contains')">
               </div>
             </div>
           </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
           <tr>
-            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
               {{col.header}}
               <p-sortIcon [field]="col.field"></p-sortIcon>
-            </th>
-            <th>
-              Действия с записью
             </th>
           </tr>
         </ng-template>
@@ -51,9 +41,6 @@
               <div *ngSwitchCase="'returnTime'">
                 {{getDate(rowData[col.field])}}
               </div>
-            </td>
-            <td style="text-align: center;">
-              <button pButton type="button" icon="ui-icon-settings-backup-restore" class="cyan-btn" (click)="returnBook(rowData['id'])"></button>
             </td>
           </tr>
         </ng-template>

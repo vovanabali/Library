@@ -40,7 +40,7 @@ public class ReviewController {
     }
 
     @GetMapping("bookRaiting")
-    public long getBookRaiting(long id) {
+    public double getBookRaiting(long id) {
         return reviewsOfTheBookService.getAvgReiting(id);
     }
 

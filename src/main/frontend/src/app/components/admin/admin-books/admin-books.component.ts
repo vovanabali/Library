@@ -69,7 +69,8 @@ export class AdminBooksComponent implements OnInit {
 
   editEntry(id: number): void {
     if (id != null) {
-      this.router.navigate(['admin/editBook'], {queryParams: {'id': id}});
+      const role = JSON.parse(localStorage.getItem('currentUser')).role.name;
+      this.router.navigate([role, 'editBook'], {queryParams: {'id': id}});
     }
   }
 

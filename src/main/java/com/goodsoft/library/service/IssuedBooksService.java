@@ -36,4 +36,8 @@ public interface IssuedBooksService {
     boolean returnBook(Long id);
 
     void save(final IssuedBooks issuedBooks);
+
+    List<IssuedBooks> sliceHistory(Pageable pageable);
+
+    List<IssuedBooks> sliceHistory(Pageable pageable, String serch);
 }

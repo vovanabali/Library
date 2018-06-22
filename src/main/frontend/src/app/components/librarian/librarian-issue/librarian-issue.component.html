@@ -2,7 +2,7 @@
   <ng-template let-book pTemplate="item">
     <div class="ui-grid ui-grid-responsive">
       <div class="ui-grid-row">
-        <div class="ui-grid-col-6" style="text-align: center;"><img src="assets/layout/images/deffBookImg.png"
+        <div class="ui-grid-col-6" style="text-align: center;"><img src={{getBookSrc(book.pictureId)}}
                                                                     width="100"></div>
         <div class="ui-grid-col-6">
           <div class="ui-grid-row">
@@ -12,18 +12,18 @@
             <div class="ui-g-12">Жанр: {{book.genre.name}}</div>
           </div>
           <div class="ui-grid-row">
-            <div class="ui-g-12">Автор: {{book.author.name}}</div>
+            <div class="ui-g-12">Автор: {{book.author.surname}} {{book.author.name}} {{book.author.patronymic}}</div>
           </div>
         </div>
       </div>
     </div>
   </ng-template>
 </p-carousel>
-<div class="ui-g-12" *ngIf="this.extradition.user">
+<div class="ui-g-12" *ngIf="!!this.extradition.user">
   <div class="ui-g-12">
     <div class="ui-g-12 ui-lg-4">
       <div class="img-panel">
-        <img src="../../../../assets/layout/images/user-bg.png" width="100%" alt="">
+        <img src="assets/layout/images/avatar2x.png"  width="200px" style="display: block; margin: 0 auto;" alt="">
       </div>
     </div>
     <div class="ui-g-12 ui-lg-4">
@@ -32,15 +32,12 @@
       <h1> Имя: {{extradition.user.name}}</h1>
       <h1> Отчество: {{extradition.user.patronymic ? extradition.user.patronymic : '-'}}</h1>
     </div>
-    <!--    <div class="ui-g-4">
-          <h1>Status</h1>
-        </div>-->
   </div>
 </div>
-<div class="ui-g-12 ui-md-4">
+<div class="ui-g-12 ui-md-4" *ngIf="typesOfIssues.length > 0">
   <p-selectButton [options]="typesOfIssues" [(ngModel)]="extradition.typeOfIssue" optionLabel="name"></p-selectButton>
 </div>
-<div class="ui-g-12 ui-md-4">
+<div class="ui-g-12 ui-md-4" *ngIf="extradition.typeOfIssue === typesOfIssues[0]">
   <p-calendar [(ngModel)]="extradition.issueUpTo" dateFormat="dd.mm.yy" [minDate]="calendar.minDate" [maxDate]="calendar.maxDate" [defaultDate]="calendar.minDate" [locale]="ru"></p-calendar>
 </div>
 <div class="ui-g-12">

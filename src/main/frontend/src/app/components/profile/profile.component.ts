@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {PersonaService} from "../../services/persona.service";
-import {PersonaDTO} from "../../domains/personaDTO";
+import {ProfileDTO} from "../../domains/profileDTO";
 import {Message} from "primeng/api";
 import {IssuedBooks} from "../../domains/issued-books";
+import {Persona} from "../../domains/persona";
 
 @Component({
   selector: 'app-profile',
@@ -16,10 +17,11 @@ export class ProfileComponent implements OnInit {
   issuedBooks: IssuedBooks[] = [];
   uploadedFiles: any[] = [];
   barOptions: any = {};
-  personaDTO: PersonaDTO = new PersonaDTO();
+  personaDTO: ProfileDTO = new ProfileDTO();
   rezervations: any = [];
 
   constructor(private persoaService: PersonaService) {
+    this.personaDTO.persona = new Persona();
     this.barOptions = {
       scales: {yAxes: [{ticks: {stepSize: 1, beginAtZero: true, min: 0, max: 7}}]}
     }

@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Book} from '../domains/book';
 import {HttpClient} from '@angular/common/http';
-import {RezervationBooksComponent} from "../components/librarian/rezervation-books/rezervation-books.component";
 import {Rezervation} from "../domains/rezervation";
 import {IssuedBooks} from "../domains/issued-books";
 
@@ -18,7 +16,7 @@ export class RezervationService {
   }
 
   delete(id: number): Observable<boolean> {
-    return this.http.post<boolean>(this.uri + '/rezervation/delete', {params: {id: id.toString()}});
+    return this.http.get<boolean>(this.uri + '/rezervation/delete', {params: {id: id.toString()}});
   }
 
   issueRezrv(id: number): Observable<IssuedBooks> {

@@ -1,0 +1,9 @@
+.haveBooks {
+  background-color: yellow !important;
+}
+
+.bad {
+  background-color: #ff0000ba !important;
+  font-weight: 400;
+  color: #4effd6;
+}

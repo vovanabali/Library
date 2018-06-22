@@ -64,8 +64,7 @@ public class BookInStockAdminController {
 
     @GetMapping("deleteStorageBooksById")
     private boolean deleteBookInStockById(@RequestParam long id) {
-        this.bookInStockService.deleteById(id);
-        return true;
+        return this.bookInStockService.deleteById(id);
     }
 
     @GetMapping("getStorageBooksById")

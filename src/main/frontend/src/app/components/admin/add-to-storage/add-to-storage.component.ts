@@ -46,8 +46,8 @@ export class AddToStorageComponent implements OnInit {
     this.bookInStorageService.addBookInStock(this.bookInStorage).subscribe((res) => {
       this.msgs = [];
       if (res) {
+        this.bookInStorage = new BookInStock();
         this.msgs.push({severity: 'success', summary: 'Успех', detail: 'Книга была добавлена'});
-        setTimeout(() => this.router.navigate(['admin', 'books']), 500);
       } else {
         this.msgs.push({severity: 'error', summary: 'Ошибка', detail: 'Не удалось добавить книгу'});
       }

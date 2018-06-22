@@ -5,6 +5,7 @@ import com.goodsoft.library.dao.IssuedBooksRepository;
 import com.goodsoft.library.dao.PersonaRepository;
 import com.goodsoft.library.domain.Persona;
 import com.goodsoft.library.domain.Role;
+import com.goodsoft.library.dto.PersonaDTO;
 import com.goodsoft.library.dto.UserProfileDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
@@ -182,6 +185,25 @@ public class PersonaServiceImpl implements PersonaService {
             log.error("Failed to load all persons", ex);
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public List<PersonaDTO> getNotBanedUsersSliceLibrary(Pageable pageable) {
+        List<PersonaDTO> dtos = new ArrayList<>();
+        getNotBanedUsersSlice(pageable).forEach(persona -> {
+            PersonaDTO dto = new PersonaDTO();
+            dto.setBirhday(persona.getBirhday());
+            dto.setId(persona.getId());
+            dto.setLogin(persona.getLogin());
+            dto.setName(persona.getName());
+            dto.setPatronymic(persona.getPatronymic());
+            dto.setSurname(persona.getSurname());
+            dto.setIssiedBooks(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(issuedBooks -> Objects.isNull(issuedBooks.getReturnTime())).count());
+            dto.setIndebtedness(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(books -> books.getIssueUpTo().before(new Date()) && Objects.nonNull(books.getReturnTime())).count());
+            dto.setIndebtednessNow(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(books -> books.getIssueUpTo().before(new Date()) && Objects.isNull(books.getReturnTime())).count());
+            dtos.add(dto);
+        });
+        return dtos;
     }
 
     @Override

@@ -39,7 +39,7 @@
           </span>
         </div>
         <div class="ui-g-12">
-          <p-calendar id="returnTimeID" [showIcon]="true" placeholder="Дата рождения" [(ngModel)]="user.birthday" dateFormat="dd.mm.yy"></p-calendar>
+          <p-calendar id="returnTimeID" [showIcon]="true" placeholder="Дата рождения" [(ngModel)]="user.birthday" dateFormat="dd.mm.yy" [locale]="ru"></p-calendar>
         </div>
         <div class="ui-g-12">
           <p-selectButton [options]="roles" optionLabel="name" [(ngModel)]="user.role"></p-selectButton>

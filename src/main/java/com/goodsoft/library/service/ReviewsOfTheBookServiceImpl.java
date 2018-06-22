@@ -33,12 +33,12 @@ public class ReviewsOfTheBookServiceImpl implements ReviewsOfTheBookService {
     }
 
     @Override
-    public long getAvgReiting(long bookId) {
+    public double getAvgReiting(long bookId) {
         try {
             List<ReviewsOfTheBook> reviews = reviewsOfTheBookRepository.findAllByBookId(bookId);
-            if (reviews.size() != 0)
-                return reviews.stream().filter(reviewsOfTheBook -> reviewsOfTheBook.getRating() != 0).mapToInt(ReviewsOfTheBook::getRating).sum() / reviews.size();
-            else return 0;
+            if (reviews.size() != 0) {
+                return reviews.stream().filter(reviewsOfTheBook -> reviewsOfTheBook.getRating() != 0).mapToInt(ReviewsOfTheBook::getRating).average().getAsDouble();
+            } else return 0;
         } catch (Exception ex) {
             log.error("Failed to load all reviews", ex);
             return 0;

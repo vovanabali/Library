@@ -8,7 +8,7 @@ import {Component} from '@angular/core';
                 <span class="footer-text-left">"OWL Library"</span>
                 <span class="footer-text-right">
                     <span class="material-icons ui-icon-copyright"></span>
-                    <span>All Rights Reserved</span>
+                    <span>Все прова защещины 2018</span>
                 </span>
             </div>
         </div>

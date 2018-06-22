@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 @Service
 @Slf4j
@@ -186,5 +187,28 @@ public class IssuedBooksServiceImpl implements IssuedBooksService {
     @Override
     public void save(IssuedBooks issuedBooks) {
         issuedBooksRepository.save(issuedBooks);
+    }
+
+    @Override
+    public List<IssuedBooks> sliceHistory(Pageable pageable) {
+        try {
+            return issuedBooksRepository.findAll(pageable).getContent().stream().filter(issuedBooks -> nonNull(issuedBooks.getReturnTime())).collect(Collectors.toList());
+        } catch (Exception ex) {
+            log.error("failed to load slice from issued books", ex.fillInStackTrace());
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<IssuedBooks> sliceHistory(Pageable pageable, String serch) {
+        try {
+            return issuedBooksRepository.findAll(pageable).getContent().stream()
+                    .filter(issuedBooks -> nonNull(issuedBooks.getReturnTime()))
+                    .filter(issuedBooks -> issuedBooks.getBookInStock().getBook().getName().indexOf(serch) != -1 || issuedBooks.getPersona().getLogin().indexOf(serch) != -1)
+                    .collect(Collectors.toList());
+        } catch (Exception ex) {
+            log.error("failed to load slice from issued books", ex.fillInStackTrace());
+            return new ArrayList<>();
+        }
     }
 }

@@ -9,7 +9,6 @@ import {Genre} from "../../../domains/genre";
 import {Author} from "../../../domains/author";
 import {Persona} from "../../../domains/persona";
 import {BlackListService} from "../../../services/blackList.service";
-import {BlackList} from "../../../domains/black-list";
 
 @Component({
   selector: 'app-user-book',
@@ -97,5 +96,9 @@ export class UserBookComponent implements OnInit {
 
   getBookSrc(bookPictureId): string {
     return bookPictureId ?  'http://localhost:8080/server_resources/image/' + bookPictureId : 'assets/layout/images/deffBookImg.png';
+  }
+
+  isChengeRaiting(): boolean {
+    return !this.reviews.find(value => value.persona.login === this.currentUser.login);
   }
 }

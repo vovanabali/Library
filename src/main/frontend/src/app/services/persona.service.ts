@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Persona} from '../domains/persona';
-import {PersonaDTO} from "../domains/personaDTO";
+import {ProfileDTO} from "../domains/profileDTO";
+import {PersonaDto} from "../domains/persona-dto";
 
 @Injectable()
 export class PersonaService {
@@ -59,6 +60,30 @@ export class PersonaService {
     });
   }
 
+  getSliceAppruvedLibrary(start: number, rows: number, sortField: string, sortOrder: number, filter: string): Observable<PersonaDto[]> {
+    let orderBy = 'asc';
+    if (sortOrder === 1) {
+      orderBy = 'ASC';
+    } else {
+      orderBy = 'DESC';
+    }
+    let sortBy = sortField;
+    if (sortField === undefined) {
+      sortBy = '';
+    }
+    if (!filter) {
+      filter = "";
+    }
+    return this.http.get<PersonaDto[]>(this.uri + 'library_current_personas_slice', {
+      params: {
+        page: start.toString(),
+        size: rows.toString(),
+        sort: sortBy + ',' + orderBy,
+        filter: filter
+      }
+    });
+  }
+
   getPersonaById(id: number): Observable<Persona> {
     return this.http.get<Persona>(this.uri + 'persona', {params: {id: id.toString()}});
   }
@@ -75,7 +100,7 @@ export class PersonaService {
     return this.http.get<boolean>(this.uri + 'deletePersona', {params: {id: id.toString()}});
   }
 
-  getProfile(): Observable<PersonaDTO> {
-    return this.http.get<PersonaDTO>('http://localhost:8080/profile');
+  getProfile(): Observable<ProfileDTO> {
+    return this.http.get<ProfileDTO>('http://localhost:8080/profile');
   }
 }

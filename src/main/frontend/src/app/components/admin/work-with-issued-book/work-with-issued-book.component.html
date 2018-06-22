@@ -9,10 +9,10 @@
           <p-dropdown [options]="booksInStocks" [(ngModel)]="issuedBook.bookInStock" optionLabel="book.name" filter="true" [style]="{'width': '100%'}" placeholder="Книга"></p-dropdown>
         </div>
         <div class="ui-g-6 ui-sm-12">
-          <p-calendar id="issuedTimeID" [showIcon]="true" placeholder="Дата выдачи" [(ngModel)]="issuedBook.timeOfIssue" dateFormat="dd.mm.yy"></p-calendar>
+          <p-calendar id="issuedTimeID" [showIcon]="true" placeholder="Дата выдачи" [(ngModel)]="issuedBook.timeOfIssue" dateFormat="dd.mm.yy" [locale]="ru"></p-calendar>
         </div>
         <div class="ui-g-6 ui-sm-12">
-          <p-calendar id="returnTimeID" [showIcon]="true" placeholder="Дата возврата" [(ngModel)]="issuedBook.returnTime" dateFormat="dd.mm.yy"></p-calendar>
+          <p-calendar id="returnTimeID" [showIcon]="true" placeholder="Дата возврата" [(ngModel)]="issuedBook.returnTime" dateFormat="dd.mm.yy" [locale]="ru"></p-calendar>
         </div>
         <div class="ui-g-12">
           <button pButton type="button" id="addButton" label="Добавить" class="teal-btn main-button" (click)="add()"></button>

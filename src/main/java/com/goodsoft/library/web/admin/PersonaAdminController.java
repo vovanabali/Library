@@ -1,15 +1,16 @@
 package com.goodsoft.library.web.admin;
 
 import com.goodsoft.library.domain.Persona;
+import com.goodsoft.library.dto.PersonaDTO;
 import com.goodsoft.library.service.PersonaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -27,9 +28,15 @@ public class PersonaAdminController {
     private List<Persona> currentPersons() {
         return personaService.getNotBanedUsers();
     }
+
     @GetMapping("current_personas_slice")
     private List<Persona> currentPersonsSlice(Pageable pageable) {
         return personaService.getNotBanedUsersSlice(pageable);
+    }
+
+    @GetMapping("library_current_personas_slice")
+    private List<PersonaDTO> libraryCurrentPersonsSlice(Pageable pageable, @RequestParam("filter") final String filter) {
+        return personaService.getNotBanedUsersSliceLibrary(pageable).stream().filter(personaDTO -> personaDTO.getLogin().contains(filter) || filter.length() == 0).collect(Collectors.toList());
     }
 
     @GetMapping("personas_count")

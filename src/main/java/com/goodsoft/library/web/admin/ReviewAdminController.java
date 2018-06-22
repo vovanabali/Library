@@ -1,6 +1,5 @@
 package com.goodsoft.library.web.admin;
 
-import com.goodsoft.library.dao.ReviewsOfTheBookRepository;
 import com.goodsoft.library.domain.ReviewsOfTheBook;
 import com.goodsoft.library.service.ReviewsOfTheBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class ReviewAdminController {
     }
 
     @GetMapping("bookRaiting")
-    public long getBookRaiting(long id) {
+    public double getBookRaiting(long id) {
         return reviewsOfTheBookService.getAvgReiting(id);
     }
 

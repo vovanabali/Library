@@ -52,4 +52,8 @@ export class LibrarianBooksComponent implements OnInit, OnDestroy  {
   ngOnDestroy() {
     localStorage.setItem('extradition', JSON.stringify(this.extradition));
   }
+
+  getBookSrc(bookPictureId): string {
+    return bookPictureId ?  'http://localhost:8080/server_resources/image/' + bookPictureId : 'assets/layout/images/deffBookImg.png';
+  }
 }

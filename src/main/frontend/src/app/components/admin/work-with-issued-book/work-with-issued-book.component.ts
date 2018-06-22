@@ -21,9 +21,20 @@ export class WorkWithIssuedBookComponent implements OnInit {
   issuedBook = new IssuedBooks();
   persona: Persona;
   msgs: Message[] = [];
+  ru: any = {};
 
   constructor(private bookInStockService: BookInStockService, private personaService: PersonaService, private activeRoute: ActivatedRoute,
               private router: Router, private issuedBookService: IssuedBookService) {
+    this.ru = {
+      firstDayOfWeek: 0,
+      dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+      dayNamesShort: ["Воск", "Пон", "Вто", "Сре", "Чет", "Пят", "Суб"],
+      dayNamesMin: ["Вс","Пн","Вт","Ср","Чт","Пн","Сб"],
+      monthNames: [ "Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь" ],
+      monthNamesShort: [ "Янв", "Фев", "Мар", "Апр", "Май", "Июнь","Июль", "Авг", "Сен", "Окт", "Ноя", "Дек" ],
+      today: 'Сегодня',
+      clear: 'Обчистить'
+    };
   }
 
   ngOnInit() {

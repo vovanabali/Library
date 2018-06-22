@@ -24,8 +24,10 @@
           <div class="card-w-title">
             <h4>Оставить комментарий</h4>
             <div class="ui-g-12">
-              Ваша оценка
-              <p-rating [(ngModel)]="review.rating" [cancel]="false"></p-rating>
+              <div *ngIf="isChengeRaiting()">
+                Ваша оценка
+                <p-rating [(ngModel)]="review.rating" [cancel]="false"></p-rating>
+              </div>
               <p-editor [(ngModel)]="review.reviews" [style]="{'height':'320px'}"></p-editor>
               <button pButton type="button" class="teal-btn" (click)="addReview()" label="Отправить"
                       style="float: right; margin-top: 1em;"></button>

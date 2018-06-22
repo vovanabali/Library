@@ -43,7 +43,8 @@ export class StorageComponent implements OnInit {
 
   editEntry(id: number): void {
     if (id != null) {
-      const isNavigate = this.router.navigate(['admin/updateBookInStorage'], {queryParams: {'id': id}});
+      const role = JSON.parse(localStorage.getItem('currentUser')).role.name;
+      const isNavigate = this.router.navigate([role, 'updateBookInStorage'], {queryParams: {'id': id}});
       if (!isNavigate) {
         this.msgs = [{severity: 'error', summary: 'Провал', detail: 'Не открыть запись на редактирование!'}];
       }
@@ -58,6 +59,7 @@ export class StorageComponent implements OnInit {
       accept: () => {
         this.bookInStockService.deleteBookInStockById(id).subscribe((result) => {
           if (result) {
+            this.bookInStock.splice(this.bookInStock.indexOf(this.bookInStock.find(value => value.id === id)), 1);
             this.selectedBookInStock = new BookInStock();
             this.msgs = [{severity: 'success', summary: 'Успех', detail: 'Запись была успешно удалена!'}];
           } else {

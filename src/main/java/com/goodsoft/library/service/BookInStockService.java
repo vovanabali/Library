@@ -3,11 +3,9 @@ package com.goodsoft.library.service;
 import com.goodsoft.library.domain.Author;
 import com.goodsoft.library.domain.Book;
 import com.goodsoft.library.domain.BookInStock;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BookInStockService {
     List<BookInStock> all();
@@ -28,7 +26,7 @@ public interface BookInStockService {
 
     void delete(BookInStock bookInStock);
 
-    void deleteById(long id);
+    boolean deleteById(long id);
 
     List<Book> getAvailabelBooks(Pageable pageable, String serch);
 

@@ -9,20 +9,14 @@ import com.goodsoft.library.domain.Book;
 import com.goodsoft.library.domain.BookInStock;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -33,6 +27,7 @@ public class BookInStockServiceImpl implements BookInStockService {
     private final IssuedBooksRepository issuedBooksRepository;
     private final RezervationRepository rezervationRepository;
     private final BookRepository bookRepository;
+
     @Override
     public List<BookInStock> all() {
         try {
@@ -113,11 +108,18 @@ public class BookInStockServiceImpl implements BookInStockService {
     }
 
     @Override
-    public void deleteById(long id) {
+    public boolean deleteById(long id) {
         try {
+           issuedBooksRepository.findAll().forEach(issuedBooks -> {
+               if (Objects.nonNull(issuedBooks.getReturnTime()) && issuedBooks.getBookInStock().getId() == id) {
+                   issuedBooksRepository.deleteById(issuedBooks.getId());
+               }
+           });
             bookInStockRepository.deleteById(id);
+            return true;
         } catch (Exception ex) {
             log.error("Failed to save book in stock", ex.fillInStackTrace());
+            return false;
         }
     }
 
@@ -146,12 +148,12 @@ public class BookInStockServiceImpl implements BookInStockService {
 
     @Override
     public Long getAvailabelCount(String serch) {
-        return  bookInStockRepository.findAll().stream().map(BookInStock::getBook).filter(book -> book.getName().contains(Optional.ofNullable(serch.toUpperCase()).orElse(""))).distinct().count();
+        return bookInStockRepository.findAll().stream().map(BookInStock::getBook).filter(book -> book.getName().contains(Optional.ofNullable(serch.toUpperCase()).orElse(""))).distinct().count();
     }
 
     @Override
     public Long getAvailabelCountByBookId(Long id) {
-        return  bookInStockRepository.findAllByBook(bookRepository.findById(id).get())
+        return bookInStockRepository.findAllByBook(bookRepository.findById(id).get())
                 .stream()
                 .filter(bookInStock -> !issuedBooksRepository.existsByBookInStockAndReturnTimeIsNull(bookInStock) && !rezervationRepository.existsByBookInStockId(bookInStock.getId()))
                 .count();

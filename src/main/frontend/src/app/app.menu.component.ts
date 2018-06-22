@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {trigger, state, style, transition, animate} from '@angular/animations';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 import {MenuItem} from 'primeng/primeng';
 import {AppComponent} from './app.component';
 import {GenreService} from "./services/genre.service";
 import {Router} from "@angular/router";
-import {validate} from "codelyzer/walkerFactory/walkerFn";
 
 @Component({
   selector: 'app-menu',
@@ -41,6 +40,7 @@ export class AppMenuComponent implements OnInit {
           {label: 'Авторы', icon: 'assignment_ind', routerLink: ['admin', 'authors']},
           {label: 'Жанры', icon: 'polymer', routerLink: ['admin', 'genres']},
           {label: 'Отзывы', icon: 'insert_comment', routerLink: ['admin', 'reviews']},
+          {label: 'История выдачи', icon: 'history', routerLink: ['admin', 'issuedBooksHistory']},
         ]
       },
       {
@@ -67,7 +67,10 @@ export class AppMenuComponent implements OnInit {
     items: [
       {label: 'Черный список', icon: 'featured_play_list', routerLink: ['librarian', 'blackList']},
       {label: 'Учёт выданых книг', icon: 'featured_play_list', routerLink: ['librarian', 'issuesBooks']},
-      {label: 'Учет зарез. книг', icon: 'featured_play_list', routerLink: ['librarian', 'rezerv_books']}
+      {label: 'Учет зарез. книг', icon: 'featured_play_list', routerLink: ['librarian', 'rezerv_books']},
+      {label: 'Книги', icon: 'storage', routerLink: ['librarian', 'booksEdit']},
+      {label: 'Склад', icon: 'storage', routerLink: ['librarian', 'storage']},
+      {label: 'История выдачи', icon: 'history', routerLink: ['librarian', 'issuedBooksHistory']},
     ]
   };
 
@@ -91,7 +94,7 @@ export class AppMenuComponent implements OnInit {
             routerLink: ['books'],
             queryParams: '12312',
             command: () => {
-              this.router.navigate(['/books'], { queryParams: { page: value1.name} })
+              this.router.navigate(['/books', value1.name])
             }
           })
       );

@@ -20,12 +20,23 @@ export class AddBookComponent implements OnInit {
   msgs: Message[] = [];
   url: string = 'http://localhost:8080/server_resources/loadBookPicture?bookId=';
   isEdit: boolean = false;
+  ru: any = {};
 
   constructor(private authorService: AuthorService,
               private genreService: GenreService,
               private bookService: BookService,
               private activeRoute: ActivatedRoute,
               private router: Router) {
+    this.ru = {
+      firstDayOfWeek: 0,
+      dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+      dayNamesShort: ["Воск", "Пон", "Вто", "Сре", "Чет", "Пят", "Суб"],
+      dayNamesMin: ["Вс","Пн","Вт","Ср","Чт","Пн","Сб"],
+      monthNames: [ "Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь" ],
+      monthNamesShort: [ "Янв", "Фев", "Мар", "Апр", "Май", "Июнь","Июль", "Авг", "Сен", "Окт", "Ноя", "Дек" ],
+      today: 'Сегодня',
+      clear: 'Обчистить'
+    };
   }
 
   ngOnInit() {

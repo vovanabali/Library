@@ -2,10 +2,10 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Extradition} from "../../../domains/extradition";
 import {Router} from "@angular/router";
 import {ConfirmationService, LazyLoadEvent, Message} from "primeng/api";
-import {Persona} from "../../../domains/persona";
 import {PersonaService} from "../../../services/persona.service";
 import {BlackListService} from "../../../services/blackList.service";
 import {BlackList} from "../../../domains/black-list";
+import {PersonaDto} from "../../../domains/persona-dto";
 
 @Component({
   selector: 'app-librarian-users',
@@ -14,7 +14,7 @@ import {BlackList} from "../../../domains/black-list";
 })
 export class LibrarianUsersComponent implements OnInit, OnDestroy {
 
-  users: Persona[];
+  users: PersonaDto[];
   msgs: Message[] = [];
   cols: any[];
   totalRecords: number;
@@ -22,6 +22,7 @@ export class LibrarianUsersComponent implements OnInit, OnDestroy {
   extradition = new Extradition();
   display: boolean = false;
   blackList = new BlackList();
+  name: string = '';
 
   constructor(private personaService: PersonaService,
               private router: Router,
@@ -43,7 +44,8 @@ export class LibrarianUsersComponent implements OnInit, OnDestroy {
 
   lazyLoad(event: LazyLoadEvent): void {
     this.loading = true;
-    this.personaService.getSliceAppruved(event.first / event.rows, event.rows, event.sortField, event.sortOrder).subscribe(users => {
+    this.personaService.getSliceAppruvedLibrary(event.first / event.rows, event.rows, event.sortField, event.sortOrder, event.globalFilter).subscribe(users => {
+      console.log(users);
       this.users = users;
       this.loading = false;
     });

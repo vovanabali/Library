@@ -40,6 +40,27 @@ export class IssuedBookService {
     });
   }
 
+  getSliceHistory(start: number, rows: number, sortField: string, sortOrder: number, sort: string): Observable<IssuedBooks[]> {
+    let orderBy = 'asc';
+    if (sortOrder === 1) {
+      orderBy = 'ASC';
+    } else {
+      orderBy = 'DESC';
+    }
+    let sortBy = sortField;
+    if (sortField === undefined) {
+      sortBy = '';
+    }
+    return this.http.get<IssuedBooks[]>(this.uri + 'issuedBookSliceHistory', {
+      params: {
+        page: start.toString(),
+        size: rows.toString(),
+        sort: sortBy + ',' + orderBy,
+        sortField: sort
+      }
+    });
+  }
+
   getIssuedBookById(id: number): Observable<IssuedBooks> {
     return this.http.get<IssuedBooks>(this.uri + 'issuedBook', {params: {id: id.toString()}});
   }

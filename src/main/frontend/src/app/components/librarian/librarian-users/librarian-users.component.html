@@ -1,10 +1,17 @@
-<p-table #authorsTable [columns]="cols" [value]="users" selectionMode="single" dataKey="id"
+<p-table #table [columns]="cols" [value]="users" selectionMode="single" dataKey="id"
          [(selection)]="extradition.user"
          [totalRecords]="totalRecords"
          [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="both" [lazy]="true"
          (onLazyLoad)="lazyLoad($event)" [loading]="loading">
   <ng-template pTemplate="caption">
-    Пользыватели
+    <div class="ui-g">
+      <div class="ui-g-11">
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="fa fa-search"></i></span>
+          <input type="text" [ngModel]="name" pInputText placeholder="Поиск по названию книги" style="width: 100%;" (input)="table.filterGlobal($event.target.value, 'contains')">
+        </div>
+      </div>
+    </div>
   </ng-template>
   <ng-template pTemplate="header" let-columns>
     <tr>
@@ -22,10 +29,13 @@
     <tr [pSelectableRow]="rowData">
       <td>
         <a href="#" [pRowToggler]="rowData">
-          <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+          <i [ngClass]="expanded ? 'fa fa-fw   fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
         </a>
       </td>
-      <td *ngFor="let col of columns" [ngSwitch]="col.field">
+      <td *ngFor="let col of columns"
+          [ngSwitch]="col.field"
+          [ngStyle]="{'background-color': 'rgba(255, 0, 0, ' + rowData.indebtedness * 0.1 + ')'}"
+          [ngClass]="{'haveBooks': rowData.issiedBooks > 0 && rowData.indebtednessNow == 0, 'bad': rowData.indebtednessNow > 0}">
         <div *ngSwitchCase="'login'">
           {{rowData[col.field]}}
         </div>
@@ -51,22 +61,31 @@
     <tr>
       <td [attr.colspan]="cols.length + 2">
         <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
-          <div class="ui-g-12 ui-md-3" style="text-align:center">
+         <!-- <div class="ui-g-12 ui-md-3" style="text-align:center">
             <img width="100" [attr.alt]="rowData.brand" src="assets/layout/images/avatar.png">
-          </div>
+          </div>-->
           <div class="ui-g-12 ui-md-9">
             <div class="ui-g">
               <div class="ui-g-12">
                 <b>Логин:</b> {{rowData.login}}
               </div>
-              <div class="ui-g-12">
+              <div class="ui-g-12 ui-md-4">
                 <b>Фамилия:</b> {{rowData.surname}}
               </div>
-              <div class="ui-g-12">
+              <div class="ui-g-12 ui-md-4">
                 <b>Имя:</b> {{rowData.name}}
               </div>
-              <div class="ui-g-12">
+              <div class="ui-g-12 ui-md-4">
                 <b>Отчество:</b> {{rowData.patronymic}}
+              </div>
+              <div class="ui-g-12 ui-md-4">
+                <b>Книг на руках: {{rowData.issiedBooks}}</b>
+              </div>
+              <div class="ui-g-12 ui-md-4">
+                <b>Задержано книг на руках (За всё время): {{rowData.indebtedness}}</b>
+              </div>
+              <div class="ui-g-12 ui-md-4">
+                <b>Задержано каниг (в настоящее время): {{rowData.indebtednessNow}}</b>
               </div>
             </div>
           </div>

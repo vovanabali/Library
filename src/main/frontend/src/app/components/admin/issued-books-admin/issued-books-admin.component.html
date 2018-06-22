@@ -14,7 +14,7 @@
       </p-toolbar>
     </div>
     <div class="ui-g-12">
-      <p-table [columns]="cols" [value]="issuedBooks" selectionMode="single" dataKey="id" [(selection)]="selectIssuedBook"
+      <p-table #table [columns]="cols" [value]="issuedBooks" selectionMode="single" dataKey="id" [(selection)]="selectIssuedBook"
                [totalRecords]="totalRecords"
                [paginator]="true" [rows]="10" [responsive]="true" paginatorPosition="both" [lazy]="true"
                (onLazyLoad)="lazyLoad($event)" [loading]="loading">

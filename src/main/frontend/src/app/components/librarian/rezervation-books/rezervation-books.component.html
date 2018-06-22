@@ -43,24 +43,24 @@
   </ng-template>
   <ng-template pTemplate="rowexpansion" let-rowData let-columns="cols">
     <tr>
-      <td [attr.colspan]="cols.length + 1">
+      <td [attr.colspan]="cols.length + 2">
         <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
           <div class="ui-g-12 ui-md-3" style="text-align:center">
-            <img width="100%" [attr.alt]="rowData.brand" src="assets/layout/images/deffBookImg.png">
+            <img width="100%" [attr.alt]="rowData.brand" src={{getBookSrc(rowData.bookInStock.book.pictureId)}}>
           </div>
           <div class="ui-g-12 ui-md-9">
             <div class="ui-g">
               <div class="ui-g-12">
-                <b>Название:</b> {{rowData.name}}
+                <b>Название:</b> {{rowData.bookInStock.book.name}}
               </div>
               <div class="ui-g-12">
-                <b>Жанр:</b> {{rowData.genre.name}}
+                <b>Жанр:</b> {{rowData.bookInStock.book.genre.name}}
               </div>
               <div class="ui-g-12">
-                <b>Автор:</b> {{rowData.author.FIO}}
+                <b>Автор:</b> {{rowData.bookInStock.book.author.surname}} {{rowData.bookInStock.book.author.name}} {{rowData.bookInStock.book.author.patronymic}}
               </div>
               <div class="ui-g-12">
-                <b>Краткое описание:</b> <div [innerHtml]="rowData.description"></div>
+                <b>Краткое описание:</b> <div [innerHtml]="rowData.bookInStock.book.description"></div>
               </div>
             </div>
           </div>

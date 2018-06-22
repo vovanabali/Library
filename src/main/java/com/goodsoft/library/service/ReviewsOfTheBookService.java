@@ -10,7 +10,7 @@ import java.util.List;
 public interface ReviewsOfTheBookService {
     List<ReviewsOfTheBook> all();
 
-    long getAvgReiting(long bookId);
+    double getAvgReiting(long bookId);
 
     List<ReviewsOfTheBook> findeAllByBookId(long bookId);
 

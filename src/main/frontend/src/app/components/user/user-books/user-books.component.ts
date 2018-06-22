@@ -33,6 +33,7 @@ export class UserBooksComponent implements OnInit {
   ganres: Genre[] = [];
   showBooks: Book[] = [];
   issuedBooks: IssuedBooks[] = [];
+  ru: any = {};
 
   constructor(private bookService: BookService,
               private router: Router,
@@ -41,14 +42,29 @@ export class UserBooksComponent implements OnInit {
               private authorsService: AuthorService,
               private genreService: GenreService,
               private issuedBooksService: IssuedBookService) {
+    this.ru = {
+      firstDayOfWeek: 0,
+      dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+      dayNamesShort: ["Воск", "Пон", "Вто", "Сре", "Чет", "Пят", "Суб"],
+      dayNamesMin: ["Вс","Пн","Вт","Ср","Чт","Пн","Сб"],
+      monthNames: [ "Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь" ],
+      monthNamesShort: [ "Янв", "Фев", "Мар", "Апр", "Май", "Июнь","Июль", "Авг", "Сен", "Окт", "Ноя", "Дек" ],
+      today: 'Сегодня',
+      clear: 'Обчистить'
+    };
+    this.route.params.subscribe(res => {
+      if (this.books) {
+        console.log(res.id);
+        console.log(this.ganres.find(ganre => ganre.name === res.id));
+        this.serchDTO.ganres = [];
+        this.serchDTO.ganres.push(this.ganres.find(ganre => ganre.name === res.id));
+        console.log(this.serchDTO);
+        this.search();
+      }
+    });
   }
 
   ngOnInit() {
-    this.route
-      .queryParams
-      .subscribe(params => {
-        console.log(params);
-      });
     this.cols = [
       {field: 'name', header: 'Название'},
       {field: 'author', header: 'Автор'},
@@ -77,7 +93,8 @@ export class UserBooksComponent implements OnInit {
   }
 
   search(): void {
-    this.display = false
+
+    this.display = false;
     this.serchDTO.ganres = this.serchDTO.ganres ? this.serchDTO.ganres : [];
     this.showBooks = this.books.filter(book => book.name.includes(this.searchBook));
     this.showBooks = this.showBooks.filter(book => this.serchDTO.ganres.length > 0 ?

@@ -64,6 +64,7 @@ export class LibrarianIssuesBooksComponent implements OnInit {
 
   returnBook(id: number): void {
     this.issuedBookService.returnBook(id).subscribe(value => {
+      this.issuedBooks.splice(this.issuedBooks.indexOf(this.issuedBooks.find(value1 => value1.id === id)), 1);
       this.msgs = value ? [{severity: 'success', summary: 'Успех', detail: 'Вы вернули книгу на склад'}] : [{severity: 'error', summary: 'Провал', detail: 'Не удалось венуть книгу на склад'}];
     });
   }

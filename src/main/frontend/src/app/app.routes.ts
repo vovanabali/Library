@@ -1,4 +1,4 @@
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
 import {AdminBooksComponent} from './components/admin/admin-books/admin-books.component';
 import {AuthComponent} from './components/auth/auth.component';
@@ -31,6 +31,7 @@ import {BlackListComponent} from "./components/black-list/black-list.component";
 import {LibrarianIssuesBooksComponent} from "./components/librarian/librarian-issues-books/librarian-issues-books.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {RezervationBooksComponent} from "./components/librarian/rezervation-books/rezervation-books.component";
+import {IssueBooksHistoryComponent} from "./components/issue-books-history/issue-books-history.component";
 
 export const routes: Routes = [
   {path: '', component: UserBooksComponent},
@@ -63,7 +64,8 @@ export const routes: Routes = [
       {path: 'addUser', component: WorkWithUserComponent},
       {path: 'editUser', component: WorkWithUserComponent},
       {path: 'editCountry', component: WorkWithCountryComponent},
-      {path: 'addCountry', component: WorkWithCountryComponent}
+      {path: 'addCountry', component: WorkWithCountryComponent},
+      {path: 'issuedBooksHistory', component: IssueBooksHistoryComponent}
     ]
   },
   {
@@ -75,9 +77,17 @@ export const routes: Routes = [
       {path: 'blackList', component: BlackListComponent},
       {path: 'issuesBooks', component: LibrarianIssuesBooksComponent},
       {path: 'rezerv_books', component: RezervationBooksComponent},
+      {path: 'booksEdit', component: AdminBooksComponent},
+      {path: 'addBook', component: AddBookComponent},
+      {path: 'editBook', component: AddBookComponent},
+      {path: 'storage', component: StorageComponent},
+      {path: 'addToStorage', component: AddToStorageComponent},
+      {path: 'updateBookInStorage', component: AddToStorageComponent},
+      {path: 'issuedBooksHistory', component: IssueBooksHistoryComponent},
     ]
   },
   {path: 'books', component: UserBooksComponent},
+  {path: 'books/:id', component: UserBooksComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'book/:id', component: UserBookComponent},
   {path: 'author/:id', component: UserAuthorComponent},
