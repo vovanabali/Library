@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   barOptions: any = {};
   personaDTO: ProfileDTO = new ProfileDTO();
   rezervations: any = [];
+  issuedBooksGraph: any = [];
 
   constructor(private persoaService: PersonaService) {
     this.personaDTO.persona = new Persona();
@@ -32,6 +33,7 @@ export class ProfileComponent implements OnInit {
       this.personaDTO = value;
       this.rezervations = value.rezervationBooks;
       this.issuedBooks = value.issuedBooks.filter(value1 => !value1.returnTime);
+      this.issuedBooksGraph = value.issuedBooks;
       this.data = {
         labels: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
         datasets: [
@@ -75,8 +77,7 @@ export class ProfileComponent implements OnInit {
     let bookCount = [];
     for (let i = 0; i < new Date().getMonth() + 1; i++) {
       bookCount[i] = 0;
-      this.issuedBooks.forEach(issuedBook => {
-        console.log(i);
+      this.issuedBooksGraph.forEach(issuedBook => {
         if (issuedBook.timeOfIssue[1] === i + 1) {
           bookCount[i] += 1;
         }
@@ -92,7 +93,7 @@ export class ProfileComponent implements OnInit {
     for (let i = 0; i < new Date().getMonth() + 1; i++) {
       bookCount[i] = 0;
       issuedBoks.forEach(issuedBook => {
-        if (new Date(issuedBook.timeOfIssue).getMonth() == i) {
+        if (new Date(issuedBook.returnTime).getMonth() == i) {
           bookCount[i] += 1;
         }
       });
@@ -105,12 +106,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getHours(timestamp) {
-    const first: any = new Date();
-    const second: any = new Date(timestamp[0], timestamp[1], timestamp[2], timestamp[3], timestamp[4], timestamp[5], timestamp[6]);
-    console.log(second);
-    var timeDiff = Math.abs(first.getTime() - second.getTime());
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600) / 24);
-    return timestamp ? diffDays : '-';
+    return timestamp ? Math.abs(timestamp[3] - 24) + 24 : '-';
   }
 }
 

@@ -13,15 +13,22 @@
           </div>
           <div class="ui-g-6 ui-sm-12">
           <span class="ui-float-label">
-            <input id="password-input" type="text" size="30" style="width: 100%;" [(ngModel)]="persona.password"
-                   required minlength="1" pInputText>
+            <input id="password-input" type="password" size="30" style="width: 100%;" [(ngModel)]="persona.password"
+                   required minlength="1"
+                   promptLabel="Пожалуйста введите пароль"
+                   weakLabel="Слабый пароль"
+                   mediumLabel="Средний пароль"
+                   strongLabel="Сложный пароль"
+                   pPassword>
             <label for="password-input">Пароль</label>
           </span>
           </div>
           <div class="ui-g-6 ui-sm-12">
           <span class="ui-float-label">
-            <input id="password-compl-input" type="text" size="30" style="width: 100%;" [(ngModel)]="password"
-                   required minlength="1" pInputText>
+            <input id="password-compl-input" type="password" size="30" style="width: 100%;" [(ngModel)]="password"
+                   required minlength="1"
+                   [feedback]="false"
+                   pPassword>
             <label for="password-compl-input">Подтверждение пароля</label>
           </span>
           </div>

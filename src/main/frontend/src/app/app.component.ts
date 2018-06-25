@@ -76,7 +76,7 @@ export class AppComponent implements AfterViewInit, OnDestroy, OnInit {
           this.countOfIssues = value.issuedBooks.filter(value1 => {
             const first: any = new Date();
             const second: any = new Date(value1.issueUpTo);
-            return Math.round((second - first) / (1000 * 60 * 60 * 24)) < 0;
+            return Math.round((second - first) / (1000 * 60 * 60 * 24)) < 0 && !value1.returnTime;
           }).length;
           if (this.countOfIssues > 0) {
             this.msgs.push({severity:'warn', summary:'Предупреждение', detail:'У вас имеються долги по книгам, пройдите в личный кабинет для уточнения'});

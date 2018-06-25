@@ -202,7 +202,7 @@ public class PersonaServiceImpl implements PersonaService {
                 dto.setPatronymic(persona.getPatronymic());
                 dto.setSurname(persona.getSurname());
                 dto.setIssiedBooks(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(issuedBooks -> Objects.isNull(issuedBooks.getReturnTime())).count());
-                dto.setIndebtedness(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(books -> books.getIssueUpTo().before(new Date()) && Objects.nonNull(books.getReturnTime())).count());
+                dto.setIndebtedness(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(issuedBooks -> Objects.nonNull(issuedBooks.getReturnTime())).filter(books -> books.getReturnTime().after(books.getIssueUpTo())).count());
                 dto.setIndebtednessNow(issuedBooksRepository.findAllByPersonaId(persona.getId()).stream().filter(books -> books.getIssueUpTo().before(new Date()) && Objects.isNull(books.getReturnTime())).count());
                 dtos.add(dto);
             }

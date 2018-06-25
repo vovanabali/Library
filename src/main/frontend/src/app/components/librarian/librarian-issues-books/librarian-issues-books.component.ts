@@ -3,6 +3,7 @@ import {ConfirmationService, LazyLoadEvent, Message} from "primeng/api";
 import {IssuedBooks} from "../../../domains/issued-books";
 import {Router} from "@angular/router";
 import {IssuedBookService} from "../../../services/issued-book.service";
+import {isArray} from "util";
 
 @Component({
   selector: 'app-librarian-issues-books',
@@ -40,11 +41,6 @@ export class LibrarianIssuesBooksComponent implements OnInit {
     console.log(event.globalFilter);
     this.issuedBookService.getSlice(event.first / event.rows, event.rows, event.sortField, event.sortOrder, event.globalFilter).subscribe((issuedBooks) => {
       this.issuedBooks = issuedBooks;
-      this.issuedBooks.forEach((issuedBook) => {
-        issuedBook.timeOfIssue = new Date(issuedBook.timeOfIssue);
-        issuedBook.returnTime = new Date(issuedBook.returnTime);
-        console.log(issuedBook);
-      });
       this.loading = false;
     });
   }
@@ -58,8 +54,12 @@ export class LibrarianIssuesBooksComponent implements OnInit {
     }
   }
 
-  getDate(timestemp: number) {
-    return new Date(timestemp).toLocaleDateString("ru-RU") !== '01.01.1970' ? new Date(timestemp).toLocaleDateString("ru-RU") : '-';
+  getDate(timestemp: any) {
+    if (isArray(timestemp)) {
+      return new Date(timestemp[0] , timestemp[1] - 1 , timestemp[2]).toLocaleDateString("ru-RU");
+    } else {
+      return new Date(timestemp).toLocaleDateString("ru-RU") !== '01.01.1970' ? new Date(timestemp).toLocaleDateString("ru-RU") : '-';
+    }
   }
 
   returnBook(id: number): void {
@@ -67,5 +67,17 @@ export class LibrarianIssuesBooksComponent implements OnInit {
       this.issuedBooks.splice(this.issuedBooks.indexOf(this.issuedBooks.find(value1 => value1.id === id)), 1);
       this.msgs = value ? [{severity: 'success', summary: 'Успех', detail: 'Вы вернули книгу на склад'}] : [{severity: 'error', summary: 'Провал', detail: 'Не удалось венуть книгу на склад'}];
     });
+  }
+
+  getDateNowOfFromTimestamp(timestamp) {
+    return timestamp ? new Date(timestamp) : new Date();
+  }
+
+  isBadUserBook(book) {
+    console.log(book);
+    if (new Date(book.issueUpTo) < new Date()) {
+      return {'background-color': 'rgba(255, 0, 0, 10)'};
+    }
+    return {};
   }
 }

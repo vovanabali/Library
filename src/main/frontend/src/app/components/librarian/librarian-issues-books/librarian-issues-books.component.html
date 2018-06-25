@@ -34,8 +34,10 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
-          <tr [pSelectableRow]="rowData">
-            <td *ngFor="let col of columns" [ngSwitch]="col.field">
+          <tr [pSelectableRow]="rowData" >
+            <td *ngFor="let col of columns"
+                [ngSwitch]="col.field"
+                [ngStyle]="isBadUserBook(rowData)">
               <div *ngSwitchCase="'persona'">
                 {{rowData[col.field].login}}
               </div>
